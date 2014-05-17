@@ -1,7 +1,7 @@
-{ "name": "NodeNeo4jTemplate"
-, "description": "A sample Node.js + Neo4j app."
+{ "name": "Visualize_Terms"
+, "description": "Visualize the relationship between terms"
 , "version": "0.0.1"
-, "author": "Aseem Kishore <aseem.kishore@gmail.com>"
+, "author": "Zhu Liang <zhuliangg11@gmail.com>"
 , "private": true
 , "dependencies":
   { "express": "~3.2.0"

@@ -27,21 +27,21 @@ if ('development' == app.get('env')) {
 }
 
 app.locals({
-    title: 'Node-Neo4j Template'    // default title
+    title: 'Visualize Terms'    // default title
 });
 
 // Routes
 
 app.get('/', routes.site.index);
 
-app.get('/users', routes.users.list);
-app.post('/users', routes.users.create);
-app.get('/users/:id', routes.users.show);
-app.post('/users/:id', routes.users.edit);
-app.del('/users/:id', routes.users.del);
+app.get('/terms', routes.terms.list);
+app.post('/terms', routes.terms.create);
+app.get('/terms/:id', routes.terms.show);
+app.post('/terms/:id', routes.terms.edit);
+app.del('/terms/:id', routes.terms.del);
 
-app.post('/users/:id/follow', routes.users.follow);
-app.post('/users/:id/unfollow', routes.users.unfollow);
+app.post('/terms/:id/follow', routes.terms.follow);
+app.post('/terms/:id/unfollow', routes.terms.unfollow);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));
