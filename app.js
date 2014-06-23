@@ -43,6 +43,10 @@ app.del('/terms/:id', routes.terms.del);
 app.post('/terms/:id/follow', routes.terms.follow);
 app.post('/terms/:id/unfollow', routes.terms.unfollow);
 
+app.post('/terms/:id/contain', routes.terms.contain);
+app.post('/terms/:id/uncontain', routes.terms.uncontain);
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));
 });

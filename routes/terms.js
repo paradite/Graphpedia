@@ -30,18 +30,36 @@ exports.create = function (req, res, next) {
 /**
  * GET /terms/:id
  */
-exports.show = function (req, res, next) {
+ exports.show = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
-        // TODO also fetch and show followers? (not just follow*ing*)
-        term.getFollowingAndOthers(function (err, following, others) {
+        term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others) {
             if (err) return next(err);
             res.render('term', {
                 term: term,
                 following: following,
-                others: others
+                following_others: following_others,
+                containing: containing,
+                containing_others: containing_others
             });
         });
+
+/*        // TODO also fetch and show followers? (not just follow*ing*)
+        //Get the followers and non-followers
+        term.getFollowingAndOthers(function (err, following, following_others) {
+            if (err) return next(err);
+            this_following = following;
+            this_following_others = following_others;
+            res.render('term', {
+                term: term,
+                following: following,
+                following_others: following_others,
+                containing: this_containing,
+                containing_others: this_containing_others
+            });
+        });*/
+
+
     });
 };
 
@@ -97,6 +115,38 @@ exports.unfollow = function (req, res, next) {
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
             term.unfollow(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/terms/' + term.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /terms/:id/contain
+ */
+exports.contain = function (req, res, next) {
+    Term.get(req.params.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.term.id, function (err, other) {
+            if (err) return next(err);
+            term.contain(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/terms/' + term.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /terms/:id/uncontain
+ */
+exports.uncontain = function (req, res, next) {
+    Term.get(req.params.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.term.id, function (err, other) {
+            if (err) return next(err);
+            term.uncontain(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });

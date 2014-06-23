@@ -62,6 +62,10 @@ Term.prototype.del = function (callback) {
     });
 };
 
+/*  New/Delete relationship
+    Currently we have cutomized relationships, contain, 
+*/
+
 //follow related methods
 Term.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
@@ -85,6 +89,149 @@ Term.prototype.unfollow = function (other, callback) {
         callback(err);
     });
 };
+
+//contains related methods
+Term.prototype.contain = function (other, callback) {
+    this._node.createRelationshipTo(other._node, 'contains', {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.uncontain = function (other, callback) {
+    var query = [
+        'MATCH (term:Term) -[rel:contains]-> (other:Term)',
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
+//Customized relationship methods
+Term.prototype.custom = function (other, relationship_name, callback) {
+    this._node.createRelationshipTo(other._node, relationship_name, {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.uncustom = function (other, relationship_name, callback) {
+    //Create MATCH query
+    var match_rel = 'MATCH (term:Term) -[rel:'+relationship_name+']-> (other:Term)'
+    var query = [
+        match_rel,
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
+// calls callback w/ (err, outgoing, others) where outgoing is an array of
+// Terms this Term outgoes, and others is all other Terms minus him/herself.
+Term.prototype.getOutgoingAndOthers = function (callback) {
+    // query all Terms and whether we follow each one or not:
+    var query = [
+        'MATCH (term:Term), (other:Term)',
+        'OPTIONAL MATCH (term) -[rel:contains]-> (other)',
+        'WHERE ID(term) = {termId}',
+        'OPTIONAL MATCH (term) -[rel2:follows]-> (other)',
+        'WHERE ID(term) = {termId}',
+        'RETURN other, COUNT(rel), COUNT(rel2)', // COUNT(rel) is a hack for 1 or 0
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+    };
+
+    var term = this;
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+
+        var containing = [];
+        var containing_others = [];
+        var following = [];
+        var following_others = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var other = new Term(results[i]['other']);
+            var contains = results[i]['COUNT(rel)'];
+            var follows = results[i]['COUNT(rel2)'];
+
+            if (term.id === other.id) {
+                continue;
+            } else if (contains) {
+                containing.push(other);
+            } else {
+                containing_others.push(other);
+            }
+
+            if (term.id === other.id) {
+                continue;
+            } else if (follows) {
+                following.push(other);
+            } else {
+                following_others.push(other);
+            }
+        }
+
+        callback(null, containing, containing_others, following, following_others);
+    });
+};
+
+// calls callback w/ (err, containing, others) where containing is an array of
+// Terms this Term contains, and others is all other Terms minus him/herself.
+Term.prototype.getContainingAndOthers = function (callback) {
+    // query all Terms and whether we follow each one or not:
+    var query = [
+        'MATCH (term:Term), (other:Term)',
+        'OPTIONAL MATCH (term) -[rel:contains]-> (other)',
+        'WHERE ID(term) = {termId}',
+        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+    };
+
+    var term = this;
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+
+        var containing = [];
+        var others = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var other = new Term(results[i]['other']);
+            var contains = results[i]['COUNT(rel)'];
+
+            if (term.id === other.id) {
+                continue;
+            } else if (contains) {
+                containing.push(other);
+            } else {
+                others.push(other);
+            }
+        }
+
+        callback(null, containing, others);
+    });
+};
+
+
 
 // calls callback w/ (err, following, others) where following is an array of
 // Terms this Term follows, and others is all other Terms minus him/herself.
