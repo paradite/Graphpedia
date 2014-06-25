@@ -4,10 +4,9 @@ block content
     div.beforemain
         img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
     div.main
-        div.searchBar
-            form(action='/', method='POST')
-            input(type='text', name='name', placeholder='Search a term', class="form-control", required)
-            input(type='submit', value='Graphedia', class="btn btn-default")
+        form.form-inline.searchBar(action='/', method='POST')
+        input(type='text', name='name', placeholder='Search a term', class="form-control", required)
+        input(type='submit', value='Graphedia', class="btn btn-default")
 
 
 
