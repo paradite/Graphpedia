@@ -42,11 +42,11 @@ select {
 }
 
 .search-bar {
-	margin-left: - 80% / 2;
+	margin-left: - 480px / 2;
 }
 
 .input-bar {
-	width: 80%;
+	width: 480px;
 	height: 44px;
 	margin-bottom: 10px;
 	line-height: 30px;
