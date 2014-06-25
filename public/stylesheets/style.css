@@ -42,8 +42,5 @@ select {
 }
 
 .searchBar {
-	width: 80%;
-	height: 5%;
-	margin-left: -width / 2;
-	margin-top: -height / 2;
+
 }
