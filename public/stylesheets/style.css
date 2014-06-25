@@ -26,7 +26,7 @@ select {
 
 .main{
 	position: absolute;
-	left: 0px;
+	left: 50%;
 	top: 0px;
 	padding: 50px;
 }
