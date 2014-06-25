@@ -3,8 +3,9 @@ extends layout
 block content
     h1 #{term.name}
 
-    p
-        a(href='/terms') Back to everyone
+    form.form-inline.search-bar(action='/search', method='POST')
+            input.input-bar(type='text', name='name', placeholder='Search a term', class="form-control", required)
+            input(type='submit', value='Graphedia', class="btn btn-default")
     div.row
         div.col-md-6
             //Following related block
