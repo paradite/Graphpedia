@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
@@ -29,4 +28,8 @@ select {
 	position: absolute;
 	left: 0px;
 	top: 0px;
+}
+
+.beforemain{
+	padding: 50px;
 }
