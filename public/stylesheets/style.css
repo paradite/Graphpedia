@@ -41,8 +41,11 @@ select {
 
 }
 
+.searchedTerm {
+	width: 80%
+}
+
 .searchBar {
-	display:inline;
 	width: 80%;
 	height: 5%;
 	margin-left: -width / 2;
