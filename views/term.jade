@@ -62,6 +62,7 @@ block content
     form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
             p(style='display: inline-block') Edit this term:
             input(type='text', name='name', placeholder='#{term.name}', class='form-control', required)
+            input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
             input(type='submit', value='Update', class='btn btn-warning')
     form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
             p(style='display: inline-block') And if you're feeling destructive…
