@@ -42,6 +42,7 @@ select {
 }
 
 .searchBar {
+	display:inline;
 	width: 80%;
 	height: 5%;
 	margin-left: -width / 2;
