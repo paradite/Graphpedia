@@ -28,8 +28,9 @@ select {
 	position: absolute;
 	left: 0px;
 	top: 0px;
+	padding: 50px;
 }
 
 .beforemain{
-	padding: 50px;
+
 }
