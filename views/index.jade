@@ -1,9 +1,19 @@
 extends layout
 
 block content
-    div
+    div.beforeMain
         img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
     div.main
+        form(action='/', method='POST')
+        p Search a term:
+        input(type='text', name='name', placeholder='Name', required)
+        input(type='submit', value='Search')
+
+
+
+
+
+    div.afterMain
         h1= title
         p.
             Visualize Terms
