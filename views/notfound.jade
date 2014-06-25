@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    p The term #{name} does not exist yet.
+    p Would you like to create the term #{name}?
+
+    form(action='/terms', method='POST')
+        p Create a new term:
+        input(type='text', name='name', placeholder='Name', required)
+        input(type='submit', value='Create')

@@ -281,6 +281,29 @@ Term.get = function (id, callback) {
     });
 };
 
+/*
+Get a term by name
+*/
+Term.getByName = function (name, callback) {
+    var query = [
+        'MATCH (term:Term)',
+        'WHERE term.name = {termName}',
+        'RETURN term',
+    ].join('\n');
+
+    var params = {
+        termName: name,
+    };
+
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+        var terms = results.map(function (result) {
+            return new Term(result['term']);
+        });
+        callback(null, terms);
+    });
+};
+
 Term.getAll = function (callback) {
     var query = [
         'MATCH (term:Term)',
