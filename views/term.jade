@@ -3,8 +3,9 @@ extends layout
 block content
     h1 #{term.name}
 
-    p
-        a(href='/terms') Back to everyone
+    form.form-inline.search-bar(action='/search', method='POST')
+            input.input-bar(type='text', name='name', placeholder='Search a term', class="form-control", required)
+            input(type='submit', value='Graphedia', class="btn btn-default")
     div.row
         div.col-md-6
             //Following related block
@@ -61,7 +62,7 @@ block content
                 p There's no other term left for #{term.name} to contain!
     form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
             p(style='display: inline-block') Edit this term:
-            input(type='text', name='name', placeholder='#{term.name}', class='form-control', required)
+            input(type='text', name='name', placeholder='#{term.name}', class='form-control', required)            
             input(type='submit', value='Update', class='btn btn-warning')
     form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
             p(style='display: inline-block') And if you're feeling destructive…

@@ -1,14 +1,14 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00b7ff;
+	color: #00b7ff;
 }
 
 strong a {
-  padding: 0 0.25em;
-  background-color: #ffa;
+	padding: 0 0.25em;
+	background-color: #ffa;
 }
 
 p {
@@ -37,10 +37,20 @@ select {
 }
 
 
-.beforemain {
+.before-main {
 
 }
 
-.searchBar {
+.search-bar {
+	margin-left: -480px / 2;
+}
 
+.form-control {
+	width: 100%;
+}
+
+.input-bar {
+	width: 480px;
+	height: 36px;
+	font-size: 17.5px;
 }

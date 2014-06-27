@@ -1,14 +1,14 @@
 extends layout
 
 block content
-    div.beforemain
+    div.before-main
         img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
     div.main
-        form.form-inline.searchBar(action='/search', method='POST')
-            input(type='text', name='name', placeholder='Search a term', class="form-control", required)
+        form.form-inline.search-bar(action='/search', method='POST')
+            input.input-bar(type='text', name='name', placeholder='Search a term', class="form-control", required)
             input(type='submit', value='Graphedia', class="btn btn-default")
 
-    div.afterMain
+    div.after-main
         h1= title
         p.
             Visualize Terms
