@@ -47,9 +47,9 @@ app.post('/terms/:id/contain', routes.terms.contain);
 app.post('/terms/:id/uncontain', routes.terms.uncontain);
 
 //Index Search Route
-app.get('/search', routes.site.index);
+/*app.get('/search', routes.site.index);*/
 app.post('/search', routes.site.searchinit);
-app.get('/search/:name', routes.site.search);
+app.get('/search', routes.site.search);
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -16,20 +16,25 @@ exports.searchinit = function(req, res){
 		if(name == null){
 		res.render('index');
 	}
-	res.redirect('/search/' + name);
+	res.redirect('/search?name=' + name);
 }
 
 /*
 GET Search a term
 */
 exports.search = function(req, res){
-	var name = req.params.name;
+	var name = req.query.name;
 	if(name == null){
+        console.log('%s', "name is null");
 		res.render('index');
 	}
     Term.getByName(name, function (err, terms) {
-        if (err) return next(err);
-        if(terms.length == 0){
+        if (err){
+            console.log('%s', "err occured");
+            res.render('index');
+        }
+        if(terms == null || terms.length == 0){
+            console.log('%s', "term not found");
             res.render('notfound', {
                 name: name
             });

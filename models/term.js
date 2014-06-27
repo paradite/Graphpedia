@@ -31,6 +31,16 @@ Object.defineProperty(Term.prototype, 'name', {
     }
 });
 
+//Added description field for term
+Object.defineProperty(Term.prototype, 'description', {
+    get: function () {
+        return this._node.data['description'];
+    },
+    set: function (description) {
+        this._node.data['description'] = description;
+    }
+});
+
 // public instance methods:
 
 Term.prototype.save = function (callback) {
