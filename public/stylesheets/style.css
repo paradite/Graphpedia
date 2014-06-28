@@ -1,5 +1,6 @@
 body {
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #2B1B17;
 }
 
 a {
@@ -20,7 +21,7 @@ select {
 }
 
 .btn {
-	margin-left: 10px;
+	margin-left: 1/12;
 }
 
 .bgi {
@@ -30,27 +31,16 @@ select {
 }
 
 .main {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	padding: 50px;
-}
-
-
-.before-main {
-
+    width: 100%;
 }
 
 .search-bar {
-	margin-left: -480px / 2;
+    width: 100%;
+    display: block;
+    position: fixed;
+    left: 16.6%;
+    top: 50%;
+    vertical-align: middle;
+    opacity: 0.72;
 }
 
-.form-control {
-	width: 100%;
-}
-
-.input-bar {
-	width: 480px;
-	height: 36px;
-	font-size: 17.5px;
-}

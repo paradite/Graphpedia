@@ -1,19 +1,23 @@
 extends layout
 
 block content
-    div.before-main
-        img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
+    
+    //- div.before-main
+    //-     img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
     div.main
-        form.form-inline.search-bar(action='/search', method='POST')
-            input.input-bar(type='text', name='name', placeholder='Search a term', class="form-control", required)
-            input(type='submit', value='Graphedia', class="btn btn-default")
+        form(action='/search', method='POST')
+            div.row.search-bar
+                div.col-xs-6
+                    input.form-control.input-lg(type='text', name='name', placeholder='Search a term')
+                div.col-xs-1
+                    input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
 
-    div.after-main
-        h1= title
-        p.
-            Visualize Terms
-            with relationships
-        p
-            strong
-                | Browse All:&nbsp;
-                a(href='/terms') View all terms
+    //- div.after-main
+    //-     h1= title
+    //-     p.
+    //-         Visualize Terms
+    //-         with relationships
+    //-     p
+    //-         strong
+    //-             | Browse All:&nbsp;
+    //-             a(href='/terms') View all terms
