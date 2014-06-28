@@ -47,7 +47,10 @@ app.post('/terms/:id/contain', routes.terms.contain);
 app.post('/terms/:id/uncontain', routes.terms.uncontain);
 
 //Index Search Route
-app.post('/search', routes.site.search);
+/*app.get('/search', routes.site.index);*/
+app.post('/search', routes.site.searchinit);
+app.get('/search', routes.site.search);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));

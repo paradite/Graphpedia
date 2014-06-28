@@ -20,7 +20,8 @@ exports.list = function (req, res, next) {
  */
 exports.create = function (req, res, next) {
     Term.create({
-        name: req.body['name']
+        name: req.body['name'],
+        description: req.body['description']
     }, function (err, term) {
         if (err) return next(err);
         res.redirect('/terms/' + term.id);
@@ -32,6 +33,7 @@ exports.create = function (req, res, next) {
  */
  exports.show = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
+        console.log('%s', term.description + " " + term.name);
         if (err) return next(err);
         term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others) {
             if (err) return next(err);
@@ -70,6 +72,7 @@ exports.edit = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.name = req.body['name'];
+        term.description = req.body['description'];
         term.save(function (err) {
             if (err) return next(err);
             res.redirect('/terms/' + term.id);
@@ -81,6 +84,7 @@ exports.edit = function (req, res, next) {
  * DELETE /terms/:id
  */
 exports.del = function (req, res, next) {
+    console.log('%s', "Term deleted");
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.del(function (err) {
