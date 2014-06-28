@@ -6,13 +6,13 @@ block content
     //-     img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
     div.main
         form(action='/search', method='POST')
-            div.row.search-bar
+            div.row.search-bar.translucent.text-primary
                 div.col-xs-6
-                    input.form-control.input-lg(type='text', name='name', placeholder='Search a term')
+                    input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term')
                 div.col-xs-1
                     input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
 
-    //- div.after-main
+//- div.after-main
     //-     h1= title
     //-     p.
     //-         Visualize Terms
