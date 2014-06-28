@@ -204,6 +204,8 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 
 // calls callback w/ (err, containing, others) where containing is an array of
 // Terms this Term contains, and others is all other Terms minus him/herself.
+// To search for all relationships, use
+// MATCH (n:Term), n-[r]-m, (m:Term) WHERE n.`name`="nodejs"   RETURN n, type(r)
 Term.prototype.getContainingAndOthers = function (callback) {
     // query all Terms and whether we follow each one or not:
     var query = [
