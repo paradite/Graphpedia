@@ -1,75 +1,79 @@
 extends layout
 
 block content
-    form.form-inline.search-bar(action='/search', method='POST')
-            input.input-bar(type='text', name='name', placeholder='Search a term', class="form-control", required)
-            input(type='submit', value='Graphedia', class="btn btn-default")
-    
-    h1 #{term.name} - #{term.description}
+    div.before-main
+        form(action='/search', method='POST')
+            div.row.search-bar.translucent.text-primary
+                div.col-xs-6
+                    input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
+                div.col-xs-1
+                    input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
+    div.main
+        h1 #{term.name} - #{term.description}
 
-    div.row
-        div.col-md-6
-            //Following related block
-            if following.length
-                p.bg-primary #{term.name} is following #{following.length} terms:
-                // TODO should say 'term' if only one! ;)
-                ul.terms
-                    for other in following
-                        li.term
-                            form(action='/terms/#{term.id}/unfollow', method='POST')
-                                a(href='/terms/#{other.id}') #{other.name}
-                                input(type='hidden', name='term[id]', value='#{other.id}')
-                                input(type='submit', class='unfollow', value='x')
-            else
-                p #{term.name} isn't following any terms currently.
+        div.row
+            div.col-md-6
+                //Following related block
+                if following.length
+                    p.bg-primary #{term.name} is following #{following.length} terms:
+                    // TODO should say 'term' if only one! ;)
+                    ul.terms
+                        for other in following
+                            li.term
+                                form(action='/terms/#{term.id}/unfollow', method='POST')
+                                    a(href='/terms/#{other.id}') #{other.name}
+                                    input(type='hidden', name='term[id]', value='#{other.id}')
+                                    input(type='submit', class='unfollow', value='x')
+                else
+                    p #{term.name} isn't following any terms currently.
 
-            if following_others.length
-                form(action='/terms/#{term.id}/follow', method='POST')
-                    p.bg-info Add a term for #{term.name} to follow:
-                    label
-                        select.form-control(name='term[id]', required)
-                            option(value='')
-                            for term in following_others
-                                option(value='#{term.id}') #{term.name}
-                    input(type='submit', value='Follow', class='btn btn-primary')
-            else
-                p There's no other term left for #{term.name} to follow!
+                if following_others.length
+                    form(action='/terms/#{term.id}/follow', method='POST')
+                        p.bg-info Add a term for #{term.name} to follow:
+                        label
+                            select.form-control(name='term[id]', required)
+                                option(value='')
+                                for term in following_others
+                                    option(value='#{term.id}') #{term.name}
+                        input(type='submit', value='Follow', class='btn btn-primary')
+                else
+                    p There's no other term left for #{term.name} to follow!
 
-        div.col-md-6
-            //Contain related block
-            if containing.length
-                p.bg-primary #{term.name} contains #{containing.length} terms:
-                // TODO should say 'term' if only one! ;)
-                ul.terms
-                    for other in containing
-                        li.term
-                            form(action='/terms/#{term.id}/uncontain', method='POST')
-                                a(href='/terms/#{other.id}') #{other.name}
-                                input(type='hidden', name='term[id]', value='#{other.id}')
-                                input(type='submit', class='uncontain', value='x')
-            else
-                p #{term.name} does not contain any terms currently.
+            div.col-md-6
+                //Contain related block
+                if containing.length
+                    p.bg-primary #{term.name} contains #{containing.length} terms:
+                    // TODO should say 'term' if only one! ;)
+                    ul.terms
+                        for other in containing
+                            li.term
+                                form(action='/terms/#{term.id}/uncontain', method='POST')
+                                    a(href='/terms/#{other.id}') #{other.name}
+                                    input(type='hidden', name='term[id]', value='#{other.id}')
+                                    input(type='submit', class='uncontain', value='x')
+                else
+                    p #{term.name} does not contain any terms currently.
 
-            if containing_others.length
-                form(action='/terms/#{term.id}/contain', method='POST')
-                    p.bg-info Add a term for #{term.name} to contain:
-                    label
-                        select.form-control(name='term[id]', required)
-                            option(value='')
-                            for term in containing_others
-                                option(value='#{term.id}') #{term.name}
-                    input(type='submit', value='Contain', class='btn btn-primary')
-            else
-                p There's no other term left for #{term.name} to contain!
-    form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
-            p(style='display: inline-block') Edit this term:
-            input(type='text', name='name', value='#{term.name}', class='form-control', required)
-            if term.description
-                input(type='text', name='description', value='#{term.description}', class='form-control', required)
-            else
-                input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
-            input(type='submit', value='Update', class='btn btn-warning')
-    form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-            p(style='display: inline-block') And if you're feeling destructive…
-            input(type='hidden', name='_method', value='DELETE')
-            input(type='submit', value='Delete Term', class='btn btn-danger')
+                if containing_others.length
+                    form(action='/terms/#{term.id}/contain', method='POST')
+                        p.bg-info Add a term for #{term.name} to contain:
+                        label
+                            select.form-control(name='term[id]', required)
+                                option(value='')
+                                for term in containing_others
+                                    option(value='#{term.id}') #{term.name}
+                        input(type='submit', value='Contain', class='btn btn-primary')
+                else
+                    p There's no other term left for #{term.name} to contain!
+        form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
+                p(style='display: inline-block') Edit this term:
+                input(type='text', name='name', value='#{term.name}', class='form-control', required)
+                if term.description
+                    input(type='text', name='description', value='#{term.description}', class='form-control', required)
+                else
+                    input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
+                input(type='submit', value='Update', class='btn btn-warning')
+        form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+                p(style='display: inline-block') And if you're feeling destructive…
+                input(type='hidden', name='_method', value='DELETE')
+                input(type='submit', value='Delete Term', class='btn btn-danger')

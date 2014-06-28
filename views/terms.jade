@@ -1,19 +1,27 @@
 extends layout
 
 block content
-    h1 Terms
+    div.before-main
+        form(action='/search', method='POST')
+            div.row.search-bar.translucent.text-primary
+                div.col-xs-6
+                    input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term',required)
+                div.col-xs-1
+                    input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
+    div.main
+        h1 Terms
 
-    if terms.length
-        p Here are the current terms:
-        ul.terms
-            for term in terms
-                li.term
-                    a(href='/terms/#{term.id}') #{term.name}
-    else
-        p There are no terms currently.
+        if terms.length
+            p Here are the current terms:
+            ul.terms
+                for term in terms
+                    li.term
+                        a(href='/terms/#{term.id}') #{term.name}
+        else
+            p There are no terms currently.
 
-    form.form-inline(action='', method='POST')
-        p Create a new term:
-        input(type='text', name='name', placeholder='Name', class='form-control', required)
-        input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
-        input(type='submit', class = 'btn btn-default', value='Create')
+        form.form-inline(action='', method='POST')
+            p Create a new term:
+            input(type='text', name='name', placeholder='Name', class='form-control', required)
+            input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
+            input(type='submit', class = 'btn btn-default', value='Create')

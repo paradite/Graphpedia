@@ -1,11 +1,24 @@
 extends layout
 
 block content
+    div.before-main
+        form(action='/search', method='POST')
+            div.row.search-bar.translucent.text-primary
+                div.col-xs-6
+                    input.form-control.input-lg(type='text', name='name', placeholder='Search a term', required)
+                div.col-xs-1
+                    input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
+
     div.main
         p.text-info The term <tw class='text-warning'><strong>#{name}</strong></tw> does not exist yet.
-        p.text-info Would you like to create the term #{name}?
+        p.text-info Would you like to create the term <tw class='text-warning'><strong>#{name}</strong></tw> ?
 
         form.translucent(action='/terms', method='POST')
             p.text-primary Create a new term:
-            input(type='text', name='name', autofocus='autofocus', value='Name', required)
-            input(type='submit', value='Create')
+            div.row
+                div.col-xs-2
+                    input.form-control(type='text', name='name', value='#{name}', required)
+                div.col-xs-4
+                    input.form-control(type='text', autofocus='autofocus', name='description', placeholder='A short description of this term.',required)
+                div.col-xs-1
+                    input.btn.btn-default(type='submit', value='Create')
