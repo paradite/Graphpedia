@@ -22,6 +22,10 @@ Object.defineProperty(Term.prototype, 'id', {
     get: function () { return this._node.id; }
 });
 
+Object.defineProperty(Term.prototype, 'data', {
+    get: function () { return this._node.data; }
+});
+
 Object.defineProperty(Term.prototype, 'name', {
     get: function () {
         return this._node.data['name'];
@@ -359,3 +363,17 @@ Term.create = function (data, callback) {
         callback(null, term);
     });
 };
+
+/*Method to parse the data from neo4j databse to json objects for rendering
+Author: Zhu Liang
+Date: 29 July*/
+Term.prototype.parse = function (arr_obs){
+    var parsed = [];
+    for (var item in arr_obs) {
+        if(!arr_obs[item].description){
+            arr_obs[item].description = "no description yet"
+        }
+        parsed.push({name: arr_obs[item].name, description: arr_obs[item].description});
+    }
+    return parsed;
+}

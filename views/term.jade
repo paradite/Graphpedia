@@ -1,4 +1,4 @@
-extends layout
+extends layout_viz
 
 block content
     div.before-main
@@ -10,7 +10,7 @@ block content
                     input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
     div.main
         h1.text-info <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
-
+        div(id="tree-container")
         div.row
             div.subdiv-left
                 //Following related block
