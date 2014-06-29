@@ -3,10 +3,10 @@ body {
     background-color: #000000;
 }
 
-p {
+/*p {
     padding: 5px;
 }
-
+*/
 /*custermized*/
 /*for reference:
 color series: bg #19100D, main #4b3027, subdiv #7d5041
@@ -44,8 +44,9 @@ color series: bg #19100D, main #4b3027, subdiv #7d5041
 
 .subdiv {
     background-color: #4b3027;
-    border: 10px solid #19100D;
     border-radius: 30px;
+    border-color: #19100D;
+    border-style: solid;
     padding: 15px;
 }
 
@@ -99,6 +100,10 @@ a:active {
     background-color: #F3F781;
 }
 
+.row {
+    margin-bottom: 15px;
+}
+
 .form-control:hover,
 .form-control:focus,
 .form-control:active {
@@ -130,13 +135,27 @@ a:active {
     font-family: Tahoma, Verdana, Geneva;
 }
 
+.btn-info {
+    color: #19100D;
+    background-color: #ffffff;
+}
+
 .text-warning {
     color: #FE2EF7;
+}
 
+.btn-warning {
+    color: #19100D;
+    background-color: #FE2EF7;
 }
 
 .text-danger {
     color: #FE2E2E;
+}
+
+.btn-danger {
+    color: #19100D;
+    background-color: #FE2E2E;
 }
 
 /*modified boostrap class*/

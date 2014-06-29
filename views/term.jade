@@ -41,7 +41,6 @@ block content
                                 input.btn.btn-primary(type='submit', value='Follow')
                 else
                     p.text-warning There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
-
             div.col-md-6.subdiv
                 //Contain related block
                 if containing.length
@@ -70,20 +69,29 @@ block content
                             div.col-xs-1
                                 input.btn.btn-primary(type='submit', value='Contain')
                 else
-                    p There's no other term left for <span class='text-highlight'>#{term.name}</span> to contain!
-
-        form.form-inline.text-warning(action='/terms/#{term.id}', method='POST')
+                    p.text-warning There's no other term left for <span class='text-highlight'>#{term.name}</span> to contain!
+        
+        div.others
+            form.text-warning(action='/terms/#{term.id}', method='POST')
                 div.row
-                    p.text-primary Edit this term:
-                    input(type='text', name='name', value='#{term.name}', class='form-control', required)
-                    if term.description
-                        input(type='text', name='description', value='#{term.description}', class='form-control', required)
-                    else
-                        input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
-                    input(type='submit', value='Update', class='btn btn-warning')
-        form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-                p(style='display: inline-block') And if you're feeling destructive…
-                input(type='hidden', name='_method', value='DELETE')
-                input(type='submit', value='Delete Term', class='btn btn-danger')
+                    div.col-xs-3
+                        p.text-primary Edit this term:
+                    div.col-xs-2    
+                        input.form-control(type='text', name='name', value='#{term.name}', required)
+                    div.col-xs-4
+                        if term.description
+                            input(type='text', name='description', value='#{term.description}', class='form-control', required)
+                        else
+                            input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
+                    div.col-xs-1
+                        input(type='submit', value='Update', class='btn btn-warning')
+
+            form.text-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+                div.row
+                    div.col-xs-3
+                        p And if you're feeling destructive…
+                    div.col-xs-1
+                        input(type='hidden', name='_method', value='DELETE')
+                        input.btn.btn-danger(type='submit', value='Delete Term')
 
         input(id='json', type='hidden', value='#{json}')
