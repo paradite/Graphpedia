@@ -40,6 +40,9 @@ app.get('/terms/:id', routes.terms.show);
 app.post('/terms/:id', routes.terms.edit);
 app.del('/terms/:id', routes.terms.del);
 
+//send json to the term page for d3.js rendering
+app.get('/terms/:id/json', routes.terms.show_json);
+
 app.post('/terms/:id/follow', routes.terms.follow);
 app.post('/terms/:id/unfollow', routes.terms.unfollow);
 
