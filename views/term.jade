@@ -3,7 +3,7 @@ extends layout
 block content
     div.before-main
         form(action='/search', method='POST')
-            div.row.search-bar.translucent.text-primary
+            div.row.search-bar.text-primary
                 div.col-xs-6
                     input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
                 div.col-xs-1
@@ -12,7 +12,7 @@ block content
         h1.text-info <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
 
         div.row
-            div.col-md-6
+            div.col-md-6.subdiv
                 //Following related block
                 if following.length
                     p.text-info <span class='text-highlight'>#{term.name}</span> is following <span class='text-primary'>#{following.length}</span> terms:
@@ -29,20 +29,20 @@ block content
 
                 if following_others.length
                     form(action='/terms/#{term.id}/follow', method='POST')
-                        p.text-primary Add a term for #{term.name} to follow:
-                        div.row.translucent
-                            div.col-xs-3
+                        p.text-primary Add a term for <span class='text-highlight'>#{term.name}</span> to follow:
+                        div.row
+                            div.col-xs-4
                                 label
                                     select.form-control(name='term[id]', required)
                                         option(value='')
                                         for term in following_others
                                             option(value='#{term.id}') #{term.name}
                             div.col-xs-1
-                                input(type='submit', value='Follow', class='btn btn-primary')
+                                input.btn.btn-primary(type='submit', value='Follow')
                 else
-                    p There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
+                    p.text-warning There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
 
-            div.col-md-6
+            div.col-md-6.subdiv
                 //Contain related block
                 if containing.length
                     p.text-info <span class='text-highlight'>#{term.name}</span> contains <span class='text-highlight'>#{containing.length}</span> terms:
@@ -59,25 +59,33 @@ block content
 
                 if containing_others.length
                     form(action='/terms/#{term.id}/contain', method='POST')
-                        p.bg-info Add a term for #{term.name} to contain:
-                        label
-                            select.form-control(name='term[id]', required)
-                                option(value='')
-                                for term in containing_others
-                                    option(value='#{term.id}') #{term.name}
-                        input(type='submit', value='Contain', class='btn btn-primary')
+                        p.text-primary Add a term for <span class='text-highlight'>#{term.name}</span> to contain:
+                        div.row
+                            div.col-xs-4
+                                label
+                                    select.form-control(name='term[id]', required)
+                                        option(value='')
+                                        for term in containing_others
+                                            option(value='#{term.id}') #{term.name}
+                            div.col-xs-1
+                                input.btn.btn-primary(type='submit', value='Contain')
                 else
                     p There's no other term left for <span class='text-highlight'>#{term.name}</span> to contain!
 
-        form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
-                p(style='display: inline-block') Edit this term:
-                input(type='text', name='name', value='#{term.name}', class='form-control', required)
-                if term.description
-                    input(type='text', name='description', value='#{term.description}', class='form-control', required)
-                else
-                    input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
-                input(type='submit', value='Update', class='btn btn-warning')
+        form.form-inline.text-warning(action='/terms/#{term.id}', method='POST')
+                div.row
+                    p.text-primary Edit this term:
+                    input(type='text', name='name', value='#{term.name}', class='form-control', required)
+                    if term.description
+                        input(type='text', name='description', value='#{term.description}', class='form-control', required)
+                    else
+                        input(type='text', name='description', placeholder='a description for your term', class='form-control', required)
+                    input(type='submit', value='Update', class='btn btn-warning')
         form.form-inline.bg-danger(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 p(style='display: inline-block') And if you're feeling destructive…
                 input(type='hidden', name='_method', value='DELETE')
                 input(type='submit', value='Delete Term', class='btn btn-danger')
+    
+        //- if json
+        //-     input(id='json', type='hidden', value='#{json}' )
+        //- else
