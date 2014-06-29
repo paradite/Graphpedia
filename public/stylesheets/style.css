@@ -97,6 +97,7 @@ a:active {
     border: 1px solid #19100D;
     -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
             box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+    opacity: 1;
 }
 
 .btn {
@@ -104,9 +105,6 @@ a:active {
     border: 1px solid #ffffff;
 }
 
-.btn-primary {
-    background-color: #F3F781;
-}
 
 .row {
     margin-bottom: 15px;
@@ -130,7 +128,20 @@ a:active {
 
 .btn-primary {
     color: #19100D;
-    background-color: #F3F781; 
+    background-color: #c4c768;
+    opacity: 0.64;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #c4c768;
+    color: #19100D;
+    outline: 0px;
+    border: 1px solid #19100D;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+    opacity: 1;
 }
 
 .text-success {
@@ -146,6 +157,19 @@ a:active {
 .btn-info {
     color: #19100D;
     background-color: #ffffff;
+    opacity: 0.64;
+}
+
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus {
+    background-color: #ffffff;
+    color: #19100D;
+    outline: 0px;
+    border: 1px solid #19100D;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+    opacity: 1;
 }
 
 .text-warning {
@@ -155,6 +179,19 @@ a:active {
 .btn-warning {
     color: #19100D;
     background-color: #FE2EF7;
+    opacity: 0.64;
+}
+
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning:focus {
+    background-color: #FE2EF7;
+    color: #19100D;
+    outline: 0px;
+    border: 1px solid #19100D;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+    opacity: 1;
 }
 
 .text-danger {
@@ -164,8 +201,20 @@ a:active {
 .btn-danger {
     color: #19100D;
     background-color: #FE2E2E;
+    opacity: 0.64;
 }
 
+.btn-danger:hover,
+.btn-danger:active,
+.btn-dander:focus {
+    background-color: #FE2E2E;
+    color: #19100D;
+    outline: 0px;
+    border: 1px solid #19100D;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+    opacity: 1;
+}
 /*overwritten boostrap class*/
 
 .form-control {
