@@ -46,7 +46,8 @@ exports.create = function (req, res, next) {
                 containing_others: containing_others
             });
         });
-
+    });
+}
 /**
  * GET /terms/:id/json
  */
@@ -55,7 +56,8 @@ exports.create = function (req, res, next) {
         console.log('%s', term.description + " " + term.name + " send json");
         if (err) return next(err);
         res.json([{"name":"Corey","follows":["Adel","James"]},{"name":"Andrey","follows":["Pinaki","Pramod","Max"]},{"name":"Pinaki","follows":["Max","Rob","Agam","Ryan","Helene"]},{"name":"Bruce","follows":["Rob","Lester"]},{"name":"James","follows":["Agam","Pinaki","Corey","Tim","Bruce"]},{"name":"Helene","follows":["Ben"]},{"name":"Peter","follows":["Agam","Mark","Musannif","Ryan","Ben"]},{"name":"Max","follows":["Mark","Adel"]},{"name":"Ben","follows":["Rob","Prasanna","Anne","James"]},{"name":"Ryan","follows":["Adel","Prasanna","Pinaki","James","Lester"]},{"name":"Rob","follows":["James","Max"]},{"name":"Prasanna","follows":["Andrey","Bruce","Mark"]},{"name":"Pramod","follows":["Ryan","Tim","Agam","Anne"]},{"name":"Mark","follows":["Max","Lester","Peter","Pinaki"]},{"name":"Agam","follows":["Ryan","Corey"]},{"name":"Musannif","follows":["Tim","Pinaki","Helene"]},{"name":"Lester","follows":["Pramod"]},{"name":"Adel","follows":["Prasanna","Andrey","Helene","Mark"]},{"name":"Anne","follows":["Bruce"]},{"name":"Tim","follows":["Bruce","Musannif","Adel","Lester"]}]);
-        });
+    });
+};
 
 /*        // TODO also fetch and show followers? (not just follow*ing*)
         //Get the followers and non-followers
@@ -72,9 +74,6 @@ exports.create = function (req, res, next) {
             });
         });*/
 
-
-    });
-};
 
 /**
  * POST /terms/:id
