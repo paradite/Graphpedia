@@ -9,50 +9,53 @@ block content
                 div.col-xs-1
                     input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
     div.main
-        h1 #{term.name} - #{term.description}
+        h1.text-info <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
 
         div.row
             div.col-md-6
                 //Following related block
                 if following.length
-                    p.bg-primary #{term.name} is following #{following.length} terms:
+                    p.text-info <span class='text-highlight'>#{term.name}</span> is following <span class='text-primary'>#{following.length}</span> terms:
                     // TODO should say 'term' if only one! ;)
-                    ul.terms
+                    ul
                         for other in following
-                            li.term
+                            li.text-info
                                 form(action='/terms/#{term.id}/unfollow', method='POST')
-                                    a(href='/terms/#{other.id}') #{other.name}
+                                    a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='submit', class='unfollow', value='x')
+                                    input.btn.btn-close(type='submit', class='unfollow', value='x')
                 else
-                    p #{term.name} isn't following any terms currently.
+                    p.text-info <span class='text-highlight'>#{term.name}</span> isn't following any terms currently.
 
                 if following_others.length
                     form(action='/terms/#{term.id}/follow', method='POST')
-                        p.bg-info Add a term for #{term.name} to follow:
-                        label
-                            select.form-control(name='term[id]', required)
-                                option(value='')
-                                for term in following_others
-                                    option(value='#{term.id}') #{term.name}
-                        input(type='submit', value='Follow', class='btn btn-primary')
+                        p.text-primary Add a term for #{term.name} to follow:
+                        div.row.translucent
+                            div.col-xs-3
+                                label
+                                    select.form-control(name='term[id]', required)
+                                        option(value='')
+                                        for term in following_others
+                                            option(value='#{term.id}') #{term.name}
+                            div.col-xs-1
+                                input(type='submit', value='Follow', class='btn btn-primary')
                 else
-                    p There's no other term left for #{term.name} to follow!
+                    p There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
 
             div.col-md-6
                 //Contain related block
                 if containing.length
-                    p.bg-primary #{term.name} contains #{containing.length} terms:
+                    p.text-info <span class='text-highlight'>#{term.name}</span> contains <span class='text-highlight'>#{containing.length}</span> terms:
                     // TODO should say 'term' if only one! ;)
-                    ul.terms
+                    ul
                         for other in containing
-                            li.term
+                            li.text-info
                                 form(action='/terms/#{term.id}/uncontain', method='POST')
-                                    a(href='/terms/#{other.id}') #{other.name}
+                                    a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='submit', class='uncontain', value='x')
+                                    input.btn.btn-close(type='submit', class='uncontain', value='x')
                 else
-                    p #{term.name} does not contain any terms currently.
+                    p.text-info <span class='text-highlight'>#{term.name}</span> does not contain any terms currently.
 
                 if containing_others.length
                     form(action='/terms/#{term.id}/contain', method='POST')
@@ -64,7 +67,8 @@ block content
                                     option(value='#{term.id}') #{term.name}
                         input(type='submit', value='Contain', class='btn btn-primary')
                 else
-                    p There's no other term left for #{term.name} to contain!
+                    p There's no other term left for <span class='text-highlight'>#{term.name}</span> to contain!
+
         form.form-inline.bg-warning(action='/terms/#{term.id}', method='POST')
                 p(style='display: inline-block') Edit this term:
                 input(type='text', name='name', value='#{term.name}', class='form-control', required)

@@ -7,58 +7,6 @@ p {
     padding: 5px;
 }
 
-select {
-
-}
-
-/*modified boostrap theme*/
-
-.text-muted {
-    color: #9da3a5;
-    font-family: Calibri, Candara;
-}
-
-.text-primary {
-    color: #F2F5A9;
-    font-family: Calibri, Candara;
-}
-
-.text-success {
-    color: #2EFE2E;
-    font-family:  "Arial Black", Gadget;
-}
-
-.text-info {
-    color: #BDBDBD;
-    font-family: Tahoma, Verdana, Geneva;
-}
-
-.text-warning {
-    color: #FE2EF7;
-
-}
-
-.text-danger {
-    color: #FE2E2E;
-}
-
-/*modified boostrap class*/
-
-.form-control {
-    font-size: 16px;
-}
-
-.input-lg {
-    font-size: 20px;
-}
-
-
-/*.bgi {
-    width: 100%;
-    height: 100%;
-    -webkit-filter: blur(5px) opacity(0.7);
-}*/
-
 /*custermized*/
 
 .main {
@@ -85,6 +33,109 @@ select {
     top: 50%; 
 }
 
-.translucent {
+/*.translucent {
     opacity: 0.72;
 }
+*/
+.text-highlight {
+    color: #F3F781;
+    font-family: Calibri, Candara;    
+    font-weight: bold;
+}
+
+.btn-close {
+    color: #605F61;
+    border: 1px solid #AEAEAE;
+    border-radius: 5px;
+    background: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 0px;
+    width: 25px;
+    height: 25px;
+    margin-left: 4px;
+}
+
+/*modified boostrap theme*/
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: #ffffff;
+} 
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    color: #19100D;
+    background-color: #F3F781;
+    outline: 0px;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
+}
+
+.btn {
+    border: 1px solid #ffffff;
+}
+
+.form-control:hover,
+.form-control:focus,
+.form-control:active {
+    border: 1px solid #ffffff
+}
+
+.text-muted {
+    color: #9da3a5;
+    font-family: Calibri, Candara;
+}
+
+.text-primary {
+    color: #F3F781;
+    font-family: Calibri, Candara;
+}
+
+.btn-primary {
+    color: #19100D;
+    background-color: #F3F781; 
+}
+
+.text-success {
+    color: #2EFE2E;
+    font-family:  "Arial Black", Gadget;
+}
+
+.text-info {
+    color: #ffffff;
+    font-family: Tahoma, Verdana, Geneva;
+}
+
+.text-warning {
+    color: #FE2EF7;
+
+}
+
+.text-danger {
+    color: #FE2E2E;
+}
+
+/*modified boostrap class*/
+
+.form-control {
+    font-size: 16px;
+    opacity: 0.64;
+    border: 1px solid #ffffff;
+}
+
+.input-lg {
+    font-size: 20px;
+}
+
+
+/*.bgi {
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(5px) opacity(0.7);
+}*/

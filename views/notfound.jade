@@ -13,9 +13,9 @@ block content
         p.text-info The term <tw class='text-warning'><strong>#{name}</strong></tw> does not exist yet.
         p.text-info Would you like to create the term <tw class='text-warning'><strong>#{name}</strong></tw> ?
 
-        form.translucent(action='/terms', method='POST')
+        form(action='/terms', method='POST')
             p.text-primary Create a new term:
-            div.row
+            div.row.translucent
                 div.col-xs-2
                     input.form-control(type='text', name='name', value='#{name}', required)
                 div.col-xs-4
