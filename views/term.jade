@@ -12,7 +12,7 @@ block content
         h1.text-info <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
 
         div.row
-            div.col-md-6.subdiv
+            div.subdiv-left
                 //Following related block
                 if following.length
                     p.text-info <span class='text-highlight'>#{term.name}</span> is following <span class='text-primary'>#{following.length}</span> terms:
@@ -41,7 +41,7 @@ block content
                                 input.btn.btn-primary(type='submit', value='Follow')
                 else
                     p.text-warning There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
-            div.col-md-6.subdiv
+            div.subdiv-right
                 //Contain related block
                 if containing.length
                     p.text-info <span class='text-highlight'>#{term.name}</span> contains <span class='text-highlight'>#{containing.length}</span> terms:
