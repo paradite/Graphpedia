@@ -3,10 +3,6 @@ body {
     background-color: #000000;
 }
 
-/*p {
-    padding: 5px;
-}
-*/
 /*custermized*/
 /*for reference:
 color series: bg #19100D, main #4b3027, subdiv #7d5041
@@ -71,7 +67,7 @@ color series: bg #19100D, main #4b3027, subdiv #7d5041
     margin-left: 4px;
 }
 
-/*modified boostrap theme*/
+/*overwitten boostrap theme*/
 
 a:hover,
 a:focus,
@@ -158,7 +154,7 @@ a:active {
     background-color: #FE2E2E;
 }
 
-/*modified boostrap class*/
+/*overwritten boostrap class*/
 
 .form-control {
     font-size: 16px;
@@ -169,10 +165,3 @@ a:active {
 .input-lg {
     font-size: 20px;
 }
-
-
-/*.bgi {
-    width: 100%;
-    height: 100%;
-    -webkit-filter: blur(5px) opacity(0.7);
-}*/
