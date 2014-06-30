@@ -70,7 +70,7 @@ exports.create = function (req, res, next) {
                         types+= " ";
                     });
                     console.log("There are "+relationship_types.length+" relationships types: " + types);
-
+                    console.log(all_others);
                     console.log('%s', JSON.stringify(term_obj));
                     res.render('term', {
                         json: JSON.stringify(term_obj),
