@@ -1,4 +1,7 @@
 $( document ).ready(function() {
+    //Variables defined for our visualization project
+    var path_factor = 8;
+    var height_separation = 40;
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -99,7 +102,7 @@ $( document ).ready(function() {
 
 
     // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-    var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
+    var zoomListener = d3.behavior.zoom().scaleExtent([3, 5]).on("zoom", zoom);
 
     function initiateDrag(d, domNode) {
         draggingNode = d;
@@ -301,10 +304,12 @@ $( document ).ready(function() {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
-        scale = zoomListener.scale();
+        scale = zoomListener.scale()*2;
         x = -source.y0;
         y = -source.x0;
-        x = x * scale + viewerWidth / 2;
+/*        x = x * scale + viewerWidth / 2;
+        y = y * scale + viewerHeight / 2;*/
+        x = x * scale + viewerWidth / 6;
         y = y * scale + viewerHeight / 2;
         d3.select('g').transition()
             .duration(duration)
@@ -352,16 +357,17 @@ $( document ).ready(function() {
             }
         };
         childCount(0, root);
-        var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line  
+        var newHeight = d3.max(levelWidth) * height_separation; // 25 pixels per line  
         tree = tree.size([newHeight, viewerWidth]);
 
         // Compute the new tree layout.
         var nodes = tree.nodes(root).reverse(),
             links = tree.links(nodes);
 
+        //Width of the link/path
         // Set widths between levels based on maxLabelLength.
         nodes.forEach(function(d) {
-            d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
+            d.y = (d.depth * (maxLabelLength * path_factor)); //maxLabelLength * 10px
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
             // d.y = (d.depth * 500); //500px per level.
