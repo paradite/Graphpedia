@@ -37,7 +37,7 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
 
 .subdiv {
     min-height: 1px;
-    background-color: #AEE574;
+    background-color: #b6e781;
     border-radius: 10px;
 /*    border: 10px solid #AEE574;*/
     width: 100%;
@@ -48,6 +48,14 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
 }
 
 .index-footer {
+/*    position: fixed;*/
+    bottom: 0px;
+    width: 100%;
+    height: 25px;
+
+}
+
+.fixed-footer {
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -66,8 +74,15 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
 .search-bar {
     width: 100%;
     display: block;
-    position: fixed;
-    left: 17%;  
+    position: fixed;/*
+    left: 17%;  */
+}
+
+.search-bar-header {
+    width: 100%;
+    display: block;
+    position: fixed;/*
+    left: 5%;  */
 }
 
 .vertical-center {

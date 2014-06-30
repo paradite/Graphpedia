@@ -1,13 +1,6 @@
 extends layout_viz
 
 block content
-    div.before-main
-        form(action='/search', method='POST')
-            div.row.search-bar
-                div.col-xs-6
-                    input.form-control.input-lg(type='text', name='name', placeholder='Search a term', required)
-                div.col-xs-1
-                    input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
     div.main
         h1 <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
         div(id="tree-container")

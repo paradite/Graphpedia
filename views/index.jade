@@ -1,4 +1,4 @@
-extends layout
+extends layout_index
 
 block content
     
@@ -7,17 +7,17 @@ block content
     div.before-main
         form(action='/search', method='POST')
             div.row.search-bar.vertical-center
+                div.col-xs-2
                 div.col-xs-6
                     input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
                 div.col-xs-1
                     input.btn.btn-lg.btn-default(type='submit', value='Graphedia')
         div.row(style='padding-top:5px')
-            div.col-xs-8
-                p(align='center', style='padding-top:5px') Graphedia provides a graph visualization of related terms.
+            div.col-xs-2
+            div.col-xs-6
+                p(style='padding-top:5px') Graphedia - Graph visualization of related terms.
             div.col-xs-1
                 a.btn.btn-default(href='http://www.youtube.com') Video demo
-        div.row.index-footer
-            p(align='center') Copyright &copy; 2014 Graphedia | By Zhu Liang & Li Dongyan
 
 
 //- div.after-main
