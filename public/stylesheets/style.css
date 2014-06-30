@@ -28,7 +28,7 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
     padding-left: 5%;
     padding-right: 5%;
     background-color: #427F00;
-    min-height: 800px;
+    min-height: 64px;
 }
 
 #tree-container {
