@@ -41,10 +41,10 @@ exports.create = function (req, res, next) {
             var is_part_of_list = term.parse(is_part_of);
             var including_obj = new Object();
             var is_part_of_obj = new Object();
-            including_obj.name = Term.REL_INCLUDE;
+            including_obj.name = term.REL_INCLUDE;
             including_obj.children = including_list;
 
-            is_part_of_obj.name = "is part of";
+            is_part_of_obj.name = term.REL_IS_PART_OF.replace(/_/g," ");
             is_part_of_obj.children = is_part_of_list;
 
             var term_obj = new Object();
@@ -53,9 +53,14 @@ exports.create = function (req, res, next) {
             term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
 
+            //Heroku neo4j database
+            var base_url = process.env['NEO4J_URL'] ||
+            process.env['GRAPHENEDB_URL'] ||
+            'http://localhost:7474'
+
             //Use neo4j REST API to get all relationship
             var options = {
-                url: 'http://127.0.0.1:7474/db/data/relationship/types',
+                url: base_url + '/db/data/relationship/types',
                 headers: {
                     'User-Agent': 'request'
                 }
@@ -64,14 +69,33 @@ exports.create = function (req, res, next) {
             function callback(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var relationship_types = JSON.parse(body);
+
+                    //deal with old relationship types
+                    var index = relationship_types.indexOf("follows");
+                    if (index > -1) {
+                        relationship_types.splice(index, 1);
+                    }
+                    var index = relationship_types.indexOf("contains");
+                    if (index > -1) {
+                        relationship_types.splice(index, 1);
+                    }
+                    console.log(term.REL_INCLUDE+' '+term.REL_IS_PART_OF);
+                    //Add default ones
+                    if(relationship_types.length < 2){
+                        relationship_types = [];
+                        relationship_types.push(term.REL_INCLUDE.replace(/_/g," "));
+                        relationship_types.push(term.REL_IS_PART_OF.replace(/_/g," "));
+                    }
+
                     var types = "";
+
                     relationship_types.forEach(function(item) { 
                         types+= item;
                         types+= " ";
                     });
                     console.log("There are "+relationship_types.length+" relationships types: " + types);
-                    console.log(all_others);
-                    console.log('%s', JSON.stringify(term_obj));
+                    //console.log(all_others);
+                    //console.log('%s', JSON.stringify(term_obj));
                     res.render('term', {
                         json: JSON.stringify(term_obj),
                         term: term,
@@ -83,7 +107,6 @@ exports.create = function (req, res, next) {
                 }
             }
             request(options, callback);
-
 
         });
     });
@@ -206,7 +229,7 @@ exports.custom = function (req, res, next) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.custom(other, req.body.relationship.name, function (err) {
+            term.custom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });
@@ -222,7 +245,7 @@ exports.uncustom = function (req, res, next) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.uncustom(other, req.body.relationship.name, function (err) {
+            term.uncustom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });

@@ -14,7 +14,6 @@ $( document ).ready(function() {
     var duration = 750;
     console.log($('#json').val());
     var root = treeData = JSON.parse($('#json').val());
-    console.log("aa: "+treeData);
     // size of the diagram
     var viewerWidth = $(document).width()*0.88;
     var viewerHeight = $(document).height()*0.6;

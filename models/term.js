@@ -7,9 +7,6 @@ var db = new neo4j.GraphDatabase(
     process.env['GRAPHENEDB_URL'] ||
     'http://localhost:7474'
 );
-//Define relationships
-var REL_IS_PART_OF = "is_part_of";
-var REL_INCLUDE = "includes"
 
 // private constructor:
 
@@ -24,6 +21,8 @@ var Term = module.exports = function Term(_node) {
 Object.defineProperty(Term.prototype, 'id', {
     get: function () { return this._node.id; }
 });
+
+
 
 Object.defineProperty(Term.prototype, 'data', {
     get: function () { return this._node.data; }
@@ -47,6 +46,19 @@ Object.defineProperty(Term.prototype, 'description', {
         this._node.data['description'] = description;
     }
 });
+
+//Define relationships
+
+
+
+Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
+    get: function () { return "is_part_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_INCLUDE', {
+    get: function () { return "includes"; }
+});
+
 
 // public instance methods:
 
@@ -107,14 +119,14 @@ Term.prototype.unfollow = function (other, callback) {
 
 //is_part_of related methods
 Term.prototype.is_part_of = function (other, callback) {
-    this._node.createRelationshipTo(other._node, REL_IS_PART_OF, {}, function (err, rel) {
+    this._node.createRelationshipTo(other._node, this.REL_IS_PART_OF, {}, function (err, rel) {
         callback(err);
     });
 };
 
 Term.prototype.unis_part_of = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel:'+REL_IS_PART_OF+']-> (other:Term)',
+        'MATCH (term:Term) -[rel:'+this.REL_IS_PART_OF+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -131,14 +143,14 @@ Term.prototype.unis_part_of = function (other, callback) {
 
 //contains related methods
 Term.prototype.contain = function (other, callback) {
-    this._node.createRelationshipTo(other._node, REL_INCLUDE, {}, function (err, rel) {
+    this._node.createRelationshipTo(other._node, this.REL_INCLUDE, {}, function (err, rel) {
         callback(err);
     });
 };
 
 Term.prototype.uncontain = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel:'+REL_INCLUDE+']-> (other:Term)',
+        'MATCH (term:Term) -[rel:'+this.REL_INCLUDE+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -155,14 +167,16 @@ Term.prototype.uncontain = function (other, callback) {
 
 //Customized relationship methods
 Term.prototype.custom = function (other, relationship_name, callback) {
-    this._node.createRelationshipTo(other._node, relationship_name, {}, function (err, rel) {
+    var formated_relationship_name = relationship_name.replace(/ /g,"_");
+    this._node.createRelationshipTo(other._node, formated_relationship_name, {}, function (err, rel) {
         callback(err);
     });
 };
 
 Term.prototype.uncustom = function (other, relationship_name, callback) {
     //Create MATCH query
-    var match_rel = 'MATCH (term:Term) -[rel:'+relationship_name+']-> (other:Term)'
+    var formated_relationship_name = relationship_name.replace(/ /g,"_");
+    var match_rel = 'MATCH (term:Term) -[rel:'+formated_relationship_name+']-> (other:Term)'
     var query = [
         match_rel,
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
@@ -172,7 +186,6 @@ Term.prototype.uncustom = function (other, relationship_name, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
-        relationship_name: relationship_name,
     };
 
     db.query(query, params, function (err) {
@@ -189,9 +202,9 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
     // query all Terms and whether we follow each one or not:
     var query = [
         'MATCH (term:Term), (other:Term)',
-        'OPTIONAL MATCH (term) -[rel:'+REL_INCLUDE+']-> (other)',
+        'OPTIONAL MATCH (term) -[rel:'+this.REL_INCLUDE+']-> (other)',
         'WHERE ID(term) = {termId}',
-        'OPTIONAL MATCH (term) -[rel2:'+REL_IS_PART_OF+']-> (other)',
+        'OPTIONAL MATCH (term) -[rel2:'+this.REL_IS_PART_OF+']-> (other)',
         'WHERE ID(term) = {termId}',
         'RETURN other, COUNT(rel), COUNT(rel2)', // COUNT(rel) is a hack for 1 or 0
     ].join('\n')
