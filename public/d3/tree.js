@@ -309,7 +309,7 @@ $( document ).ready(function() {
         y = -source.x0;
 /*        x = x * scale + viewerWidth / 2;
         y = y * scale + viewerHeight / 2;*/
-        x = x * scale + viewerWidth / 6 + maxLabelLength;
+        x = x * scale + viewerWidth / 4 + maxLabelLength;
         y = y * scale + viewerHeight / 2;
         d3.select('g').transition()
             .duration(duration)
