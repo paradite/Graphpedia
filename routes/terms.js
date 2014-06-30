@@ -44,7 +44,7 @@ exports.create = function (req, res, next) {
             containing_obj.name = Term.REL_INCLUDE;
             containing_obj.children = containing_list;
 
-            part_of_obj.name = Term.REL_IS_PART_OF;
+            part_of_obj.name = "is part of";
             part_of_obj.children = following_list;
 
             var term_obj = new Object();

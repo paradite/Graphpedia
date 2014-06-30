@@ -8,7 +8,7 @@ var db = new neo4j.GraphDatabase(
     'http://localhost:7474'
 );
 //Define relationships
-var REL_IS_PART_OF = "is part of";
+var REL_IS_PART_OF = "is_part_of";
 var REL_INCLUDE = "includes"
 
 // private constructor:
@@ -114,7 +114,7 @@ Term.prototype.part_of = function (other, callback) {
 
 Term.prototype.unpart_of = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel:'+REL_IS_PART_OF+']-> (other:Term)',
+        'MATCH (term:Term) -[rel: ({REL_IS_PART_OF})]-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -122,6 +122,7 @@ Term.prototype.unpart_of = function (other, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
+        REL_IS_PART_OF: REL_IS_PART_OF,
     };
 
     db.query(query, params, function (err) {
@@ -138,7 +139,7 @@ Term.prototype.contain = function (other, callback) {
 
 Term.prototype.uncontain = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel:'+REL_INCLUDE+']-> (other:Term)',
+        'MATCH (term:Term) -[rel: ({REL_INCLUDE})]-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -146,6 +147,7 @@ Term.prototype.uncontain = function (other, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
+        REL_INCLUDE: REL_INCLUDE,
     };
 
     db.query(query, params, function (err) {
@@ -162,7 +164,7 @@ Term.prototype.custom = function (other, relationship_name, callback) {
 
 Term.prototype.uncustom = function (other, relationship_name, callback) {
     //Create MATCH query
-    var match_rel = 'MATCH (term:Term) -[rel:'+relationship_name+']-> (other:Term)'
+    var match_rel = 'MATCH (term:Term) -[rel: {relationship_name}]-> (other:Term)'
     var query = [
         match_rel,
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
@@ -172,6 +174,7 @@ Term.prototype.uncustom = function (other, relationship_name, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
+        relationship_name: relationship_name,
     };
 
     db.query(query, params, function (err) {
@@ -197,6 +200,8 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 
     var params = {
         termId: this.id,
+        REL_INCLUDE: REL_INCLUDE,
+        REL_IS_PART_OF: REL_IS_PART_OF,
     };
 
     var term = this;
