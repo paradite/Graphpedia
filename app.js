@@ -51,27 +51,7 @@ app.post('/terms/:id/uncontain', routes.terms.uncontain);
 app.post('/search', routes.site.searchinit);
 app.get('/search', routes.site.search);
 
-//Use neo4j REST API to get all relationship
-var options = {
-    url: 'http://127.0.0.1:7474/db/data/relationship/types',
-    headers: {
-        'User-Agent': 'request'
-    }
-};
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body);
-        var types = "";
-        info.forEach(function(item) { 
-        	types+= item;
-        	types+= " ";
-        });
-        console.log("Currently there are "+info.length+" relationships types: " + types);
-    }
-}
-
-request(options, callback);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));

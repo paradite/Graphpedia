@@ -180,11 +180,18 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
         var containing_others = [];
         var following = [];
         var following_others = [];
+        var all_others = [];
 
         for (var i = 0; i < results.length; i++) {
             var other = new Term(results[i]['other']);
             var contains = results[i]['COUNT(rel)'];
             var follows = results[i]['COUNT(rel2)'];
+
+            if (term.id === other.id) {
+                continue;
+            } else {
+                all_others.push(other);
+            }
 
             if (term.id === other.id) {
                 continue;
@@ -203,7 +210,7 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
             }
         }
 
-        callback(null, containing, containing_others, following, following_others);
+        callback(null, containing, containing_others, following, following_others, all_others);
     });
 };
 

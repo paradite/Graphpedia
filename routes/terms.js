@@ -1,6 +1,6 @@
 // terms.js
 // Routes to CRUD terms.
-
+var request = require('request');
 var Term = require('../models/term');
 
 /**
@@ -35,7 +35,7 @@ exports.create = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) return next(err);
-        term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others) {
+        term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others, all_others) {
             if (err) return next(err);
             var containing_list = term.parse(containing);
             var following_list = term.parse(following);
@@ -53,15 +53,41 @@ exports.create = function (req, res, next) {
             term_obj.children.push(following_obj);
             term_obj.children.push(containing_obj);
 
-            //console.log('%s', JSON.stringify(term_obj));
-            res.render('term', {
-                json: JSON.stringify(term_obj),
-                term: term,
-                following: following,
-                following_others: following_others,
-                containing: containing,
-                containing_others: containing_others
-            });
+            //Use neo4j REST API to get all relationship
+            var options = {
+                url: 'http://127.0.0.1:7474/db/data/relationship/types',
+                headers: {
+                    'User-Agent': 'request'
+                }
+            };
+
+            function callback(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var relationship_types = JSON.parse(body);
+                    var types = "";
+                    relationship_types.forEach(function(item) { 
+                        types+= item;
+                        types+= " ";
+                    });
+                    console.log("There are "+relationship_types.length+" relationships types: " + types);
+
+                    console.log('%s', JSON.stringify(term_obj));
+                    res.render('term', {
+                        json: JSON.stringify(term_obj),
+                        term: term,
+                        following: following,
+                        following_others: following_others,
+                        containing: containing,
+                        containing_others: containing_others,
+                        all_others: all_others,
+                        relationship_types: relationship_types
+                    });
+                }
+            }
+
+            request(options, callback);
+
+
         });
     });
 }
