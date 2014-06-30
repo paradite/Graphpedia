@@ -199,3 +199,36 @@ exports.uncontain = function (req, res, next) {
         });
     });
 };
+
+
+/**
+ * POST /terms/:id/custom
+ */
+exports.custom = function (req, res, next) {
+    Term.get(req.params.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.term.id, function (err, other) {
+            if (err) return next(err);
+            term.custom(other, req.body.relationship.name, function (err) {
+                if (err) return next(err);
+                res.redirect('/terms/' + term.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /terms/:id/uncustom
+ */
+exports.uncustom = function (req, res, next) {
+    Term.get(req.params.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.term.id, function (err, other) {
+            if (err) return next(err);
+            term.uncustom(other, req.body.relationship.name, function (err) {
+                if (err) return next(err);
+                res.redirect('/terms/' + term.id);
+            });
+        });
+    });
+};

@@ -46,6 +46,11 @@ app.post('/terms/:id/unfollow', routes.terms.unfollow);
 app.post('/terms/:id/contain', routes.terms.contain);
 app.post('/terms/:id/uncontain', routes.terms.uncontain);
 
+//Custom relationship routing
+app.post('/terms/:id/custom', routes.terms.custom);
+app.post('/terms/:id/uncustom', routes.terms.uncustom);
+
+
 //Index Search Route
 /*app.get('/search', routes.site.index);*/
 app.post('/search', routes.site.searchinit);
