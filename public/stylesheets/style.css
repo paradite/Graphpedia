@@ -212,7 +212,7 @@ version 1
     font-size: 16px;
     color: #132600;
     border: 1px solid #59323C;
-    background-color: #BFAF80;
+    background-color: #FAF9E6;
     -webkit-box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
             box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
     opacity: 0.64;
@@ -233,7 +233,7 @@ version 1
 .btn-default {
     color: #132600;
     border: 1px solid #BFAF80;
-    background-color: #BFAF80;
+    background-color: #FAF9E6;
     -webkit-box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
             box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
     opacity: 0.64;
