@@ -1,30 +1,15 @@
 body {
     font: 20px sans-serif;
-    background-color: #000000;
+    background-color: #59323C;
+    color: #ffffff;
 }
+
 
 /*custermized*/
 /*for reference:
-color series: bg #19100D, main #4b3027, subdiv #7d5041
+color series: #000000, #19100D, #4b3027, #7d5041
+op2: #000000, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kuler.adobe.com/Vintage-Romantic-color-theme-2646522/)
 */
-
-.main {
-    margin-top: 60px;
-    padding-top: 10px;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: #19100D;
-}
-
-.before-main {
-    background-color: #000000;
-    position: fixed;
-    top: 0%;
-    z-index: 1;
-    height: 60px;
-    padding-top: 7px;
-    width: 100%;
-}
 
 .search-bar {
     width: 100%;
@@ -38,28 +23,40 @@ color series: bg #19100D, main #4b3027, subdiv #7d5041
     top: 45%; 
 }
 
-.subdiv-left,
-.subdiv-right {
+.row {
+    margin-bottom: 15px;
+}
+
+.before-main {
+    background-color: #F2EEB3;
+    position: fixed;
+    top: 0%;
+    z-index: 1;
+    height: 60px;
+    padding-top: 7px;
+    width: 100%;
+}
+
+.main {
+    margin-top: 60px;
+    padding-top: 10px;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #59323C;
+}
+
+.subdiv {
     min-height: 1px;
-    background-color: #4b3027;
+    background-color: #8C6954;
     border-radius: 30px;
-    border: 10px solid #19100D;
-    width: 48%;
+    border: 10px solid #59323C;
+    width: 100%;
     padding: 15px;
-}
-
-.subdiv-left {
-    float: left;
-    /*padding-left: 15px;*/
-}
-
-.subdiv-right {
-    float: right;
-/*    padding-right: 15px;*/
+    margin-bottom: 15px;
 }
 
 .text-highlight {
-    color: #F3F781;
+    color: #F2EEB3;
     font-family: Calibri, Candara;    
     font-weight: bold;
 }
@@ -88,6 +85,8 @@ a:active {
     color: #ffffff;
 } 
 
+/*
+version 1
 .btn:hover,
 .btn:active,
 .btn:focus {
@@ -103,17 +102,6 @@ a:active {
 .btn {
     color: #19100D;
     border: 1px solid #ffffff;
-}
-
-
-.row {
-    margin-bottom: 15px;
-}
-
-.form-control:hover,
-.form-control:focus,
-.form-control:active {
-    border: 1px solid #ffffff
 }
 
 .text-muted {
@@ -215,14 +203,108 @@ a:active {
             box-shadow: inset 0 3px 5px rgba(243, 247, 129, 1);
     opacity: 1;
 }
+*/
+
+/*version 2*/
+
+.btn {
+    font-size: 16px;
+    color: #260126;
+    border: 1px solid #59323C;
+    background-color: #BFAF80;
+    -webkit-box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+            box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+    opacity: 0.64;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    color: #260126;
+    background-color: #F2EEB3;
+    outline: 0px;
+    border: 1px solid #8C6954;
+    -webkit-box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+            box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+    opacity: 1;
+}
+
+.btn-default {
+    color: #260126;
+    border: 1px solid #BFAF80;
+    background-color: #BFAF80;
+    -webkit-box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
+            box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
+    opacity: 0.64;
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    color: #260126;
+    background-color: #ffffff;
+    outline: 0px;
+    border: 1px solid #BFAF80;
+    -webkit-box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
+            box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
+    opacity: 1;
+}
+
+
+
 /*overwritten boostrap class*/
+
 
 .form-control {
     font-size: 16px;
+    background-color: #BFAF80;
     opacity: 0.64;
     border: 1px solid #ffffff;
 }
 
-.input-lg {
-    font-size: 20px;
+.form-control:hover,
+.form-control:focus,
+.form-control:active {
+    font-size: 16px;
+    background-color: #BFAF80;
+    border: 1px solid #ffffff
+}
+
+select.form-control,
+textarea.form-control,
+select.input,
+textarea.input,
+select.input-lg,
+textarea.input-lg,
+.input,
+.form-control {
+    font-family: sans-serif;
+    color: #260126;
+}
+
+.form-control:focus {
+    border-color: #ffffff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, .8);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, .8);
+}
+.form-control:-moz-placeholder,
+.form-control:-ms-input-placeholder,
+.form-control:-webkit-input-placeholder {
+    color: #260126;
+    opacity: 0.64;
+}
+
+.input-lg:focus {
+    border-color: #ffffff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, .8);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, .8);
+}
+
+.input-lg:-moz-placeholder,
+.input-lg:-ms-input-placeholder,
+.input-lg:-webkit-input-placeholder {
+  color: #260126;
+  opacity: 0.64;
 }
