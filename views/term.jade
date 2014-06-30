@@ -74,13 +74,13 @@ block content
                         div.col-xs-2
                             label
                                 select.form-control(name='relationship[name]', required)
-                                    option(value='', disabled='true') relationship
+                                    //- option(value='', disabled='true') relationship
                                     for type in relationship_types
                                         option(value='#{type}') #{type}
                         div.col-xs-2
                             label
                                 select.form-control(name='term[id]', required)
-                                    option(value='', disabled='true') term
+                                    //- option(value='', disabled='true') term
                                     for term in all_others
                                         option(value='#{term.id}') #{term.name}
                         div.col-xs-1
