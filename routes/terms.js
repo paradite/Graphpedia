@@ -53,9 +53,14 @@ exports.create = function (req, res, next) {
             term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
 
+            //Heroku neo4j database
+            var base_url = process.env['NEO4J_URL'] ||
+            process.env['GRAPHENEDB_URL'] ||
+            'http://localhost:7474'
+
             //Use neo4j REST API to get all relationship
             var options = {
-                url: 'http://127.0.0.1:7474/db/data/relationship/types',
+                url: base_url + '/db/data/relationship/types',
                 headers: {
                     'User-Agent': 'request'
                 }
