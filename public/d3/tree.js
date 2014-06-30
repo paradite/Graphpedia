@@ -102,7 +102,7 @@ $( document ).ready(function() {
 
 
     // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-    var zoomListener = d3.behavior.zoom().scaleExtent([3, 5]).on("zoom", zoom);
+    var zoomListener = d3.behavior.zoom().scaleExtent([1, 5]).on("zoom", zoom);
 
     function initiateDrag(d, domNode) {
         draggingNode = d;
