@@ -12,19 +12,20 @@ block content
         h1 <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
         div(id="tree-container")
         div.subdiv
-            //Following related block
-            if following.length
-                p <span class='text-highlight'>#{term.name}</span> is following <span class='text-highlight'>#{following.length}</span> terms:
+            //is_part_of related block
+            if is_part_of.length
+                p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{following.length}</span> terms:
                 // TODO should say 'term' if only one! ;)
                 ul
-                    for other in following
+                    for other in is_part_of
                         li
-                            form(action='/terms/#{term.id}/unfollow', method='POST')
+                            form(action='/terms/#{term.id}/uncustom', method='POST')
                                 a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                 input(type='hidden', name='term[id]', value='#{other.id}')
-                                input.btn.btn-close(type='submit', class='unfollow', value='x')
+                                input(type='hidden', name='relationship[name]', value='is_part_of')
+                                input.btn.btn-close(type='submit', value='x')
             else
-                p <span class='text-highlight'>#{term.name}</span> isn't following any terms currently.
+                p <span class='text-highlight'>#{term.name}</span> isn't part of any terms.
 
             //- if following_others.length
             //-     form(action='/terms/#{term.id}/follow', method='POST')
@@ -41,19 +42,20 @@ block content
             //- else
             //-     p There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
             
-            //Contain related block
-            if containing.length
-                p <span class='text-highlight'>#{term.name}</span> contains <span class='text-highlight'>#{containing.length}</span> terms:
+            //including related block
+            if including.length
+                p <span class='text-highlight'>#{term.name}</span> includes <span class='text-highlight'>#{containing.length}</span> terms:
                 // TODO should say 'term' if only one! ;)
                 ul
-                    for other in containing
+                    for other in including
                         li
-                            form(action='/terms/#{term.id}/uncontain', method='POST')
+                            form(action='/terms/#{term.id}/uncustom', method='POST')
                                 a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                 input(type='hidden', name='term[id]', value='#{other.id}')
-                                input.btn.btn-close(type='submit', class='uncontain', value='x')
+                                input(type='hidden', name='relationship[name]', value='includes')
+                                input.btn.btn-close(type='submit', value='x')
             else
-                p <span class='text-highlight'>#{term.name}</span> does not contain any terms currently.
+                p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
 
                 //- if containing_others.length
                 //-     form(action='/terms/#{term.id}/contain', method='POST')

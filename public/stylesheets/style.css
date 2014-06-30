@@ -1,14 +1,15 @@
 body {
     font: 20px sans-serif;
-    background-color: #59323C;
+    background-color: #A58C6A;
     color: #ffffff;
 }
 
 
 /*custermized*/
 /*for reference:
-color series: #000000, #19100D, #4b3027, #7d5041
-op2: #000000, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kuler.adobe.com/Vintage-Romantic-color-theme-2646522/)
+color series: 
+v1: #000000, #19100D, #4b3027, #7d5041
+v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kuler.adobe.com/Vintage-Romantic-color-theme-2646522/)
 */
 
 .search-bar {
@@ -42,7 +43,7 @@ op2: #000000, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kuler.adobe.
     padding-top: 10px;
     padding-left: 5%;
     padding-right: 5%;
-    background-color: #59323C;
+    background-color: #A58C6A;
 }
 
 .subdiv {
