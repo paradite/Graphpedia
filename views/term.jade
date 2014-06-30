@@ -14,7 +14,7 @@ block content
         div.subdiv
             //is_part_of related block
             if is_part_of.length
-                p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{following.length}</span> terms:
+                p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{is_part_of.length}</span> terms:
                 // TODO should say 'term' if only one! ;)
                 ul
                     for other in is_part_of
