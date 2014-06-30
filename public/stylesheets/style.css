@@ -12,22 +12,6 @@ v1: #000000, #19100D, #4b3027, #7d5041
 v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kuler.adobe.com/Vintage-Romantic-color-theme-2646522/)
 */
 
-.search-bar {
-    width: 100%;
-    display: block;
-    position: fixed;
-    left: 17%;  
-}
-
-.vertical-center {
-    position: fixed;
-    top: 45%; 
-}
-
-.row {
-    margin-bottom: 15px;
-}
-
 .before-main {
     background-color: #F2EEB3;
     position: fixed;
@@ -48,11 +32,45 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
 
 .subdiv {
     min-height: 1px;
-    background-color: #c2ff81;
+    background-color: #AEE574;
     border-radius: 30px;
-    border: 10px solid #c2ff81;
+/*    border: 10px solid #AEE574;*/
     width: 100%;
     padding: 15px;
+    margin-bottom: 15px;
+    -webkit-box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
+            box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
+}
+
+.index-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 25px;
+
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 25px;
+
+}
+
+.search-bar {
+    width: 100%;
+    display: block;
+    position: fixed;
+    left: 17%;  
+}
+
+.vertical-center {
+    position: fixed;
+    top: 45%; 
+}
+
+.row {
     margin-bottom: 15px;
 }
 
@@ -64,7 +82,7 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
 
 .btn-close {
     color: #605F61;
-    border: 1px solid #AEAEAE;
+    border: 1px solid #427F00;
     border-radius: 5px;
     background: #ffffff;
     font-size: 20px;
@@ -211,10 +229,10 @@ version 1
 .btn {
     font-size: 16px;
     color: #132600;
-    border: 1px solid #59323C;
-    background-color: #FAF9E6;
-    -webkit-box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
-            box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+    border: 1px solid #427F00;
+    background-color: #eff9e5;
+    -webkit-box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
+            box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
     opacity: 0.64;
 }
 
@@ -222,11 +240,11 @@ version 1
 .btn:active,
 .btn:focus {
     color: #132600;
-    background-color: #F2EEB3;
+    background-color: #f6fcf1;
     outline: 0px;
-    border: 1px solid #8C6954;
-    -webkit-box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
-            box-shadow: inset 0 3px 5px rgba(191, 175, 128, 1);
+    border: 1px solid #427F00;
+    -webkit-box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
+            box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
     opacity: 1;
 }
 

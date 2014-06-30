@@ -74,18 +74,20 @@ block content
         div.subdiv
                 form(action='/terms/#{term.id}/custom', method='POST')                    
                     div.row
-                        div.col-xs-3
+                        div.col-xs-4
                             p Add a new relationship for <span class='text-highlight'>#{term.name}</span>:
+                        div.col-xs-1
+                            p(align='right') #{term.name}
                         div.col-xs-2
                             label
-                                select.form-control(name='relationship[name]', placeholder='relationship', required)
-                                    option(value='')
+                                select.form-control(name='relationship[name]', required)
+                                    option(value='', disabled='true') relationship
                                     for type in relationship_types
                                         option(value='#{type}') #{type}
-                        div.col-xs-4
+                        div.col-xs-3
                             label
-                                select.form-control(name='term[id]', placeholder='term', required)
-                                    option(value='')
+                                select.form-control(name='term[id]', required)
+                                    option(value='', disabled='true') term
                                     for term in all_others
                                         option(value='#{term.id}') #{term.name}
                         div.col-xs-1
@@ -93,7 +95,7 @@ block content
         div.subdiv
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
-                    div.col-xs-3
+                    div.col-xs-4
                         p Edit this term:
                     div.col-xs-2    
                         input.form-control(type='text', name='name', value='#{term.name}', required)
@@ -101,16 +103,16 @@ block content
                         if term.description
                             input.form-control(type='text', name='description', value='#{term.description}', required)
                         else
-                            input.form-control(type='text', name='description', placeholder='a description for your term', required)
+                            input.form-control(type='text', name='description', placeholder='Give a description for the term', required)
                     div.col-xs-1
                         input.btn(type='submit', value='Update')
-        div.subdiv
             form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 div.row
-                    div.col-xs-3
-                        p And if you're feeling destructive…
+                    div.col-xs-4
+                        p Or you can delete the term
                     div.col-xs-1
                         input(type='hidden', name='_method', value='DELETE')
                         input.btn(type='submit', value='Delete Term')
+
 
         input(id='json', type='hidden', value='#{json}')
