@@ -114,7 +114,7 @@ Term.prototype.part_of = function (other, callback) {
 
 Term.prototype.unpart_of = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel: ({REL_IS_PART_OF})]-> (other:Term)',
+        'MATCH (term:Term) -[rel:'+REL_IS_PART_OF+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -139,7 +139,7 @@ Term.prototype.contain = function (other, callback) {
 
 Term.prototype.uncontain = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel: ({REL_INCLUDE})]-> (other:Term)',
+        'MATCH (term:Term) -[rel:'+REL_INCLUDE+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -164,7 +164,7 @@ Term.prototype.custom = function (other, relationship_name, callback) {
 
 Term.prototype.uncustom = function (other, relationship_name, callback) {
     //Create MATCH query
-    var match_rel = 'MATCH (term:Term) -[rel: {relationship_name}]-> (other:Term)'
+    var match_rel = 'MATCH (term:Term) -[rel:'+relationship_name+']-> (other:Term)'
     var query = [
         match_rel,
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',

@@ -35,14 +35,14 @@ exports.create = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) return next(err);
-        term.getOutgoingAndOthers(function (err, containing, part_of, all_others) {
+        term.getOutgoingAndOthers(function (err, including, is_part_of, all_others) {
             if (err) return next(err);
-            var containing_list = term.parse(containing);
-            var part_of_list = term.parse(following);
-            var containing_obj = new Object();
+            var including_list = term.parse(including);
+            var part_of_list = term.parse(is_part_of);
+            var including_obj = new Object();
             var part_of_obj = new Object();
-            containing_obj.name = Term.REL_INCLUDE;
-            containing_obj.children = containing_list;
+            including_obj.name = Term.REL_INCLUDE;
+            including_obj.children = including_list;
 
             part_of_obj.name = "is part of";
             part_of_obj.children = following_list;
@@ -51,7 +51,7 @@ exports.create = function (req, res, next) {
             term_obj.name = term.name;
             term_obj.children = [];
             term_obj.children.push(part_of_obj);
-            term_obj.children.push(containing_obj);
+            term_obj.children.push(including_obj);
 
             //Use neo4j REST API to get all relationship
             var options = {
@@ -76,7 +76,7 @@ exports.create = function (req, res, next) {
                         json: JSON.stringify(term_obj),
                         term: term,
                         part_of: part_of,
-                        containing: containing,
+                        including: including,
                         all_others: all_others,
                         relationship_types: relationship_types
                     });
@@ -99,8 +99,8 @@ exports.create = function (req, res, next) {
                 term: term,
                 following: following,
                 following_others: following_others,
-                containing: this_containing,
-                containing_others: this_containing_others
+                including: this_including,
+                including_others: this_including_others
             });
         });*/
 
@@ -134,14 +134,14 @@ exports.del = function (req, res, next) {
 };
 
 /**
- * POST /terms/:id/follow
+ * POST /terms/:id/part_of
  */
-exports.follow = function (req, res, next) {
+exports.part_of = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.follow(other, function (err) {
+            term.part_of(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });
@@ -150,14 +150,14 @@ exports.follow = function (req, res, next) {
 };
 
 /**
- * POST /terms/:id/unfollow
+ * POST /terms/:id/unpart_of
  */
-exports.unfollow = function (req, res, next) {
+exports.unpart_of = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.unfollow(other, function (err) {
+            term.unpart_of(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });
