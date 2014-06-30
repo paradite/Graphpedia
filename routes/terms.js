@@ -33,7 +33,7 @@ exports.create = function (req, res, next) {
  */
  exports.show = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
-        console.log('%s', term.description + " " + term.name);
+        //console.log('%s', term.description + " " + term.name);
         if (err) return next(err);
         term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others) {
             if (err) return next(err);
@@ -53,7 +53,7 @@ exports.create = function (req, res, next) {
             term_obj.children.push(following_obj);
             term_obj.children.push(containing_obj);
 
-            console.log('%s', JSON.stringify(term_obj));
+            //console.log('%s', JSON.stringify(term_obj));
             res.render('term', {
                 json: JSON.stringify(term_obj),
                 term: term,
@@ -65,16 +65,6 @@ exports.create = function (req, res, next) {
         });
     });
 }
-/**
- * GET /terms/:id/json
- */
- exports.show_json = function (req, res, next) {
-    Term.get(req.params.id, function (err, term) {
-        console.log('%s', term.description + " " + term.name + " send json");
-        if (err) return next(err);
-        res.json({});
-    });
-};
 
 /*        // TODO also fetch and show followers? (not just follow*ing*)
         //Get the followers and non-followers
@@ -111,7 +101,6 @@ exports.edit = function (req, res, next) {
  * DELETE /terms/:id
  */
 exports.del = function (req, res, next) {
-    console.log('%s', "Term deleted");
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.del(function (err) {

@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+
     // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;

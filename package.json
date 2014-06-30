@@ -7,6 +7,7 @@
   { "express": "~3.2.0"
   , "jade": "~0.26.3"
   , "neo4j": "~1.1"
+  , "request": "~2.36.0"
   }
 , "devDependencies":
   { "chai": "~1.8"

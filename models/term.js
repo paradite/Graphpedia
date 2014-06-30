@@ -59,12 +59,9 @@ Term.prototype.del = function (callback) {
     // (note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     var query = [
-        'MATCH (term:Term)',
+        'MATCH (term:Term)-[r]-()',
         'WHERE ID(term) = {termId}',
-        'DELETE term',
-        'WITH term',
-        'MATCH (term) -[rel:follows]- (other)',
-        'DELETE rel',
+        'DELETE term, r',
     ].join('\n')
 
     var params = {
@@ -72,6 +69,7 @@ Term.prototype.del = function (callback) {
     };
 
     db.query(query, params, function (err) {
+        console.log('%s', "Term deleted");
         callback(err);
     });
 };
@@ -294,6 +292,14 @@ Term.prototype.getFollowingAndOthers = function (callback) {
 // static methods:
 
 Term.get = function (id, callback) {
+    console.log("get");
+    db.getRelationshipIndexes(function (err, indexes) { 
+        if (err) throw err; 
+        console.log("no error " + indexes.length);
+        indexes.forEach(function (name) { 
+            console.log('Index'+ name+ 'has config:'+ indexes[name]); 
+        }); 
+    });
     db.getNodeById(id, function (err, node) {
         if (err) return callback(err);
         callback(null, new Term(node));
