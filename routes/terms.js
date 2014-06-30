@@ -38,19 +38,19 @@ exports.create = function (req, res, next) {
         term.getOutgoingAndOthers(function (err, including, is_part_of, all_others) {
             if (err) return next(err);
             var including_list = term.parse(including);
-            var part_of_list = term.parse(is_part_of);
+            var is_part_of_list = term.parse(is_part_of);
             var including_obj = new Object();
-            var part_of_obj = new Object();
+            var is_part_of_obj = new Object();
             including_obj.name = Term.REL_INCLUDE;
             including_obj.children = including_list;
 
-            part_of_obj.name = "is part of";
-            part_of_obj.children = following_list;
+            is_part_of_obj.name = "is part of";
+            is_part_of_obj.children = is_part_of_list;
 
             var term_obj = new Object();
             term_obj.name = term.name;
             term_obj.children = [];
-            term_obj.children.push(part_of_obj);
+            term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
 
             //Use neo4j REST API to get all relationship
@@ -75,7 +75,7 @@ exports.create = function (req, res, next) {
                     res.render('term', {
                         json: JSON.stringify(term_obj),
                         term: term,
-                        part_of: part_of,
+                        is_part_of: is_part_of,
                         including: including,
                         all_others: all_others,
                         relationship_types: relationship_types
@@ -134,14 +134,14 @@ exports.del = function (req, res, next) {
 };
 
 /**
- * POST /terms/:id/part_of
+ * POST /terms/:id/is_part_of
  */
-exports.part_of = function (req, res, next) {
+exports.is_part_of = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.part_of(other, function (err) {
+            term.is_part_of(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });
@@ -150,14 +150,14 @@ exports.part_of = function (req, res, next) {
 };
 
 /**
- * POST /terms/:id/unpart_of
+ * POST /terms/:id/unis_part_of
  */
-exports.unpart_of = function (req, res, next) {
+exports.unis_part_of = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {
             if (err) return next(err);
-            term.unpart_of(other, function (err) {
+            term.unis_part_of(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/terms/' + term.id);
             });

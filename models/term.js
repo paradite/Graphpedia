@@ -105,14 +105,14 @@ Term.prototype.unfollow = function (other, callback) {
     });
 };
 
-//part_of related methods
-Term.prototype.part_of = function (other, callback) {
+//is_part_of related methods
+Term.prototype.is_part_of = function (other, callback) {
     this._node.createRelationshipTo(other._node, REL_IS_PART_OF, {}, function (err, rel) {
         callback(err);
     });
 };
 
-Term.prototype.unpart_of = function (other, callback) {
+Term.prototype.unis_part_of = function (other, callback) {
     var query = [
         'MATCH (term:Term) -[rel:'+REL_IS_PART_OF+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
@@ -122,7 +122,6 @@ Term.prototype.unpart_of = function (other, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
-        REL_IS_PART_OF: REL_IS_PART_OF,
     };
 
     db.query(query, params, function (err) {
@@ -147,7 +146,6 @@ Term.prototype.uncontain = function (other, callback) {
     var params = {
         termId: this.id,
         otherId: other.id,
-        REL_INCLUDE: REL_INCLUDE,
     };
 
     db.query(query, params, function (err) {
@@ -200,24 +198,22 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 
     var params = {
         termId: this.id,
-        REL_INCLUDE: REL_INCLUDE,
-        REL_IS_PART_OF: REL_IS_PART_OF,
     };
 
     var term = this;
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
 
-        var containing = [];
-        var containing_others = [];
-        var part_of = [];
-        var part_of_others = [];
+        var including = [];
+        var including_others = [];
+        var is_part_of = [];
+        var is_part_of_others = [];
         var all_others = [];
 
         for (var i = 0; i < results.length; i++) {
             var other = new Term(results[i]['other']);
-            var contains = results[i]['COUNT(rel)'];
-            var part_of = results[i]['COUNT(rel2)'];
+            var include_true = results[i]['COUNT(rel)'];
+            var is_part_of_true = results[i]['COUNT(rel2)'];
 
             if (term.id === other.id) {
                 continue;
@@ -227,26 +223,26 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 
             if (term.id === other.id) {
                 continue;
-            } else if (contains) {
-                containing.push(other);
+            } else if (include_true) {
+                including.push(other);
             } else {
-                containing_others.push(other);
+                including_others.push(other);
             }
 
             if (term.id === other.id) {
                 continue;
-            } else if (follows) {
-                part_of.push(other);
+            } else if (is_part_of_true) {
+                is_part_of.push(other);
             } else {
-                part_of_others.push(other);
+                is_part_of_others.push(other);
             }
         }
 
-        callback(null, containing, part_of, all_others);
+        callback(null, including, is_part_of, all_others);
     });
 };
 
-// calls callback w/ (err, containing, others) where containing is an array of
+// calls callback w/ (err, including, others) where including is an array of
 // Terms this Term contains, and others is all other Terms minus him/herself.
 // To search for all relationships, use
 // MATCH (n:Term), n-[r]-m, (m:Term) WHERE n.`name`="nodejs"   RETURN n, type(r)
@@ -267,7 +263,7 @@ Term.prototype.getContainingAndOthers = function (callback) {
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
 
-        var containing = [];
+        var including = [];
         var others = [];
 
         for (var i = 0; i < results.length; i++) {
@@ -277,13 +273,13 @@ Term.prototype.getContainingAndOthers = function (callback) {
             if (term.id === other.id) {
                 continue;
             } else if (contains) {
-                containing.push(other);
+                including.push(other);
             } else {
                 others.push(other);
             }
         }
 
-        callback(null, containing, others);
+        callback(null, including, others);
     });
 };
 
