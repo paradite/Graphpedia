@@ -46,6 +46,8 @@ v2: #000000, #A58C6A, #59323C, #260126, #F2EEB3, #BFAF80, #8C6954; (https://kule
     margin-bottom: 15px;
     -webkit-box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
             box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
+            box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
+            box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
 }
 
 .index-footer {
