@@ -7,6 +7,9 @@ var db = new neo4j.GraphDatabase(
     process.env['GRAPHENEDB_URL'] ||
     'http://localhost:7474'
 );
+//Define relationships
+var REL_IS_PART_OF = "is part of";
+var REL_INCLUDE = "includes"
 
 // private constructor:
 
@@ -102,16 +105,40 @@ Term.prototype.unfollow = function (other, callback) {
     });
 };
 
+//part_of related methods
+Term.prototype.part_of = function (other, callback) {
+    this._node.createRelationshipTo(other._node, REL_IS_PART_OF, {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.unpart_of = function (other, callback) {
+    var query = [
+        'MATCH (term:Term) -[rel:'+REL_IS_PART_OF+']-> (other:Term)',
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
 //contains related methods
 Term.prototype.contain = function (other, callback) {
-    this._node.createRelationshipTo(other._node, 'contains', {}, function (err, rel) {
+    this._node.createRelationshipTo(other._node, REL_INCLUDE, {}, function (err, rel) {
         callback(err);
     });
 };
 
 Term.prototype.uncontain = function (other, callback) {
     var query = [
-        'MATCH (term:Term) -[rel:contains]-> (other:Term)',
+        'MATCH (term:Term) -[rel:'+REL_INCLUDE+']-> (other:Term)',
         'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -161,9 +188,9 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
     // query all Terms and whether we follow each one or not:
     var query = [
         'MATCH (term:Term), (other:Term)',
-        'OPTIONAL MATCH (term) -[rel:contains]-> (other)',
+        'OPTIONAL MATCH (term) -[rel:'+REL_INCLUDE+']-> (other)',
         'WHERE ID(term) = {termId}',
-        'OPTIONAL MATCH (term) -[rel2:follows]-> (other)',
+        'OPTIONAL MATCH (term) -[rel2:'+REL_IS_PART_OF+']-> (other)',
         'WHERE ID(term) = {termId}',
         'RETURN other, COUNT(rel), COUNT(rel2)', // COUNT(rel) is a hack for 1 or 0
     ].join('\n')
@@ -178,14 +205,14 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 
         var containing = [];
         var containing_others = [];
-        var following = [];
-        var following_others = [];
+        var part_of = [];
+        var part_of_others = [];
         var all_others = [];
 
         for (var i = 0; i < results.length; i++) {
             var other = new Term(results[i]['other']);
             var contains = results[i]['COUNT(rel)'];
-            var follows = results[i]['COUNT(rel2)'];
+            var part_of = results[i]['COUNT(rel2)'];
 
             if (term.id === other.id) {
                 continue;
@@ -204,13 +231,13 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
             if (term.id === other.id) {
                 continue;
             } else if (follows) {
-                following.push(other);
+                part_of.push(other);
             } else {
-                following_others.push(other);
+                part_of_others.push(other);
             }
         }
 
-        callback(null, containing, containing_others, following, following_others, all_others);
+        callback(null, containing, part_of, all_others);
     });
 };
 

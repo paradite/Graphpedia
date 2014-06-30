@@ -35,22 +35,22 @@ exports.create = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) return next(err);
-        term.getOutgoingAndOthers(function (err, containing, containing_others, following, following_others, all_others) {
+        term.getOutgoingAndOthers(function (err, containing, part_of, all_others) {
             if (err) return next(err);
             var containing_list = term.parse(containing);
-            var following_list = term.parse(following);
+            var part_of_list = term.parse(following);
             var containing_obj = new Object();
-            var following_obj = new Object();
-            containing_obj.name = "contains";
+            var part_of_obj = new Object();
+            containing_obj.name = Term.REL_INCLUDE;
             containing_obj.children = containing_list;
 
-            following_obj.name = "follows";
-            following_obj.children = following_list;
+            part_of_obj.name = Term.REL_IS_PART_OF;
+            part_of_obj.children = following_list;
 
             var term_obj = new Object();
             term_obj.name = term.name;
             term_obj.children = [];
-            term_obj.children.push(following_obj);
+            term_obj.children.push(part_of_obj);
             term_obj.children.push(containing_obj);
 
             //Use neo4j REST API to get all relationship
@@ -75,16 +75,13 @@ exports.create = function (req, res, next) {
                     res.render('term', {
                         json: JSON.stringify(term_obj),
                         term: term,
-                        following: following,
-                        following_others: following_others,
+                        part_of: part_of,
                         containing: containing,
-                        containing_others: containing_others,
                         all_others: all_others,
                         relationship_types: relationship_types
                     });
                 }
             }
-
             request(options, callback);
 
 
