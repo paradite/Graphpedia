@@ -1,8 +1,11 @@
 TODO:
 Allow user to propose a relationship from an existing term to a new term(by typing the name of the new term).
+
 Clicking on the label in d3.js will direct the user to the respective term page.
 
+Handling of wrong urls.
 
+Improved User Interface
 
 
 # Node-Neo4j Template
