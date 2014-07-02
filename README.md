@@ -7,6 +7,7 @@ Handling of wrong urls.
 
 Improved User Interface
 
+UI: Add home button
 
 # Node-Neo4j Template
 
