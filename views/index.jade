@@ -1,28 +1,12 @@
 extends layout_index
 
 block content
-    
-    //- div.before-main
-    //-     img.bgi(src="http://www.starrynightphotos.com/constellations/images/musca.jpg")
-    div.before-main
-        form(action='/search', method='POST')
-            div.row.search-bar.vertical-center
-                div.col-xs-2
-                div.col-xs-6
-                    input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
-                div.col-xs-1
-                    input.btn.btn-lg.btn-default(type='submit', value='Search')
-        div.row(style='padding-top:5px')
+    p(style='padding-top:75px; padding-left: 25px')
+        a.text-highlight(href='/terms') View all terms
+    form(action='/search', method='POST')
+        div.row.search-bar.vertical-center
             div.col-xs-2
             div.col-xs-6
-                p(style='padding-top:5px') Graphedia - Graph visualization of related terms.
+                input.form-control.input-lg(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
             div.col-xs-1
-                a.btn.btn-default(href='http://www.youtube.com/watch?v=4FYMDcFoUog') Video demo
-        p(style='padding-top:15px; padding-left: 25px')
-            a.text-highlight(href='/terms') View all terms
-
-//- div.after-main
-    //-     h1= title
-    //-     p.
-    //-         Visualize Terms
-    //-         with relationships
+                input.btn.btn-lg.btn-default(type='submit', value='Search')
