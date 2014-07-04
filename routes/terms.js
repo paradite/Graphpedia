@@ -24,6 +24,8 @@ exports.create = function (req, res, next) {
         description: req.body['description']
     }, function (err, term) {
         if (err) return next(err);
+        console.log("in create");
+        req.session.create = true;
         res.redirect('/terms/' + term.id);
     });
 };
@@ -32,9 +34,14 @@ exports.create = function (req, res, next) {
  * GET /terms/:id
  */
  exports.show = function (req, res, next) {
+    console.log("in show");
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
-        if (err) return next(err);
+        if (err) {
+            console.log("error in show");
+            return res.render('wrong');
+        }
+        console.log("after show");
         term.getOutgoingAndOthers(function (err, including, is_part_of, all_others) {
             if (err) return next(err);
             var including_list = term.parse(including);
@@ -96,6 +103,11 @@ exports.create = function (req, res, next) {
                     console.log("There are "+relationship_types.length+" relationships types: " + types);
                     //console.log(all_others);
                     //console.log('%s', JSON.stringify(term_obj));
+                    //Force user to update when newly created
+                    if(req.session.create) {
+                        res.statusCode = 201;
+                        req.session.create = false;
+                    }
                     res.render('term', {
                         json: JSON.stringify(term_obj),
                         term: term,
@@ -132,6 +144,7 @@ exports.edit = function (req, res, next) {
  */
 exports.del = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
+        console.log("before id= "+ term.id);
         if (err) return next(err);
         term.del(function (err) {
             if (err) return next(err);

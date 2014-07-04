@@ -79,13 +79,21 @@ Term.prototype.del = function (callback) {
         'DELETE term, r',
     ].join('\n')
 
+    var query2 = [
+        'MATCH (term:Term)',
+        'WHERE ID(term) = {termId}',
+        'DELETE term',
+    ].join('\n')
+
     var params = {
         termId: this.id
     };
-
+    console.log("inside id= "+this.id);
     db.query(query, params, function (err) {
-        console.log('%s', "Term deleted");
-        callback(err);
+        db.query(query2, params, function (err) {
+            console.log('%s', "Term deleted");
+            callback(err);
+        });
     });
 };
 
@@ -176,6 +184,7 @@ Term.prototype.custom = function (other, relationship_name, callback) {
 Term.prototype.uncustom = function (other, relationship_name, callback) {
     //Create MATCH query
     var formated_relationship_name = relationship_name.replace(/ /g,"_");
+    console.log("in uncustom: "+ formated_relationship_name);
     var match_rel = 'MATCH (term:Term) -[rel:'+formated_relationship_name+']-> (other:Term)'
     var query = [
         match_rel,

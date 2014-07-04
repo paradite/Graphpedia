@@ -8,6 +8,7 @@
   , "jade": "~0.26.3"
   , "neo4j": "~1.1"
   , "request": "~2.36.0"
+  , "express-session": "1.6.1"
   }
 , "devDependencies":
   { "chai": "~1.8"

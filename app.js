@@ -9,6 +9,7 @@ var express = require('express')
   , path = require('path')
   , request = require('request');
 var app = express();
+var session = require('express-session');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -19,6 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+//use session to store if created
+app.use(express.cookieParser());
+app.use(express.session({secret: '1234567890QWERTY'}));
 app.use(app.router);
 
 // development only
