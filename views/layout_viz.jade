@@ -9,6 +9,10 @@ html
     script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/d3/d3.min.js')
     script(src='/d3/tree.js')
+    link(href='select2.css', rel='stylesheet')
+    script(src='select2.js')
+    script
+      $(document).ready(function() { $("#e1").select2(); });
   body
     include header_bar
     block content

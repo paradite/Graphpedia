@@ -1,8 +1,6 @@
 extends header_bar_base
-block left
-    p.title-text(align='center') 
-        a.text-normal(href='/') <strong>Graphedia</strong>
+
 block center
-    input.form-control.input-lg(type='text', name='name', placeholder='Search a term', required)
+    input.form-control(type='text', name='name', placeholder='Search a term', required)
 block right
-    input.btn.btn-lg.btn-default(type='submit', value='Search')
+    input.btn.btn-default(type='submit', value='Search')

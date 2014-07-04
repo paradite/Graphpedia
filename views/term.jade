@@ -19,21 +19,6 @@ block content
                                 input.btn.btn-close(type='submit', value='x')
             else
                 p <span class='text-highlight'>#{term.name}</span> isn't part of any terms.
-
-            //- if following_others.length
-            //-     form(action='/terms/#{term.id}/follow', method='POST')
-            //-         p Add a term for <span class='text-highlight'>#{term.name}</span> to follow:
-            //-         div.row
-            //-             div.col-xs-4
-            //-                 label
-            //-                     select.form-control(name='term[id]', required)
-            //-                         option(value='')
-            //-                         for term in following_others
-            //-                             option(value='#{term.id}') #{term.name}
-            //-             div.col-xs-1
-            //-                 input.btn(type='submit', value='Follow')
-            //- else
-            //-     p There's no other term left for <span class='text-highlight'>#{term.name}</span> to follow!
             
             //including related block
             if including.length
@@ -50,20 +35,6 @@ block content
             else
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
 
-                //- if containing_others.length
-                //-     form(action='/terms/#{term.id}/contain', method='POST')
-                //-         p Add a term for <span class='text-highlight'>#{term.name}</span> to contain:
-                //-         div.row
-                //-             div.col-xs-4
-                //-                 label
-                //-                     select.form-control(name='term[id]', required)
-                //-                         option(value='')
-                //-                         for term in containing_others
-                //-                             option(value='#{term.id}') #{term.name}
-                //-             div.col-xs-1
-                //-                 input.btn(type='submit', value='Contain')
-                //- else
-                //-     p There's no other term left for <span class='text-highlight'>#{term.name}</span> to contain!
         div.subdiv
                 form(action='/terms/#{term.id}/custom', method='POST')                    
                     div.row
@@ -73,14 +44,12 @@ block content
                             p(align='right') #{term.name}
                         div.col-xs-2
                             label
-                                select.form-control(name='relationship[name]', required)
-                                    //- option(value='', disabled='true') relationship
+                                select#e1.form-control.select2(name='relationship[name]', required, placeholder: "Select a relationship", allowClear: true,)
                                     for type in relationship_types
                                         option(value='#{type}') #{type}
                         div.col-xs-2
                             label
-                                select.form-control(name='term[id]', required)
-                                    //- option(value='', disabled='true') term
+                                select#e1.form-control(name='term[id]', required)
                                     for term in all_others
                                         option(value='#{term.id}') #{term.name}
                         div.col-xs-1
