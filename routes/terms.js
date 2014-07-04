@@ -112,8 +112,6 @@ exports.create = function (req, res, next) {
     });
 }
 
-
-
 /**
  * POST /terms/:id
  */
@@ -171,6 +169,25 @@ exports.uncustom = function (req, res, next) {
                 res.redirect('/terms/' + term.id);
             });
         });
+    });
+};
+
+/**
+ * POST /terms/:id/newcustom
+ */
+exports.newcustom = function (req, res, next) {
+    Term.get(req.params.id, function (err, term) {
+        if (err) return next(err);
+        Term.create({
+            name: req.body['name'],
+            description: req.body['description']
+        }, function (err, new_term) {
+            if (err) return next(err);
+            term.custom(new_term, req.body.relationship.name.replace(/ /g,"_"), function (err) {
+                if (err) return next(err);
+                res.redirect('/terms/' + term.id);
+            });
+        });    
     });
 };
 

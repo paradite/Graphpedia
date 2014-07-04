@@ -1,13 +1,11 @@
 TODO:
-Allow user to propose a relationship from an existing term to a new term(by typing the name of the new term).
-
 Clicking on the label in d3.js will direct the user to the respective term page.
 
-Handling of wrong urls.
+Handling of wrong urls : Ask mentor
 
 Improve the searching experience for the user.
-	-Matching using lower case
-	-Fuzzy search
+	-Matching using lower case : Ask mentor
+	-Fuzzy search : Ask mentor
 
 
 UI: 
@@ -15,9 +13,13 @@ Add home button
 
 Integrate Select2
 
+Allow user to propose a relationship from an existing term to a new non-exisiting term(by typing the name of the new term)
+
 Link to wiki page
 
+Refresh
 
+Main page offer suggestions on relationships 
 
 # Node-Neo4j Template
 
