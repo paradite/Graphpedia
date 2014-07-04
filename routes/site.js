@@ -7,6 +7,13 @@ exports.index = function(req, res){
 	res.render('index');
 };
 
+/*
+ * POST home page.
+ */
+
+exports.indexpost = function(req, res, next){
+    res.render('index');
+};
 
 /*
 POST Direct the search to the item-specific-url

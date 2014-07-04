@@ -1,7 +1,11 @@
 $( document ).ready(function() {
     //Variables defined for our visualization project
+    //Vairable to control length of paths
     var path_factor = 8;
+    //Variable to control height of each line
     var height_separation = 40;
+    //Varibale to control scale factorss
+    var scale_factor_centerNode = 1.5;
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -97,6 +101,7 @@ $( document ).ready(function() {
     // Define the zoom function for the zoomable tree
 
     function zoom() {
+        console.log("in zoom");
         svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
 
@@ -304,7 +309,8 @@ $( document ).ready(function() {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
-        scale = zoomListener.scale()*2;
+        console.log("in centerNode");
+        scale = zoomListener.scale() * scale_factor_centerNode;
         x = -source.y0;
         y = -source.x0;
 /*        x = x * scale + viewerWidth / 2;
@@ -337,7 +343,7 @@ $( document ).ready(function() {
         if (d3.event.defaultPrevented) return; // click suppressed
         d = toggleChildren(d);
         update(d);
-        centerNode(d);
+        //centerNode(d);
     }
 
     function update(source) {
