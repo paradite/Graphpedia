@@ -159,9 +159,10 @@ a:active {
 
 
 /*overwritten boostrap class*/
-.navbar-form {
+.navbar-form .form-control {
     width: 100%;
 }
+
 .form-control,
 select.form-control,
 textarea.form-control,
