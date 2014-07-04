@@ -112,20 +112,6 @@ exports.create = function (req, res, next) {
     });
 }
 
-/*        // TODO also fetch and show followers? (not just follow*ing*)
-        //Get the followers and non-followers
-        term.getFollowingAndOthers(function (err, following, following_others) {
-            if (err) return next(err);
-            this_following = following;
-            this_following_others = following_others;
-            res.render('term', {
-                term: term,
-                following: following,
-                following_others: following_others,
-                including: this_including,
-                including_others: this_including_others
-            });
-        });*/
 
 
 /**
@@ -155,71 +141,6 @@ exports.del = function (req, res, next) {
         });
     });
 };
-
-/**
- * POST /terms/:id/is_part_of
- */
-exports.is_part_of = function (req, res, next) {
-    Term.get(req.params.id, function (err, term) {
-        if (err) return next(err);
-        Term.get(req.body.term.id, function (err, other) {
-            if (err) return next(err);
-            term.is_part_of(other, function (err) {
-                if (err) return next(err);
-                res.redirect('/terms/' + term.id);
-            });
-        });
-    });
-};
-
-/**
- * POST /terms/:id/unis_part_of
- */
-exports.unis_part_of = function (req, res, next) {
-    Term.get(req.params.id, function (err, term) {
-        if (err) return next(err);
-        Term.get(req.body.term.id, function (err, other) {
-            if (err) return next(err);
-            term.unis_part_of(other, function (err) {
-                if (err) return next(err);
-                res.redirect('/terms/' + term.id);
-            });
-        });
-    });
-};
-
-/**
- * POST /terms/:id/contain
- */
-exports.contain = function (req, res, next) {
-    Term.get(req.params.id, function (err, term) {
-        if (err) return next(err);
-        Term.get(req.body.term.id, function (err, other) {
-            if (err) return next(err);
-            term.contain(other, function (err) {
-                if (err) return next(err);
-                res.redirect('/terms/' + term.id);
-            });
-        });
-    });
-};
-
-/**
- * POST /terms/:id/uncontain
- */
-exports.uncontain = function (req, res, next) {
-    Term.get(req.params.id, function (err, term) {
-        if (err) return next(err);
-        Term.get(req.body.term.id, function (err, other) {
-            if (err) return next(err);
-            term.uncontain(other, function (err) {
-                if (err) return next(err);
-                res.redirect('/terms/' + term.id);
-            });
-        });
-    });
-};
-
 
 /**
  * POST /terms/:id/custom
@@ -252,3 +173,83 @@ exports.uncustom = function (req, res, next) {
         });
     });
 };
+
+// /**
+//  * POST /terms/:id/is_part_of
+//  */
+// exports.is_part_of = function (req, res, next) {
+//     Term.get(req.params.id, function (err, term) {
+//         if (err) return next(err);
+//         Term.get(req.body.term.id, function (err, other) {
+//             if (err) return next(err);
+//             term.is_part_of(other, function (err) {
+//                 if (err) return next(err);
+//                 res.redirect('/terms/' + term.id);
+//             });
+//         });
+//     });
+// };
+
+// /**
+//  * POST /terms/:id/unis_part_of
+//  */
+// exports.unis_part_of = function (req, res, next) {
+//     Term.get(req.params.id, function (err, term) {
+//         if (err) return next(err);
+//         Term.get(req.body.term.id, function (err, other) {
+//             if (err) return next(err);
+//             term.unis_part_of(other, function (err) {
+//                 if (err) return next(err);
+//                 res.redirect('/terms/' + term.id);
+//             });
+//         });
+//     });
+// };
+
+// /**
+//  * POST /terms/:id/contain
+//  */
+// exports.contain = function (req, res, next) {
+//     Term.get(req.params.id, function (err, term) {
+//         if (err) return next(err);
+//         Term.get(req.body.term.id, function (err, other) {
+//             if (err) return next(err);
+//             term.contain(other, function (err) {
+//                 if (err) return next(err);
+//                 res.redirect('/terms/' + term.id);
+//             });
+//         });
+//     });
+// };
+
+// /**
+//  * POST /terms/:id/uncontain
+//  */
+// exports.uncontain = function (req, res, next) {
+//     Term.get(req.params.id, function (err, term) {
+//         if (err) return next(err);
+//         Term.get(req.body.term.id, function (err, other) {
+//             if (err) return next(err);
+//             term.uncontain(other, function (err) {
+//                 if (err) return next(err);
+//                 res.redirect('/terms/' + term.id);
+//             });
+//         });
+//     });
+// };*/*/
+
+/*        // TODO also fetch and show followers? (not just follow*ing*)
+        //Get the followers and non-followers
+        term.getFollowingAndOthers(function (err, following, following_others) {
+            if (err) return next(err);
+            this_following = following;
+            this_following_others = following_others;
+            res.render('term', {
+                term: term,
+                following: following,
+                following_others: following_others,
+                including: this_including,
+                including_others: this_including_others
+            });
+        });*/
+

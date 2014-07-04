@@ -44,7 +44,6 @@ app.del('/terms/:id', routes.terms.del);
 app.post('/terms/:id/custom', routes.terms.custom);
 app.post('/terms/:id/uncustom', routes.terms.uncustom);
 
-
 //Index Search Route
 /*app.get('/search', routes.site.index);*/
 app.post('/search', routes.site.searchinit);
