@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    div.main
+        p Sorry, this url is invalid.
+        p Would you like to create a new term?
+
+        form(action='/terms', method='POST')
+            div.row
+                div.col-xs-2
+                    input.form-control(type='text', autofocus='autofocus', name='name', placeholder='Name', required)
+                div.col-xs-4
+                    input.form-control(type='text', name='description', placeholder='A short description of this term.',required)
+                div.col-xs-1
+                    input.btn(type='submit', value='Create')

@@ -55,3 +55,11 @@ exports.search = function(req, res){
 
     });
 }
+
+/*
+ * GET home page.
+ */
+
+exports.wrong = function(req, res){
+    res.render('wrong');
+};

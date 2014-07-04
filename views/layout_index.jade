@@ -7,6 +7,11 @@ html
     script(src='/bootstrap/js/jquery.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
     meta(name='google-site-verification', content='8eWLoPPdrL8tH9A-N3b4YOpQcPNUonCdeTpjfMWJ9s8')
+    link(href='select2.css', rel='stylesheet')
+    script(src='select2.js')
+    script
+      $(document).ready(function() { $("#e1").select2(); });
+
   body
     div
         include header_bar_index
