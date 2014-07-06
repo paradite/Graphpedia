@@ -35,7 +35,9 @@ exports.search = function(req, res){
         console.log('%s', "name is null");
 		res.render('index');
 	}
-    Term.getByName(name, function (err, terms) {
+    //Convert the name to lower case for searching
+    var name_lower_case = name.toLowerCase();
+    Term.getByName(name_lower_case, function (err, terms) {
         if (err){
             console.log('%s', "err occured");
             res.render('index');

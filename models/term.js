@@ -37,6 +37,16 @@ Object.defineProperty(Term.prototype, 'name', {
     }
 });
 
+//Added lower case name for easy searching of the term
+Object.defineProperty(Term.prototype, 'name_lower_case', {
+    get: function () {
+        return this._node.data['name_lower_case'];
+    },
+    set: function (name_lower_case) {
+        this._node.data['name_lower_case'] = name_lower_case;
+    }
+});
+
 //Added description field for term
 Object.defineProperty(Term.prototype, 'description', {
     get: function () {
@@ -74,104 +84,24 @@ Term.prototype.del = function (callback) {
     // (note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     var query = [
-        'MATCH (term:Term)-[r]-()',
-        'WHERE ID(term) = {termId}',
-        'DELETE term, r',
-    ].join('\n')
-
-    var query2 = [
         'MATCH (term:Term)',
         'WHERE ID(term) = {termId}',
-        'DELETE term',
+        'OPTIONAL MATCH term-[r]-()',
+        'DELETE r, term',
     ].join('\n')
 
     var params = {
         termId: this.id
     };
-    console.log("inside id= "+this.id);
     db.query(query, params, function (err) {
-        db.query(query2, params, function (err) {
-            console.log('%s', "Term deleted");
-            callback(err);
-        });
+        console.log('%s', "Term deleted");
+        callback(err);
     });
 };
 
 /*  New/Delete relationship
     Currently we have cutomized relationships, contain, 
 */
-
-//follow related methods
-Term.prototype.follow = function (other, callback) {
-    this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
-        callback(err);
-    });
-};
-
-Term.prototype.unfollow = function (other, callback) {
-    var query = [
-        'MATCH (term:Term) -[rel:follows]-> (other:Term)',
-        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
-        'DELETE rel',
-    ].join('\n')
-
-    var params = {
-        termId: this.id,
-        otherId: other.id,
-    };
-
-    db.query(query, params, function (err) {
-        callback(err);
-    });
-};
-
-//is_part_of related methods
-Term.prototype.is_part_of = function (other, callback) {
-    this._node.createRelationshipTo(other._node, this.REL_IS_PART_OF, {}, function (err, rel) {
-        callback(err);
-    });
-};
-
-Term.prototype.unis_part_of = function (other, callback) {
-    var query = [
-        'MATCH (term:Term) -[rel:'+this.REL_IS_PART_OF+']-> (other:Term)',
-        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
-        'DELETE rel',
-    ].join('\n')
-
-    var params = {
-        termId: this.id,
-        otherId: other.id,
-    };
-
-    db.query(query, params, function (err) {
-        callback(err);
-    });
-};
-
-//contains related methods
-Term.prototype.contain = function (other, callback) {
-    this._node.createRelationshipTo(other._node, this.REL_INCLUDE, {}, function (err, rel) {
-        callback(err);
-    });
-};
-
-Term.prototype.uncontain = function (other, callback) {
-    var query = [
-        'MATCH (term:Term) -[rel:'+this.REL_INCLUDE+']-> (other:Term)',
-        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
-        'DELETE rel',
-    ].join('\n')
-
-    var params = {
-        termId: this.id,
-        otherId: other.id,
-    };
-
-    db.query(query, params, function (err) {
-        callback(err);
-    });
-};
 
 //Customized relationship methods
 Term.prototype.custom = function (other, relationship_name, callback) {
@@ -309,6 +239,8 @@ Term.prototype.getContainingAndOthers = function (callback) {
 
 // calls callback w/ (err, following, others) where following is an array of
 // Terms this Term follows, and others is all other Terms minus him/herself.
+// TODO:
+// For all others, only send those not related to the term.
 Term.prototype.getFollowingAndOthers = function (callback) {
     // query all Terms and whether we follow each one or not:
     var query = [
@@ -366,10 +298,11 @@ Term.get = function (id, callback) {
 /*
 Get a term by name
 */
+//Provided support for searching with lower case
 Term.getByName = function (name, callback) {
     var query = [
         'MATCH (term:Term)',
-        'WHERE term.name = {termName}',
+        'WHERE term.name = {termName} OR term.name_lower_case = {termName}',
         'RETURN term',
     ].join('\n');
 
@@ -440,3 +373,80 @@ Term.prototype.parse = function (arr_obs){
     }
     return parsed;
 }
+
+
+/*Old methods*/
+
+/*
+//follow related methods
+Term.prototype.follow = function (other, callback) {
+    this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.unfollow = function (other, callback) {
+    var query = [
+        'MATCH (term:Term) -[rel:follows]-> (other:Term)',
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
+//is_part_of related methods
+Term.prototype.is_part_of = function (other, callback) {
+    this._node.createRelationshipTo(other._node, this.REL_IS_PART_OF, {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.unis_part_of = function (other, callback) {
+    var query = [
+        'MATCH (term:Term) -[rel:'+this.REL_IS_PART_OF+']-> (other:Term)',
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
+//contains related methods
+Term.prototype.contain = function (other, callback) {
+    this._node.createRelationshipTo(other._node, this.REL_INCLUDE, {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+Term.prototype.uncontain = function (other, callback) {
+    var query = [
+        'MATCH (term:Term) -[rel:'+this.REL_INCLUDE+']-> (other:Term)',
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'DELETE rel',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+*/

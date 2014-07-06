@@ -21,7 +21,9 @@ exports.list = function (req, res, next) {
 exports.create = function (req, res, next) {
     Term.create({
         name: req.body['name'],
-        description: req.body['description']
+        description: req.body['description'],
+        //Save a lower case name of the term for search matching
+        name_lower_case: req.body['name'].toLowerCase()
     }, function (err, term) {
         if (err) return next(err);
         console.log("in create");
@@ -132,6 +134,8 @@ exports.edit = function (req, res, next) {
         if (err) return next(err);
         term.name = req.body['name'];
         term.description = req.body['description'];
+        //Update the term's lower case name
+        term.name_lower_case = req.body['name'].toLowerCase();
         term.save(function (err) {
             if (err) return next(err);
             res.redirect('/terms/' + term.id);

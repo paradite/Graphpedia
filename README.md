@@ -7,6 +7,7 @@ Improve the searching experience for the user.
 	-Matching using lower case : Ask mentor
 	-Fuzzy search : Ask mentor
 
+Allow user to go to a random term on index page.
 
 UI: 
 Add home button
