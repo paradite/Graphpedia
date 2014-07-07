@@ -53,7 +53,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://localhost/passport_local_mongoose');
+mongoose.connect(mongodb_url);
 
 // Routes
 /*Index page*/
