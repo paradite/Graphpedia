@@ -11,6 +11,15 @@ var express = require('express')
 var app = express();
 var session = require('express-session');
 
+//MongoDB for user log in functions
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var mongodb_url = process.env.MONGOLAB_URI || 
+				process.env.MONGOHQ_URL || 
+				'mongodb://localhost/passport_local_mongoose';
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -24,6 +33,9 @@ app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));
 app.use(app.router);
+//Passport related
+app.use(passport.initialize());
+app.use(passport.session());
 
 // development only
 if ('development' == app.get('env')) {
@@ -33,6 +45,15 @@ if ('development' == app.get('env')) {
 app.locals({
     title: 'Visualize Terms'    // default title
 });
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose
+mongoose.connect('mongodb://localhost/passport_local_mongoose');
 
 // Routes
 /*Index page*/

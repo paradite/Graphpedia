@@ -291,6 +291,7 @@ Term.get = function (id, callback) {
     });
     db.getNodeById(id, function (err, node) {
         if (err) return callback(err);
+        console.log("no error " + node);
         callback(null, new Term(node));
     });
 };

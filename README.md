@@ -1,18 +1,24 @@
 TODO:
 Clicking on the label in d3.js will direct the user to the respective term page.
 
-Handling of wrong urls : Ask mentor
-
 Improve the searching experience for the user.
-	-Matching using lower case : Ask mentor
-	-Fuzzy search : Ask mentor
+	-Fuzzy search : mongoDB
 
 Allow user to go to a random term on index page.
 
+Log in
+
+Save searches
+
+Unit testing techniques
+
 UI: 
-Add home button
+Expand boxes
 
 Integrate Select2
+
+PureCSS
+-Side bar
 
 Allow user to propose a relationship from an existing term to a new non-exisiting term(by typing the name of the new term)
 

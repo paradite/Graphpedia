@@ -1,26 +1,32 @@
-{ "name": "Visualize_Terms"
-, "description": "Visualize the relationship between terms"
-, "version": "0.0.1"
-, "author": "Zhu Liang <zhuliangg11@gmail.com>"
-, "private": true
-, "dependencies":
-  { "express": "~3.2.0"
-  , "jade": "~0.26.3"
-  , "neo4j": "~1.1"
-  , "request": "~2.36.0"
-  , "express-session": "1.6.1"
-  }
-, "devDependencies":
-  { "chai": "~1.8"
-  , "mocha": "~1.18"
-  , "node-dev": "~2.0.1"
-  }
-, "engines":
-  { "node": "0.10.x"
-  , "npm": "1.2.x"
-  }
-, "scripts":
-  { "start": "node-dev app.js"
-  , "test": "mocha test/*/*.js"
+{
+  "name": "Visualize_Terms",
+  "description": "Visualize the relationship between terms",
+  "version": "0.0.1",
+  "author": "Zhu Liang <zhuliangg11@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "express": "~3.2.0",
+    "express-session": "1.6.1",
+    "jade": "~0.26.3",
+    "mongodb": "^1.4.7",
+    "mongoose": "^3.8.12",
+    "neo4j": "~1.1",
+    "passport": "^0.2.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^0.3.0",
+    "request": "~2.36.0"
+  },
+  "devDependencies": {
+    "chai": "~1.8",
+    "mocha": "~1.18",
+    "node-dev": "~2.0.1"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "scripts": {
+    "start": "node-dev app.js",
+    "test": "mocha test/*/*.js"
   }
 }
