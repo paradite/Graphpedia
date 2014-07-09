@@ -44,12 +44,14 @@ block content
                             p(align='right') #{term.name}
                         div.col-xs-2
                             label
-                                select#e1.form-control.select2(name='relationship[name]', required, placeholder: "Select a relationship", allowClear: true,)
+                                select(name='relationship[name]', required, id='e1')
+                                    option 
                                     for type in relationship_types
                                         option(value='#{type}') #{type}
                         div.col-xs-2
                             label
-                                select#e1.form-control(name='term[id]', required)
+                                select(name='term[id]', required, id='e2')
+                                    option 
                                     for term in all_others
                                         option(value='#{term.id}') #{term.name}
                         div.col-xs-1
