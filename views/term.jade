@@ -45,38 +45,38 @@ block content
                         div.col-xs-2
                             label
                                 select(name='relationship[name]', required, id='e1')
-                                    option 
+                                    option.form-style 
                                     for type in relationship_types
-                                        option(value='#{type}') #{type}
+                                        option.form-style(value='#{type}') #{type}
                         div.col-xs-2
                             label
                                 select(name='term[id]', required, id='e2')
-                                    option 
+                                    option.form-style 
                                     for term in all_others
-                                        option(value='#{term.id}') #{term.name}
+                                        option.form-style(value='#{term.id}') #{term.name}
                         div.col-xs-1
-                            input.btn(type='submit', value='Add')
+                            input.btn.btn-normal(type='submit', value='Add')
         div.subdiv
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
                     div.col-xs-4
                         p Edit this term:
                     div.col-xs-2    
-                        input.form-control(type='text', name='name', value='#{term.name}', required)
+                        input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
                     div.col-xs-4
                         if term.description
-                            input.form-control(type='text', name='description', value='#{term.description}', required)
+                            input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
                         else
-                            input.form-control(type='text', name='description', placeholder='Give a description for the term', required)
+                            input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
                     div.col-xs-1
-                        input.btn(type='submit', value='Update')
+                        input.btn.btn-normal(type='submit', value='Update')
             form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 div.row
                     div.col-xs-4
                         p Or you can delete the term
                     div.col-xs-1
                         input(type='hidden', name='_method', value='DELETE')
-                        input.btn(type='submit', value='Delete Term')
+                        input.btn.btn-normal(type='submit', value='Delete Term')
 
 
         input(id='json', type='hidden', value='#{json}')

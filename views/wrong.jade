@@ -1,4 +1,4 @@
-extends layout
+extends layout_viz2
 
 block content
     div.main
@@ -8,8 +8,8 @@ block content
         form(action='/terms', method='POST')
             div.row
                 div.col-xs-2
-                    input.form-control(type='text', autofocus='autofocus', name='name', placeholder='Name', required)
+                    input.form-control.form-style(type='text', autofocus='autofocus', name='name', placeholder='Name', required)
                 div.col-xs-4
-                    input.form-control(type='text', name='description', placeholder='A short description of this term.',required)
+                    input.form-control.form-style(type='text', name='description', placeholder='A short description of this term.',required)
                 div.col-xs-1
-                    input.btn(type='submit', value='Create')
+                    input.btn.btn-normal(type='submit', value='Create')

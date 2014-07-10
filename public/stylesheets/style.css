@@ -113,7 +113,7 @@ a:active {
     color: #ffffff;
 } 
 
-.btn {
+.btn-normal {
     border-color: #a3c399;
     font-size: 16px;
     color: #132600;
@@ -123,9 +123,9 @@ a:active {
     opacity: 0.64;
 }
 
-.btn:hover,
-.btn:active,
-.btn:focus {
+.btn-normal:hover,
+.btn-normal:active,
+.btn-normal:focus {
     color: #132600;
     background-color: #f6fcf1;
     border-color: #a3c399;
@@ -135,7 +135,7 @@ a:active {
     opacity: 1;
 }
 
-.btn-default {
+.btn-header {
     color: #132600;
     background-color: #FAF9E6;
     border-color: #d9d6a1;
@@ -144,9 +144,9 @@ a:active {
     opacity: 0.64;
 }
 
-.btn-default:hover,
-.btn-default:active,
-.btn-default:focus {
+.btn-header:hover,
+.btn-header:active,
+.btn-header:focus {
     color: #132600;
     background-color: #ffffff;
     border-color: #d9d6a1;
@@ -163,6 +163,7 @@ a:active {
     width: 100%;
 }
 
+/*
 .form-control,
 select.form-control,
 textarea.form-control,
@@ -214,6 +215,55 @@ textarea.input-lg,
 .input-lg::-moz-placeholder,
 .input-lg:-ms-input-placeholder,
 .input-lg::-webkit-input-placeholder {
+    width: 100%;
+    color: #ffffff;
+    opacity: 0.64;
+}
+*/
+
+.form-style {
+    width: 100%;
+    font-family: sans-serif;
+    color: #132600;
+    font-size: 16px;
+    background-color: #FAF9E6;
+    opacity: 0.64;
+    border: 1px solid #ffffff;
+}
+
+.form-style:hover,
+.form-style:focus,
+.form-style:active {
+    width: 100%;
+    color: #132600;
+    font-size: 16px;
+    background-color: #FAF9E6;
+    border: 1px solid #ffffff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
+}
+
+.form-style::-moz-placeholder,
+.form-style:-ms-input-placeholder,
+.form-style::-webkit-input-placeholder {
+    width: 100%;
+    color: #ffffff;
+    opacity: 0.64;
+}
+
+.input-lg-style:focus {
+    width: 100%;
+    color: #132600;
+    border-color: #ffffff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
+}
+
+.input-lg-style::-moz-placeholder,
+.input-lg-style:-ms-input-placeholder,
+.input-lg-style::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
     opacity: 0.64;
