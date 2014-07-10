@@ -10,6 +10,19 @@ body {
     border-radius: 10px; 
 }
 
+/*overwitten boostrap theme*/
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: #ffffff;
+} 
+
+.navbar-form .form-control {
+    width: 100%;
+}
+
 /*text theme*/
 .text-normal {
     color:#000000;
@@ -89,6 +102,8 @@ body {
     margin-bottom: 15px;
 }
 
+
+
 .btn-close {
     color: #605F61;
     border: 1px solid #427F00;
@@ -104,14 +119,7 @@ body {
     margin-left: 4px;
 }
 
-/*overwitten boostrap theme*/
 
-a:hover,
-a:focus,
-a:active {
-    text-decoration: none;
-    color: #ffffff;
-} 
 
 .btn-normal {
     border-color: #a3c399;
@@ -156,70 +164,6 @@ a:active {
     opacity: 1;
 }
 
-
-
-/*overwritten boostrap class*/
-.navbar-form .form-control {
-    width: 100%;
-}
-
-/*
-.form-control,
-select.form-control,
-textarea.form-control,
-select.input,
-textarea.input,
-select.input-lg,
-textarea.input-lg,
-.input {
-    width: 100%;
-    font-family: sans-serif;
-    color: #132600;
-    font-size: 16px;
-    background-color: #FAF9E6;
-    opacity: 0.64;
-    border: 1px solid #ffffff;
-
-}
-
-.form-control:hover,
-.form-control:focus,
-.form-control:active {
-    width: 100%;
-    color: #132600;
-    font-size: 16px;
-    background-color: #FAF9E6;
-    border: 1px solid #ffffff;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
-}
-
-.form-control::-moz-placeholder,
-.form-control:-ms-input-placeholder,
-.form-control::-webkit-input-placeholder {
-    width: 100%;
-    color: #ffffff;
-    opacity: 0.64;
-}
-
-.input-lg:focus {
-    width: 100%;
-    color: #132600;
-    border-color: #ffffff;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
-}
-
-.input-lg::-moz-placeholder,
-.input-lg:-ms-input-placeholder,
-.input-lg::-webkit-input-placeholder {
-    width: 100%;
-    color: #ffffff;
-    opacity: 0.64;
-}
-*/
 
 .form-style {
     width: 100%;
