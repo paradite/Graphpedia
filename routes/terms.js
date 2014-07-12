@@ -23,7 +23,7 @@ exports.list = function (req, res, next) {
  */
 exports.random_term = function (req, res, next) {
     Term.getAll(function (err, terms) {
-        if (err || term == null) {
+        if (err || terms == null) {
             console.log("error in random");
             return res.render('wrong');
         }
