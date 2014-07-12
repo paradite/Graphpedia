@@ -2,7 +2,7 @@ extends layout_viz
 
 block content
     div.sidebar
-        div.pure-menu.pure-menu-open
+        div.pure-menu.pure-menu-open#menu
             a.pure-menu-heading Hot searches
             if terms.length
                 ul
@@ -12,8 +12,7 @@ block content
             else
                 p There are no terms currently.
 
-
-    div.main         
+    div.main
         h1 <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
         div(id="tree-container")
         div.subdiv
