@@ -3,4 +3,9 @@ extends header_bar_base
 block center
     p(style='padding-top:5px') - Graph visualization of related terms.
 block right
-    a.btn.btn-header(href='http://www.youtube.com/watch?v=4FYMDcFoUog') Video demo
+    //- a.btn.btn-header(href='http://www.youtube.com/watch?v=4FYMDcFoUog') Video demo
+    if (user)
+        form.inline
+            div.row
+                p Welcome, #{user.username}
+                a(href="/logout") Logout

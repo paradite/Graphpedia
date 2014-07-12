@@ -1,0 +1,20 @@
+extends layout2
+
+block content
+    div.main
+        h1 Register Page
+        p.lead You can only register to become an admin if you have the invatation code.
+        br
+        form(role='form', action="/register",method="post", style='max-width: 300px;')
+            .form-group
+                input.form-control(type='text', name="username", placeholder='Enter Username')
+            .form-group
+                input.form-control(type='password', name="password", placeholder='Password')
+            .form-group
+                input.form-control(type='text', name="code", placeholder='Invatation code')
+            button.btn.btn-default(type='submit') Submit
+            &nbsp;
+            a(href='/')
+                button.btn.btn-primary(type="button") Cancel
+        br
+        h4= info

@@ -110,13 +110,19 @@ exports.create = function (req, res, next) {
                         res.statusCode = 201;
                         req.session.create = false;
                     }
-                    res.render('term', {
-                        json: JSON.stringify(term_obj),
-                        term: term,
-                        is_part_of: is_part_of,
-                        including: including,
-                        all_others: all_others,
-                        relationship_types: relationship_types
+
+                    //Get all terms for sidebar
+                    Term.getAll(function (err, terms) {
+                        if (err) return next(err);
+                        res.render('term', {
+                            json: JSON.stringify(term_obj),
+                            term: term,
+                            is_part_of: is_part_of,
+                            including: including,
+                            all_others: all_others,
+                            relationship_types: relationship_types,
+                            terms: terms
+                        });
                     });
                 }
             }
