@@ -361,9 +361,11 @@ Term.create = function (data, callback) {
     });
 };
 
-/*Method to parse the data from neo4j databse to json objects for rendering
+/*
+Method to parse the data from neo4j databse to json objects for rendering
 Author: Zhu Liang
-Date: 29 July*/
+Date: 29 June
+*/
 Term.prototype.parse = function (arr_obs){
     var parsed = [];
     for (var item in arr_obs) {
@@ -375,6 +377,9 @@ Term.prototype.parse = function (arr_obs){
     return parsed;
 }
 
+
+/*MATCH n RETURN n LIMIT 5;*/
+/*
 
 /*Old methods*/
 

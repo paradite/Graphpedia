@@ -14,7 +14,7 @@ var session = require('express-session');
 //MongoDB for user log in functions
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+/*var LocalStrategy = require('passport-local').Strategy;*/
 
 var mongodb_url = process.env.MONGOLAB_URI || 
 				process.env.MONGOHQ_URL || 
@@ -48,7 +48,7 @@ app.locals({
 
 // passport config
 var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
+passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
@@ -60,10 +60,11 @@ app.get('/register', function(req, res) {
 	res.render('register', {info: ""});
 });
 
+//Added invitation code system during register to prevent unwanted users
 app.post('/register', function(req, res) {
-	Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+	Account.register(new Account({ username : req.body.username }), req.body.password, req.body.code, function(err, account) {
 		if (err) {
-			return res.render("register", {info: "Sorry. The username already exists."});
+			return res.render("register", {info: err.message || "Sorry. An error occured."});
 		}
 
 		passport.authenticate('local')(req, res, function () {
@@ -93,6 +94,9 @@ app.get('/ping', function(req, res){
 /*Index page*/
 app.get('/', routes.site.index);
 app.post('/', routes.site.indexpost);
+
+/*Random term page*/
+app.get('/random_term', routes.terms.random_term);
 
 /*All terms page*/
 app.get('/terms', routes.terms.list);

@@ -6,16 +6,14 @@ Improve the searching experience for the user.
 
 Allow user to go to a random term on index page.
 
-Log in
-
 Save searches
 
-Unit testing techniques
+Unit testing techniques - Ask mentor
+
+Abstraction of types - Ask mentor
 
 UI: 
 Expand boxes
-
-Integrate Select2
 
 PureCSS
 -Side bar

@@ -16,6 +16,23 @@ exports.list = function (req, res, next) {
 };
 
 /**
+ *GET /random_term
+ *Method to get a random term
+ *Author: Zhu Liang
+ *Date: 12 July
+ */
+exports.random_term = function (req, res, next) {
+    Term.getAll(function (err, terms) {
+        if (err || term == null) {
+            console.log("error in random");
+            return res.render('wrong');
+        }
+        var random_term = terms[Math.floor(Math.random()*terms.length)];
+        res.redirect('/terms/' + random_term.id);
+    });
+};
+
+/**
  * POST /terms
  */
 exports.create = function (req, res, next) {
