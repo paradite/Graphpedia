@@ -1,7 +1,19 @@
 extends layout_viz
 
 block content
-    div.main
+    div.sidebar
+        div.pure-menu.pure-menu-open
+            a.pure-menu-heading Hot searches
+            if terms.length
+                ul
+                    for term in terms
+                        li
+                            a(href='/terms/#{term.id}') <span class='text-highlight'>#{term.name}</span>
+            else
+                p There are no terms currently.
+
+
+    div.main         
         h1 <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
         div(id="tree-container")
         div.subdiv

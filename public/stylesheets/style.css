@@ -1,6 +1,6 @@
 body {
     font: 20px sans-serif;
-    background-color: #B6D9AA;
+    background-color: #ffffff;
     color: #132600;
     overflow-y: scroll;
 }
@@ -44,22 +44,50 @@ a:active {
 
 .main {
     margin-top: 50px;
+    margin-left: 150px;
     padding-top: 10px;
     padding-left: 5%;
     padding-right: 5%;
-    background-color: #B6D9AA;
+    background-color: #ffffff;
     min-height: 650px;
 }
 
+.sidebar,
+#menu,
+.menu-link {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.sidebar {
+    position: relative;
+
+}
+    .sidebar.active {
+        position: relative;
+        left: 150px;
+    }
+        .sidebar.active #menu {
+            left: 150px;
+            width: 150px;
+        }
+
+        .sidebar.active .menu-link {
+            left: 150px;
+        }
+
 .subdiv {
     min-height: 1px;
-    background-color: #74d945;
+    background-color: #B6D9AA;
     border-radius: 10px;
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
-            box-shadow: inset 0 3px 5px rgba(174, 229, 116, 1);
+    -webkit-box-shadow: inset 0 3px 5px rgba(213, 233, 207, 1);
+            box-shadow: inset 0 3px 5px rgba(213, 233, 207, 1);
             /*box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
             box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);*/
 }
@@ -212,3 +240,73 @@ a:active {
     color: #ffffff;
     opacity: 0.64;
 }
+
+
+/*pureCSS*/
+
+#menu {
+    width: 150px;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* so the menu or its navicon stays above all content */
+    background: #B6D9AA;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+    /*
+    All anchors inside the menu should be styled like this.
+    */
+    #menu a {
+        color: #999;
+        border: none;
+        padding: 0.6em 0 0.6em 0.6em;
+    }
+
+    /*
+    Remove all background/borders, since we are applying them to #menu .
+    */
+     #menu .pure-menu,
+     #menu .pure-menu ul {
+        border: none;
+        background: transparent;
+    }
+
+    /*
+    Add that light border to separate items into groups.
+    */
+    #menu .pure-menu ul,
+    #menu .pure-menu .menu-item-divided {
+        border-top: 1px solid #333;
+    }
+        /*
+        Change color of the anchor links on hover/focus.
+        */
+        #menu .pure-menu li a:hover,
+        #menu .pure-menu li a:focus {
+            background: #333;
+        }
+
+    /*
+    This styles the selected menu item `<li>`.
+    */
+    #menu .pure-menu-selected,
+    #menu .pure-menu-heading {
+        background: #74D945;
+    }
+        /*
+        This styles a link within a selected menu item `<li>`.
+        */
+        #menu .pure-menu-selected a {
+            color: #fff;
+        }
+
+    /*
+    This styles the menu heading.
+    */
+    pure-menu-heading {
+        font-size: 110%;
+        color: #fff;
+        margin: 0;
+    }
