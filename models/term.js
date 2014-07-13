@@ -57,10 +57,37 @@ Object.defineProperty(Term.prototype, 'description', {
     }
 });
 
+//Added created_at field for term
+Object.defineProperty(Term.prototype, 'created_at', {
+    get: function () {
+        return this._node.data['created_at'];
+    },
+    set: function (created_at) {
+        this._node.data['created_at'] = created_at;
+    }
+});
+
+//Added last_viewed_at field for term
+Object.defineProperty(Term.prototype, 'last_viewed_at', {
+    get: function () {
+        return this._node.data['last_viewed_at'];
+    },
+    set: function (last_viewed_at) {
+        this._node.data['last_viewed_at'] = last_viewed_at;
+    }
+});
+
+//Added last_modified_at field for term
+Object.defineProperty(Term.prototype, 'last_modified_at', {
+    get: function () {
+        return this._node.data['last_modified_at'];
+    },
+    set: function (last_modified_at) {
+        this._node.data['last_modified_at'] = last_modified_at;
+    }
+});
+
 //Define relationships
-
-
-
 Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
     get: function () { return "is_part_of"; }
 });
@@ -281,17 +308,14 @@ Term.prototype.getFollowingAndOthers = function (callback) {
 // static methods:
 
 Term.get = function (id, callback) {
-    console.log("get");
     db.getRelationshipIndexes(function (err, indexes) { 
         if (err) throw err; 
-        console.log("no error " + indexes.length);
         indexes.forEach(function (name) { 
             console.log('Index'+ name+ 'has config:'+ indexes[name]); 
         }); 
     });
     db.getNodeById(id, function (err, node) {
         if (err) return callback(err);
-        console.log("no error " + node);
         callback(null, new Term(node));
     });
 };

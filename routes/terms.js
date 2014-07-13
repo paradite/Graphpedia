@@ -2,6 +2,7 @@
 // Routes to CRUD terms.
 var request = require('request');
 var Term = require('../models/term');
+var moment = require('moment');
 
 /**
  * GET /terms
@@ -35,12 +36,18 @@ exports.random_term = function (req, res, next) {
 /**
  * POST /terms
  */
+//Save the name, lower case name, description, creation time, last viewed, last modified
 exports.create = function (req, res, next) {
+    var current_time = moment().format();
+    console.log("time for creation of " + req.body['name'] + ": " + current_time);
     Term.create({
         name: req.body['name'],
         description: req.body['description'],
         //Save a lower case name of the term for search matching
-        name_lower_case: req.body['name'].toLowerCase()
+        name_lower_case: req.body['name'].toLowerCase(),
+        created_at: current_time,
+        last_viewed_at: current_time,
+        last_modified_at: current_time
     }, function (err, term) {
         if (err) return next(err);
         console.log("in create");
@@ -52,6 +59,8 @@ exports.create = function (req, res, next) {
 /**
  * GET /terms/:id
  */
+//Add the new fields for old terms when they are requested
+
  exports.show = function (req, res, next) {
     console.log("in show");
     Term.get(req.params.id, function (err, term) {
@@ -60,7 +69,19 @@ exports.create = function (req, res, next) {
             console.log("error in show");
             return res.render('wrong');
         }
-        console.log("after show");
+        if(!term.created_at){
+            term.created_at = moment().format();
+        }
+        if(!term.last_modified_at){
+            term.last_modified_at = moment().format();
+        }
+        //Update the last_viewed_at anyway
+        term.last_viewed_at = moment().format();
+        term.save(function (err) {
+            if (err) return next(err);
+            console.log("save called.")
+            // res.redirect('/terms/' + term.id);
+        });
         term.getOutgoingAndOthers(function (err, including, is_part_of, all_others) {
             if (err) return next(err);
             var including_list = term.parse(including);
@@ -129,11 +150,19 @@ exports.create = function (req, res, next) {
                     }
 
                     //Get all terms for sidebar
+                    //Format the moment time for display purposes
+                    var created_at = moment(term.created_at).format("YYYY-MM-DD HH:mm:ss");
+                    var last_modified_at = moment(term.last_modified_at).format("YYYY-MM-DD HH:mm:ss");
+                    var last_viewed_at = moment(term.last_viewed_at).format("YYYY-MM-DD HH:mm:ss");
                     Term.getAll(function (err, terms) {
                         if (err) return next(err);
+                        console.log("Term created: "+term.created_at+" last viewed: " + term.last_viewed_at);
                         res.render('term', {
                             json: JSON.stringify(term_obj),
                             term: term,
+                            created_at: created_at,
+                            last_modified_at: last_modified_at,
+                            last_viewed_at: last_viewed_at,
                             is_part_of: is_part_of,
                             including: including,
                             all_others: all_others,
@@ -159,6 +188,7 @@ exports.edit = function (req, res, next) {
         term.description = req.body['description'];
         //Update the term's lower case name
         term.name_lower_case = req.body['name'].toLowerCase();
+        term.last_modified_at = moment().format();
         term.save(function (err) {
             if (err) return next(err);
             res.redirect('/terms/' + term.id);
@@ -190,7 +220,11 @@ exports.custom = function (req, res, next) {
             if (err) return next(err);
             term.custom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
                 if (err) return next(err);
-                res.redirect('/terms/' + term.id);
+                term.last_modified_at = moment().format();
+                term.save(function (err) {
+                    if (err) return next(err);
+                    res.redirect('/terms/' + term.id);
+                });
             });
         });
     });
@@ -206,7 +240,11 @@ exports.uncustom = function (req, res, next) {
             if (err) return next(err);
             term.uncustom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
                 if (err) return next(err);
-                res.redirect('/terms/' + term.id);
+                term.last_modified_at = moment().format();
+                term.save(function (err) {
+                    if (err) return next(err);
+                    res.redirect('/terms/' + term.id);
+                });
             });
         });
     });
