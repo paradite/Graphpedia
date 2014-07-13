@@ -1,6 +1,6 @@
 body {
     font: 20px sans-serif;
-    background-color: #ffffff;
+    background-color: #eeeeee;
     color: #132600;
     overflow-y: scroll;
 }
@@ -49,7 +49,7 @@ a:active {
     padding-top: 10px;
     padding-left: 5%;
     padding-right: 5%;
-    background-color: #ffffff;
+    background-color: #eeeeee;
     min-height: 650px;
 }
 
