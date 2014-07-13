@@ -6,17 +6,19 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/bootstrap/js/jquery.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
+    meta(name='google-site-verification', content='8eWLoPPdrL8tH9A-N3b4YOpQcPNUonCdeTpjfMWJ9s8')
     link(rel='stylesheet', href='/select2/select2.css')
     script(src='/select2/select2.js')
     script(src='/select2/form.js')
     link(rel='stylesheet', href='/purecss/menus-min.css')
 
-
   body
     div
         include header_bar
         block content
-        include footer
+        div.row.fixed-footer
+            p(align='center') Copyright &copy; 2014 Graphedia | By Zhu Liang & Li Dongyan
+
 
 
 // GitHub ribbon! via https://github.com/blog/273-github-ribbons

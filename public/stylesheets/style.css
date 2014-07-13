@@ -47,10 +47,9 @@ a:active {
     float:right;
     margin-top: 50px;
     padding-top: 10px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
     background-color: #eeeeee;
-    min-height: 650px;
 }
 
 .sidebar,
@@ -80,7 +79,7 @@ a:active {
     bottom: 0px;
     width: 100%;
     height: 25px;
-
+    clear: both;
 }
 
 .fixed-footer {
