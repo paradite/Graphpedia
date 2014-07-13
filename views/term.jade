@@ -56,9 +56,9 @@ block content
                         div.col-xs-2
                             label
                                 select(name='relationship[name]', required, id='e1')
-                                    option.form-style 
+                                    option.form-style(id='select-control')
                                     for type in relationship_types
-                                        option.form-style(value='#{type}') #{type}
+                                        option.form-style(id='select-control', value='#{type}') #{type}
                         div.col-xs-2
                             label
                                 select(name='term[id]', required, id='e2')
