@@ -22,44 +22,48 @@ block content
             p <span class='text-highlight'>Last modified at</span> : <span>#{last_modified_at}</span>
         div(id="tree-container")
         div.subdiv
-            //is_part_of related block
-            if is_part_of.length
-                p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{is_part_of.length}</span> terms:
-                // TODO should say 'term' if only one! ;)
-                ul
-                    for other in is_part_of
-                        li
-                            form(action='/terms/#{term.id}/uncustom', method='POST')
-                                a.text-highlight(href='/terms/#{other.id}') #{other.name}
-                                input(type='hidden', name='term[id]', value='#{other.id}')
-                                input(type='hidden', name='relationship[name]', value='is_part_of')
-                                input.btn.btn-close(type='submit', value='x')
-            else
-                p <span class='text-highlight'>#{term.name}</span> isn't part of any terms.
-            
-            //including related block
-            if including.length
-                p <span class='text-highlight'>#{term.name}</span> includes <span class='text-highlight'>#{including.length}</span> terms:
-                // TODO should say 'term' if only one! ;
-                ul
-                    for other in including
-                        li
-                            form(action='/terms/#{term.id}/uncustom', method='POST')
-                                a.text-highlight(href='/terms/#{other.id}') #{other.name}
-                                input(type='hidden', name='term[id]', value='#{other.id}')
-                                input(type='hidden', name='relationship[name]', value='includes')
-                                input.btn.btn-close(type='submit', value='x')
-            else
-                p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
+            div.row
+                div.col-xs-11
+                    //is_part_of related block
+                    if is_part_of.length
+                        p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{is_part_of.length}</span> terms:
+                        // TODO should say 'term' if only one! ;)
+                        ul
+                            for other in is_part_of
+                                li
+                                    form(action='/terms/#{term.id}/uncustom', method='POST')
+                                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                        input(type='hidden', name='term[id]', value='#{other.id}')
+                                        input(type='hidden', name='relationship[name]', value='is_part_of')
+                                        input.btn.btn-close(type='submit', value='x')
+                    else
+                        p <span class='text-highlight'>#{term.name}</span> isn't part of any terms.
+                    
+                    //including related block
+                    if including.length
+                        p <span class='text-highlight'>#{term.name}</span> includes <span class='text-highlight'>#{including.length}</span> terms:
+                        // TODO should say 'term' if only one! ;
+                        ul
+                            for other in including
+                                li
+                                    form(action='/terms/#{term.id}/uncustom', method='POST')
+                                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                        input(type='hidden', name='term[id]', value='#{other.id}')
+                                        input(type='hidden', name='relationship[name]', value='includes')
+                                        input.btn.btn-close(type='submit', value='x')
+                    else
+                        p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
+                div.col-xs-1
+                    input.btn(value='collapse')
 
         div.subdiv
                 form(action='/terms/#{term.id}/custom', method='POST')                    
                     div.row
-                        div.col-xs-4
+                        div.col-xs-3
                             p Add a new relationship for <span class='text-highlight'>#{term.name}</span>:
                         div.col-xs-2
                             p(align='right') #{term.name}
-                        div.col-xs-2
+                        div.col-xs-3
                             label
                                 select(name='relationship[name]', required, id='e1')
                                     option.form-style(id='select-control')
@@ -73,27 +77,33 @@ block content
                                         option.form-style(value='#{term.id}') #{term.name}
                         div.col-xs-1
                             input.btn.btn-normal(type='submit', value='Add')
+                        div.col-xs-1
+                            input.btn(value='collapse')
         div.subdiv
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
-                    div.col-xs-4
+                    div.col-xs-3
                         p Edit this term:
                     div.col-xs-2    
                         input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
-                    div.col-xs-4
+                    div.col-xs-5
                         if term.description
                             input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
                         else
                             input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
                     div.col-xs-1
                         input.btn.btn-normal(type='submit', value='Update')
+                    div.col-xs-1
+                        input.btn(value='collapse')
             form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 div.row
-                    div.col-xs-4
+                    div.col-xs-5
                         p Or you can delete the term
                     div.col-xs-1
                         input(type='hidden', name='_method', value='DELETE')
                         input.btn.btn-normal(type='submit', value='Delete Term')
-
+                    div.col-xs-5
+                    div.col-xs-1
+                        input.btn(value='collapse')
 
         input(id='json', type='hidden', value='#{json}')
