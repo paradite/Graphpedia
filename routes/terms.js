@@ -151,9 +151,9 @@ exports.create = function (req, res, next) {
 
                     //Get all terms for sidebar
                     //Format the moment time for display purposes
-                    var created_at = moment(term.created_at).format("YYYY-MM-DD HH:mm:ss");
-                    var last_modified_at = moment(term.last_modified_at).format("YYYY-MM-DD HH:mm:ss");
-                    var last_viewed_at = moment(term.last_viewed_at).format("YYYY-MM-DD HH:mm:ss");
+                    var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+                    var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+                    var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                     Term.getAll(function (err, terms) {
                         if (err) return next(err);
                         console.log("Term created: "+term.created_at+" last viewed: " + term.last_viewed_at);
