@@ -1,8 +1,7 @@
 TODO:
-Clicking on the label in d3.js will direct the user to the respective term page.
 
 Improve the searching experience for the user.
-	-Fuzzy search : mongoDB
+	-Fuzzy search - neo4j regular expression ".*" - 13 July
 
 Save searches
 
@@ -12,7 +11,13 @@ Abstraction of types - Ask mentor
 
 Better random function to get 2 random terms for proposing relationships on index page - Ask mentor
 
+MongoDB Certification?
+
+Copy all term names into mongoDB for fuzzy search
+
 UI: 
+Clicking on the label in d3.js will direct the user to the respective term page.
+
 Expand boxes
 
 PureCSS

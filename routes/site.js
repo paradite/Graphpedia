@@ -35,26 +35,60 @@ exports.search = function(req, res){
         console.log('%s', "name is null");
 		res.render('index');
 	}
-    //Convert the name to lower case for searching
-    var name_lower_case = name.toLowerCase();
-    Term.getByName(name_lower_case, function (err, terms) {
+
+    Term.getByName(name, function (err, terms) {
         if (err){
             console.log('%s', "err occured");
             res.render('index');
         }
-        if(terms == null || terms.length == 0){
-            console.log('%s', "term not found");
+        console.log('%s', "terms: " + terms);
+        //Matched
+        if(terms != null && terms.length > 0){
+            if(terms.length > 1){
+                res.render('terms',{
+                    terms: terms
+                });
+            }else if(terms.length == 1){
+                res.redirect('/terms/' + terms[0].id);
+            }else{
+                //This should never happen
+                console.log('%s', "term not found partially");
+                res.render('notfound', {
+                    name: name
+                });
+            }
+        //Not matched
+        }else if(terms == null || terms.length == 0){
+            console.log('%s', "before calling getByNamePartial.");
+            //Instead of notfound, try partial matching
+            Term.getByNamePartial(name, function (err, terms_partial) {
+                console.log('%s', "inside partial callback");
+                //Matched Partial
+                if(terms_partial != null && terms_partial.length > 0){
+                    //Show a list if partial matching finds more than one
+                    if(terms_partial.length > 1){
+                        res.render('terms',{
+                            terms: terms_partial
+                        });
+                    //Redirect if partial match only finds one
+                    }else if(terms_partial.length == 1){
+                        res.redirect('/terms/' + terms_partial[0].id);
+                    }
+                //Not matched
+                }else{
+                    console.log('%s', "term not found partially");
+                    res.render('notfound', {
+                    name: name
+                    });
+                }
+            });
+        //This should never happen
+        }else{
+            console.log('%s', "term not found but not null or empty?");
             res.render('notfound', {
                 name: name
             });
-        }else if(terms.length == 1){
-        	res.redirect('/terms/' + terms[0].id);
-        }else{
-        	res.render('terms',{
-        		terms: terms
-        	});
         }
-
     });
 }
 

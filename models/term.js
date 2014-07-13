@@ -301,6 +301,8 @@ Get a term by name
 */
 //Provided support for searching with lower case
 Term.getByName = function (name, callback) {
+    //Convert the name to lower case before searching
+    var name_lower_case = name.toLowerCase();
     var query = [
         'MATCH (term:Term)',
         'WHERE term.name = {termName} OR term.name_lower_case = {termName}',
@@ -308,10 +310,37 @@ Term.getByName = function (name, callback) {
     ].join('\n');
 
     var params = {
-        termName: name,
+        termName: name_lower_case,
     };
 
     db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+        var terms = results.map(function (result) {
+            return new Term(result['term']);
+        });
+        callback(null, terms);
+    });
+};
+
+/*
+Get a term by partial name, used if full matching is not possible
+*/
+//Provided support for partial matching using regular expression
+//13 July
+Term.getByNamePartial = function (name, callback) {
+    console.log('%s', "inside getByNamePartial");
+    //Convert the name to lower case before searching
+    var name_lower_case = name.toLowerCase();
+    //Construct regexp: case-insensitive, partial match with .*
+    var regexp = '(?i)'+ name_lower_case + '.*';
+    console.log('%s', "regexp: " + regexp);
+    var query = [
+        'MATCH (term:Term)',
+        'WHERE term.name =~ ' + "'" + regexp + "'",
+        'RETURN term',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
         if (err) return callback(err);
         var terms = results.map(function (result) {
             return new Term(result['term']);
