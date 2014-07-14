@@ -1,36 +1,19 @@
-TODO:
+<!-- TODO: -->
 Top 10 Hot Search
 
 Data mining
+	From wikipedia or stackoverflow
 
 User account management
-	- Admin login
-	- Done 12 July
 	- Need to implement admin functions (delete or review proposed edits)
 
-Improve the searching experience for the user.
-	- Partial search - neo4j regular expression ".*" 
-	- Done 13 July
-
-Use moment.js to manage time and date
-	- Show creation time, last viewed, last modified
-	- Done 14 July
-
-Save searches for user
-	- Not useful since the only users are the admins
-
-Unit testing techniques - Ask mentor
-
 Abstraction of types - Ask mentor
-	- Abstraction at creating/deleting relationships - Done
 	- Abstraction at querying for relationships
-	- Abstraction at parsing relationships as JSON for three.js
 
-Better random function to get 2 random terms for proposing relationships on index page - Ask mentor
+Allow user to search a pair of terms
+<!-- UI:  -->
+Display number of terms on main page
 
-How to write nice annotations - Ask mentor
-
-UI: 
 Modify the graph
 
 Box for term bigger on term.jade
@@ -51,6 +34,17 @@ Link to wiki page
 Refresh
 
 Main page offer suggestions on relationships 
+
+<!-- Completed: -->
+
+Improve the searching experience for the user.
+	- Partial search - neo4j regular expression ".*" 
+	- Done 13 July
+
+Use moment.js to manage time and date
+	- Show creation time, last viewed, last modified
+	- Done 14 July
+
 
 # Node-Neo4j Template
 

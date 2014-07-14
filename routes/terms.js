@@ -50,7 +50,6 @@ exports.create = function (req, res, next) {
         last_modified_at: current_time
     }, function (err, term) {
         if (err) return next(err);
-        console.log("in create");
         req.session.create = true;
         res.redirect('/terms/' + term.id);
     });
@@ -62,7 +61,6 @@ exports.create = function (req, res, next) {
 //Add the new fields for old terms when they are requested
 
  exports.show = function (req, res, next) {
-    console.log("in show");
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) {
@@ -79,20 +77,63 @@ exports.create = function (req, res, next) {
         term.last_viewed_at = moment().format();
         term.save(function (err) {
             if (err) return next(err);
-            console.log("save called.")
             // res.redirect('/terms/' + term.id);
         });
-        term.getOutgoingAndOthers(function (err, including, is_part_of, all_others) {
+        term.getOutgoingAndOthers(function (err, all_others, rel_names, rel_terms) {
             if (err) return next(err);
-            var including_list = term.parse(including);
-            var is_part_of_list = term.parse(is_part_of);
+            //Parse all related terms
+            var terms_list = term.parse(rel_terms);
+            //Add them into lists according to relationship types
+            var including_list = [];
+            var is_part_of_list = [];
+            var is_successor_of_list = [];
+            var is_predecessor_of_list = [];
+            var depend_list = [];
+            
+
+            for (var i = rel_terms.length - 1; i >= 0; i--) {
+                if (rel_names[i] == term.REL_INCLUDE) {
+                    including_list.push(terms_list[i]);
+                    
+                }else if(rel_names[i] == term.REL_DEPEND){
+                    depend_list.push(terms_list[i]);
+
+                }else if(rel_names[i] == term.REL_PREDECESSOR){
+                    is_predecessor_of_list.push(terms_list[i]);
+
+                }else if(rel_names[i] == term.REL_SUCCESSOR){
+                    is_successor_of_list.push(terms_list[i]);
+
+                }else if(rel_names[i] == term.REL_IS_PART_OF){
+                    is_part_of_list.push(terms_list[i]);
+                }   
+            };
+
+            //Create JSON objects for d3.js rendering
             var including_obj = new Object();
             var is_part_of_obj = new Object();
-            including_obj.name = term.REL_INCLUDE;
+            var is_successor_of_obj = new Object();
+            var is_predecessor_of_obj = new Object();
+            var depend_obj = new Object();
+
+            including_obj.name = term.REL_INCLUDE.replace(/_/g," ");
             including_obj.children = including_list;
 
             is_part_of_obj.name = term.REL_IS_PART_OF.replace(/_/g," ");
             is_part_of_obj.children = is_part_of_list;
+
+            is_successor_of_obj.name = term.REL_SUCCESSOR.replace(/_/g," ");
+            is_successor_of_obj.children = is_successor_of_list;
+
+            is_predecessor_of_obj.name = term.REL_PREDECESSOR.replace(/_/g," ");
+            is_predecessor_of_obj.children = is_predecessor_of_list;
+
+            console.log( "depend_list[i]" + depend_list.length)
+            depend_obj.name = term.REL_DEPEND.replace(/_/g," ");
+            depend_obj.children = depend_list;
+
+            // var including_list = term.parse(including);
+            // var is_part_of_list = term.parse(is_part_of);
 
             var term_obj = new Object();
             term_obj.name = term.name;
@@ -100,6 +141,9 @@ exports.create = function (req, res, next) {
             term_obj.children = [];
             term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
+            term_obj.children.push(is_successor_of_obj);
+            term_obj.children.push(is_predecessor_of_obj);
+            term_obj.children.push(depend_obj);
 
             //Heroku neo4j database
             var base_url = process.env['NEO4J_URL'] ||
@@ -127,12 +171,14 @@ exports.create = function (req, res, next) {
                     if (index > -1) {
                         relationship_types.splice(index, 1);
                     }
-                    console.log(term.REL_INCLUDE+' '+term.REL_IS_PART_OF);
                     //Add default ones
-                    if(relationship_types.length < 2){
+                    if(relationship_types.length < 5){
                         relationship_types = [];
                         relationship_types.push(term.REL_INCLUDE.replace(/_/g," "));
                         relationship_types.push(term.REL_IS_PART_OF.replace(/_/g," "));
+                        relationship_types.push(term.REL_PREDECESSOR.replace(/_/g," "));
+                        relationship_types.push(term.REL_SUCCESSOR.replace(/_/g," "));
+                        relationship_types.push(term.REL_DEPEND.replace(/_/g," "));
                     }
 
                     var types = "";
@@ -141,7 +187,7 @@ exports.create = function (req, res, next) {
                         types+= item;
                         types+= " ";
                     });
-                    console.log("There are "+relationship_types.length+" relationships types: " + types);
+                    //console.log("There are "+relationship_types.length+" relationships types: " + types);
                     //console.log(all_others);
                     //console.log('%s', JSON.stringify(term_obj));
                     //Force user to update when newly created
@@ -150,22 +196,25 @@ exports.create = function (req, res, next) {
                         req.session.create = false;
                     }
 
-                    //Get all terms for sidebar
                     //Format the moment time for display purposes
                     var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                     var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                     var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+
+                    //Get all terms for sidebar
                     Term.getAll(function (err, terms) {
                         if (err) return next(err);
-                        console.log("Term created at: "+term.created_at+" last viewed: " + term.last_viewed_at);
                         res.render('term', {
                             json: JSON.stringify(term_obj),
                             term: term,
                             created_at: created_at,
                             last_modified_at: last_modified_at,
                             last_viewed_at: last_viewed_at,
-                            is_part_of: is_part_of,
-                            including: including,
+                            is_part_of: is_part_of_list,
+                            including: including_list,
+                            depend: depend_list,
+                            successor: is_successor_of_list,
+                            predecessor: is_predecessor_of_list,
                             all_others: all_others,
                             relationship_types: relationship_types,
                             terms: terms
@@ -174,7 +223,6 @@ exports.create = function (req, res, next) {
                 }
             }
             request(options, callback);
-
         });
     });
 }
@@ -202,7 +250,6 @@ exports.edit = function (req, res, next) {
  */
 exports.del = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
-        console.log("before id= "+ term.id);
         if (err) return next(err);
         term.del(function (err) {
             if (err) return next(err);

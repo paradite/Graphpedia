@@ -95,7 +95,18 @@ Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
 Object.defineProperty(Term.prototype, 'REL_INCLUDE', {
     get: function () { return "includes"; }
 });
-   
+
+Object.defineProperty(Term.prototype, 'REL_SUCCESSOR', {
+    get: function () { return "is_successor_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_PREDECESSOR', {
+    get: function () { return "is_predecessor_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_DEPEND', {
+    get: function () { return "depends_on"; }
+});
 
 // public instance methods:
 
@@ -168,11 +179,9 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
     // query all Terms and whether we follow each one or not:
     var query = [
         'MATCH (term:Term), (other:Term)',
-        'OPTIONAL MATCH (term) -[rel:'+this.REL_INCLUDE+']-> (other)',
+        'OPTIONAL MATCH (term) -[relall]-> (other)',
         'WHERE ID(term) = {termId}',
-        'OPTIONAL MATCH (term) -[rel2:'+this.REL_IS_PART_OF+']-> (other)',
-        'WHERE ID(term) = {termId}',
-        'RETURN other, COUNT(rel), COUNT(rel2)', // COUNT(rel) is a hack for 1 or 0
+        'RETURN other, COUNT(relall), type(relall)', // COUNT(rel) is a hack for 1 or 0
     ].join('\n')
 
     var params = {
@@ -182,126 +191,33 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
     var term = this;
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
-
-        var including = [];
-        var including_others = [];
-        var is_part_of = [];
-        var is_part_of_others = [];
+        //Count the total number of related terms
+        //Use two arrays to store the name of relationship and the corresponding term
+        var rel_names = [];
+        var rel_terms = [];
         var all_others = [];
+        var is_part_of_true = false;
 
         for (var i = 0; i < results.length; i++) {
             var other = new Term(results[i]['other']);
-            var include_true = results[i]['COUNT(rel)'];
-            var is_part_of_true = results[i]['COUNT(rel2)'];
+            //Check if the result term is related to the term query
+            related_true = results[i]['COUNT(relall)'];
 
             if (term.id === other.id) {
                 continue;
             } else {
+                //All terms except for itself is in all others
+                //Problem: This becomes expensive if number of term get very big
                 all_others.push(other);
-            }
-
-            if (term.id === other.id) {
-                continue;
-            } else if (include_true) {
-                including.push(other);
-            } else {
-                including_others.push(other);
-            }
-
-            if (term.id === other.id) {
-                continue;
-            } else if (is_part_of_true) {
-                is_part_of.push(other);
-            } else {
-                is_part_of_others.push(other);
+                if(related_true){
+                    //The terms are related
+                    //Add the term and its relationship into the arrays
+                    rel_names.push(results[i]['type(relall)']);
+                    rel_terms.push(other);
+                }
             }
         }
-
-        callback(null, including, is_part_of, all_others);
-    });
-};
-
-// calls callback w/ (err, including, others) where including is an array of
-// Terms this Term contains, and others is all other Terms minus him/herself.
-// To search for all relationships, use
-// MATCH (n:Term), n-[r]-m, (m:Term) WHERE n.`name`="nodejs"   RETURN n, type(r)
-Term.prototype.getContainingAndOthers = function (callback) {
-    // query all Terms and whether we follow each one or not:
-    var query = [
-        'MATCH (term:Term), (other:Term)',
-        'OPTIONAL MATCH (term) -[rel:contains]-> (other)',
-        'WHERE ID(term) = {termId}',
-        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
-    ].join('\n')
-
-    var params = {
-        termId: this.id,
-    };
-
-    var term = this;
-    db.query(query, params, function (err, results) {
-        if (err) return callback(err);
-
-        var including = [];
-        var others = [];
-
-        for (var i = 0; i < results.length; i++) {
-            var other = new Term(results[i]['other']);
-            var contains = results[i]['COUNT(rel)'];
-
-            if (term.id === other.id) {
-                continue;
-            } else if (contains) {
-                including.push(other);
-            } else {
-                others.push(other);
-            }
-        }
-
-        callback(null, including, others);
-    });
-};
-
-
-
-// calls callback w/ (err, following, others) where following is an array of
-// Terms this Term follows, and others is all other Terms minus him/herself.
-// TODO:
-// For all others, only send those not related to the term.
-Term.prototype.getFollowingAndOthers = function (callback) {
-    // query all Terms and whether we follow each one or not:
-    var query = [
-        'MATCH (term:Term), (other:Term)',
-        'OPTIONAL MATCH (term) -[rel:follows]-> (other)',
-        'WHERE ID(term) = {termId}',
-        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
-    ].join('\n')
-
-    var params = {
-        termId: this.id,
-    };
-
-    var term = this;
-    db.query(query, params, function (err, results) {
-        if (err) return callback(err);
-
-        var following = [];
-        var others = [];
-
-        for (var i = 0; i < results.length; i++) {
-            var other = new Term(results[i]['other']);
-            var follows = results[i]['COUNT(rel)'];
-
-            if (term.id === other.id) {
-                continue;
-            } else if (follows) {
-                following.push(other);
-            } else {
-                others.push(other);
-            }
-        }
-
-        callback(null, following, others);
+        callback(null, all_others, rel_names, rel_terms);
     });
 };
 
@@ -432,9 +348,94 @@ Term.prototype.parse = function (arr_obs){
 
 
 /*MATCH n RETURN n LIMIT 5;*/
-/*
+
 
 /*Old methods*/
+/*
+// calls callback w/ (err, including, others) where including is an array of
+// Terms this Term contains, and others is all other Terms minus him/herself.
+// To search for all relationships, use
+// MATCH (n:Term), n-[r]-m, (m:Term) WHERE n.`name`="nodejs"   RETURN n, type(r)
+Term.prototype.getContainingAndOthers = function (callback) {
+    // query all Terms and whether we follow each one or not:
+    var query = [
+        'MATCH (term:Term), (other:Term)',
+        'OPTIONAL MATCH (term) -[rel:contains]-> (other)',
+        'WHERE ID(term) = {termId}',
+        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+    };
+
+    var term = this;
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+
+        var including = [];
+        var others = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var other = new Term(results[i]['other']);
+            var contains = results[i]['COUNT(rel)'];
+
+            if (term.id === other.id) {
+                continue;
+            } else if (contains) {
+                including.push(other);
+            } else {
+                others.push(other);
+            }
+        }
+
+        callback(null, including, others);
+    });
+};
+
+
+
+// calls callback w/ (err, following, others) where following is an array of
+// Terms this Term follows, and others is all other Terms minus him/herself.
+// TODO:
+// For all others, only send those not related to the term.
+Term.prototype.getFollowingAndOthers = function (callback) {
+    // query all Terms and whether we follow each one or not:
+    var query = [
+        'MATCH (term:Term), (other:Term)',
+        'OPTIONAL MATCH (term) -[rel:follows]-> (other)',
+        'WHERE ID(term) = {termId}',
+        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+    };
+
+    var term = this;
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+
+        var following = [];
+        var others = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var other = new Term(results[i]['other']);
+            var follows = results[i]['COUNT(rel)'];
+
+            if (term.id === other.id) {
+                continue;
+            } else if (follows) {
+                following.push(other);
+            } else {
+                others.push(other);
+            }
+        }
+
+        callback(null, following, others);
+    });
+};
+*/
 
 /*
 //follow related methods
