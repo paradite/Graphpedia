@@ -1,4 +1,7 @@
 TODO:
+Top 10 Hot Search
+
+Data mining
 
 User account management
 	- Admin login
@@ -25,22 +28,25 @@ Abstraction of types - Ask mentor
 
 Better random function to get 2 random terms for proposing relationships on index page - Ask mentor
 
-MongoDB Certification?
-
 How to write nice annotations - Ask mentor
 
 UI: 
+Modify the graph
+
 Box for term bigger on term.jade
 
 Clicking on the label in d3.js will direct the user to the respective term page.
 
 Expand boxes
+	- Done
 
 PureCSS
 
 Allow user to propose a relationship from an existing term to a new non-exisiting term(by typing the name of the new term)
 
 Link to wiki page
+	- New tab 
+	- Add text
 
 Refresh
 

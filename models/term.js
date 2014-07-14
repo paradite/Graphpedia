@@ -95,7 +95,7 @@ Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
 Object.defineProperty(Term.prototype, 'REL_INCLUDE', {
     get: function () { return "includes"; }
 });
-
+   
 
 // public instance methods:
 
@@ -356,7 +356,7 @@ Term.getByNamePartial = function (name, callback) {
     //Convert the name to lower case before searching
     var name_lower_case = name.toLowerCase();
     //Construct regexp: case-insensitive, partial match with .*
-    var regexp = '(?i)'+ name_lower_case + '.*';
+    var regexp = '(?i).*' + name_lower_case + '.*';
     console.log('%s', "regexp: " + regexp);
     var query = [
         'MATCH (term:Term)',
@@ -415,7 +415,7 @@ Term.create = function (data, callback) {
 };
 
 /*
-Method to parse the data from neo4j databse to json objects for rendering
+Method to parse the data from neo4j databse to json objects for rendering of d3.js
 Author: Zhu Liang
 Date: 29 June
 */

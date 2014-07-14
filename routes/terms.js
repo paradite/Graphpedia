@@ -96,6 +96,7 @@ exports.create = function (req, res, next) {
 
             var term_obj = new Object();
             term_obj.name = term.name;
+            term_obj.description =term.description;
             term_obj.children = [];
             term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
@@ -156,7 +157,7 @@ exports.create = function (req, res, next) {
                     var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                     Term.getAll(function (err, terms) {
                         if (err) return next(err);
-                        console.log("Term created: "+term.created_at+" last viewed: " + term.last_viewed_at);
+                        console.log("Term created at: "+term.created_at+" last viewed: " + term.last_viewed_at);
                         res.render('term', {
                             json: JSON.stringify(term_obj),
                             term: term,

@@ -1,9 +1,9 @@
 $( document ).ready(function() {
     //Variables defined for our visualization project
     //Vairable to control length of paths
-    var path_factor = 8;
+    var path_factor = 6;
     //Variable to control height of each line
-    var height_separation = 40;
+    var height_separation = 50;
     //Varibale to control scale factorss
     var scale_factor_centerNode = 1.5;
 
@@ -401,19 +401,41 @@ $( document ).ready(function() {
                 return d._children ? "lightsteelblue" : "#fff";
             });
 
+        //Differentiate term and relationship nodes by looking at their descriptions
+        //Apply different css for them
         nodeEnter.append("text")
             .attr("x", function(d) {
                 return d.children || d._children ? -10 : 10;
             })
             .attr("dy", ".35em")
-            .attr('class', 'nodeText')
+            .attr('class', function(d) {
+                return d.description ? "nodeText" : "nodeRelationship";
+            })
             .attr("text-anchor", function(d) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
                 return d.name;
             })
-            .style("fill-opacity", 0);
+            .style("fill-opacity", 1);
+
+        //Add description label when mouse hover
+        nodeEnter.append("svg:title").text(function(d) {
+                return (d.description) ;
+            });
+        nodeEnter.append("text")
+            .attr("x", function(d) {
+                return d.children || d._children ? -10 : 10;
+            })
+            .attr("dy", "2em")
+            .attr('class', 'nodeDescription')
+            .attr("text-anchor", function(d) {
+                return d.children || d._children ? "end" : "start";
+            })
+            .text(function(d) {
+                return d.description;
+            })
+            .style("fill-opacity", 1);
 
         // phantom node to give us mouseover in a radius around it
         nodeEnter.append("circle")

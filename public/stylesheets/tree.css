@@ -12,8 +12,21 @@
     stroke: steelblue;
     stroke-width: 1.5px;
   }
+
+  .nodeDescription {
+    font-size:8px; 
+    font-family:sans-serif;
+  }
    
-  .node text {
+  .nodeText {
+    fill: steelblue;
+    font-size:16px; 
+    font-family:sans-serif;
+    stroke: steelblue;
+    stroke-width: 0.8px;
+  }
+
+  .nodeRelationship {
     font-size:10px; 
     font-family:sans-serif;
   }
