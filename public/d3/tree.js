@@ -22,7 +22,7 @@ $( document ).ready(function() {
     console.log($('#json').val());
     var root = treeData = JSON.parse($('#json').val());
     // size of the diagram
-    var viewerWidth = JSON.parse($('.main').width()) * 0.8;
+    var viewerWidth = JSON.parse($('.tree-container').width());
     var viewerHeight = $(document).height() * 0.6;
 
     var tree = d3.layout.tree()
