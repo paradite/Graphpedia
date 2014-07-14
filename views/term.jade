@@ -2,8 +2,9 @@ extends layout_viz
 
 block content
     div.main
-        h1 
-            a.text-highlight(href='http://en.wikipedia.org/wiki/#{term.name}') #{term.name} - #{term.description}
+        div(id='termname', value=term.name)
+        h1
+            a.text-highlight(id='wikiurl') #{term.name} - #{term.description}
         if term.created_at
             p <span class='text-highlight'>Created at</span> : <span>#{created_at}</span> Singapore Time
         if term.last_viewed_at
@@ -51,15 +52,15 @@ block content
                 div.row
                     div.col-xs-3
                         p(align='right') #{term.name}
-                    div.col-xs-4
-                        label
-                            select(name='relationship[name]', required, id='e1')
+                    div.col-xs-3
+                        label(style="width: 100%;")
+                            select(name='relationship[name]', required, id='e1', style="width: 100%;")
                                 option.form-style(id='select-control')
                                 for type in relationship_types
                                     option.form-style(id='select-control', value='#{type}') #{type}
-                    div.col-xs-3
-                        label
-                            select(name='term[id]', required, id='e2')
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select(name='term[id]', required, id='e2',style="width: 100%;")
                                 option.form-style 
                                 for term in all_others
                                     option.form-style(value='#{term.id}') #{term.name}

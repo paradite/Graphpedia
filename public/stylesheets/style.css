@@ -6,8 +6,10 @@ body {
 }
 
 #tree-container {
-    border: 1px dotted #132600;
-    margin-bottom: 15px;
+    width: 80%;
+    display: table;
+    margin: 0 auto;
+    border: 2px solid #132600;
     border-radius: 10px; 
 }
 
@@ -275,7 +277,7 @@ a:active {
             color: #ffffff;
         }
 
-#select-control {
+.select-control {
     width: 100%;
     font-family: sans-serif;
     font-size: 16px;
@@ -289,9 +291,9 @@ a:active {
 
 }
 
-#select-control,
-#select-control,
-#select-control {
+.select-control:hover,
+.select-control:focus,
+.select-control:active {
     width: 100%;
     color: #132600;
     font-size: 16px;
@@ -302,9 +304,9 @@ a:active {
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
 }
 
-#select-control::-moz-placeholder,
-#select-control:-ms-input-placeholder,
-#select-control::-webkit-input-placeholder {
+.select-control::-moz-placeholder,
+.select-control:-ms-input-placeholder,
+.select-control::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
     opacity: 0.64;
