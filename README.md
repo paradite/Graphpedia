@@ -5,6 +5,9 @@ Improve the searching experience for the user.
 
 Save searches
 
+Use moment.js to manage time and date
+	- Show creation time, last viewed, last modified
+
 Unit testing techniques - Ask mentor
 
 Abstraction of types - Ask mentor
@@ -13,9 +16,11 @@ Better random function to get 2 random terms for proposing relationships on inde
 
 MongoDB Certification?
 
-Copy all term names into mongoDB for fuzzy search
+How to write nice annotations - Ask mentor
 
 UI: 
+Box for term bigger on term.jade
+
 Clicking on the label in d3.js will direct the user to the respective term page.
 
 Expand boxes
