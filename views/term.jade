@@ -1,10 +1,9 @@
 extends layout_viz
 
 block content
-
-
     div.main
-        h1 <span class='text-highlight'>#{term.name}</span> - <span class='text-highlight'>#{term.description}</span>
+        h1 
+            a.text-highlight(href='http://en.wikipedia.org/wiki/#{term.name}') #{term.name} - #{term.description}
         if term.created_at
             p <span class='text-highlight'>Created at</span> : <span>#{created_at}</span> Singapore Time
         if term.last_viewed_at
@@ -91,5 +90,7 @@ block content
                         input.btn.btn-normal(type='submit', value='Delete Term')
 
         div(style='height: 25px')
+
+
 
         input(id='json', type='hidden', value='#{json}')
