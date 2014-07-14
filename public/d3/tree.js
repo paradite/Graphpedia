@@ -394,6 +394,15 @@ $( document ).ready(function() {
             })
             .on('click', click);
 
+        nodeEnter.append("rect")
+            .attr("opacity", 0.2)
+            .attr("rx", 6)
+            .attr("ry", 6)
+            .attr("x", -12.5)
+            .attr("y", -12.5)
+            .attr("width", 5)
+            .attr("height", 5);
+
         nodeEnter.append("circle")
             .attr('class', 'nodeCircle')
             .attr("r", 0)
@@ -405,14 +414,24 @@ $( document ).ready(function() {
         //Apply different css for them
         nodeEnter.append("text")
             .attr("x", function(d) {
-                return d.children || d._children ? -10 : 10;
+                //Center the text if the node is a relationship
+                if(!d.description){
+                    return -50;
+                }else{
+                    return d.children || d._children ? -10 : 10;
+                }
             })
             .attr("dy", ".35em")
             .attr('class', function(d) {
                 return d.description ? "nodeText" : "nodeRelationship";
             })
             .attr("text-anchor", function(d) {
-                return d.children || d._children ? "end" : "start";
+                //Center the text if the node is a relationship
+                if(!d.description){
+                    return "middle";
+                }else{
+                    return d.children || d._children ? "end" : "start";
+                }
             })
             .text(function(d) {
                 return d.name;
@@ -423,6 +442,8 @@ $( document ).ready(function() {
         nodeEnter.append("svg:title").text(function(d) {
                 return (d.description) ;
             });
+
+
         nodeEnter.append("text")
             .attr("x", function(d) {
                 return d.children || d._children ? -10 : 10;
@@ -442,7 +463,7 @@ $( document ).ready(function() {
             .attr('class', 'ghostCircle')
             .attr("r", 30)
             .attr("opacity", 0.2) // change this to zero to hide the target area
-        .style("fill", "red")
+            .style("fill", "red")
             .attr('pointer-events', 'mouseover')
             .on("mouseover", function(node) {
                 overCircle(node);
@@ -451,13 +472,48 @@ $( document ).ready(function() {
                 outCircle(node);
             });
 
+        //Add rectangle for relationships
+        node.select("rect")
+            .attr("opacity", 1)
+            .attr("rx", 6)
+            .attr("ry", 6)
+            .attr("x", -5)
+            .attr("y", -7)
+            .attr("width", function(d) {
+                //Make the circle bigger when it is a relationship
+                if(!d.description){
+                    //Magic numbers~
+                    return 15 + d.name.length*4.4;
+                }else{
+                    return 0;
+                }
+            })
+            .attr("height", function(d) {
+                //Make the circle bigger when it is a relationship
+                if(!d.description){
+                    return 16;
+                }else{
+                    return 0;
+                }
+            });
+
         // Update the text to reflect whether node has children or not.
         node.select('text')
             .attr("x", function(d) {
-                return d.children || d._children ? -10 : 10;
+                //Center the text if the node is a relationship
+                if(!d.description){
+                    return 0;
+                }else{
+                    return d.children || d._children ? -10 : 10;
+                }
             })
             .attr("text-anchor", function(d) {
-                return d.children || d._children ? "end" : "start";
+                //Center the text if the node is a relationship
+                if(!d.description){
+                    return "start";
+                }else{
+                    return d.children || d._children ? "end" : "start";
+                }
             })
             .text(function(d) {
                 return d.name;
@@ -465,7 +521,14 @@ $( document ).ready(function() {
 
         // Change the circle fill depending on whether it has children and is collapsed
         node.select("circle.nodeCircle")
-            .attr("r", 4.5)
+            .attr("r", function(d) {
+                //Hide circle when it is a relationship
+                if(!d.description){
+                    return 0;
+                }else{
+                    return 4.5;
+                }
+            })
             .style("fill", function(d) {
                 return d._children ? "lightsteelblue" : "#fff";
             });
