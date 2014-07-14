@@ -1,16 +1,27 @@
 TODO:
 
-Improve the searching experience for the user.
-	-Fuzzy search - neo4j regular expression ".*" - 13 July
+User account management
+	- Admin login
+	- Done 12 July
+	- Need to implement admin functions (delete or review proposed edits)
 
-Save searches
+Improve the searching experience for the user.
+	- Partial search - neo4j regular expression ".*" 
+	- Done 13 July
 
 Use moment.js to manage time and date
 	- Show creation time, last viewed, last modified
+	- Done 14 July
+
+Save searches for user
+	- Not useful since the only users are the admins
 
 Unit testing techniques - Ask mentor
 
 Abstraction of types - Ask mentor
+	- Abstraction at creating/deleting relationships - Done
+	- Abstraction at querying for relationships
+	- Abstraction at parsing relationships as JSON for three.js
 
 Better random function to get 2 random terms for proposing relationships on index page - Ask mentor
 
