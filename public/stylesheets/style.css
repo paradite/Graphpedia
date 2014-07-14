@@ -6,6 +6,7 @@ body {
 }
 
 #tree-container {
+    border: 1px dotted #132600;
     margin-bottom: 15px;
     border-radius: 10px; 
 }
@@ -52,7 +53,6 @@ a:active {
     background-color: #eeeeee;
 }
 
-.sidebar,
 #menu,
 #menu-link {
     -webkit-transition: all 0.2s ease-out;
