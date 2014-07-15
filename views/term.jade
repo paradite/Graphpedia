@@ -3,12 +3,20 @@ extends layout_viz
 block content
     div.main
         div(id='termname', value=term.name)
-        h1
-            a.text-highlight(id='wikiurl') #{term.name} - #{term.description}
+        //- h1
+        //-     a.text-highlight(id='wikiurl') #{term.name} - #{term.description}
+
         div(id="tree-container")
-        div.titlebox(data-toggle="collapse", data-target="#subdiv1")
-            p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
-        div.subdiv.collapse(id='subdiv1')
+        div(style='margin-top:15px')
+            p(style='text-align:right')
+                a.text-highlight(id='wikiurl') Link to wikipedia
+        div.titlebox(onclick='toggle1()')
+            div.row
+                div.col-xs-8
+                    p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
+                div.col-xs-4
+                    p(id='toggletext1') Click to expand
+        div.subdiv(id='subdiv1', style='display: none;')
             //is_part_of related block
             if is_part_of.length
                 p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{is_part_of.length}</span> terms:
@@ -39,9 +47,13 @@ block content
             else
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
 
-        div.titlebox(data-toggle="collapse", data-target="#subdiv2")
-             p Add a new relationship for <span class='titlebox-text-highlight'>#{term.name}</span>:
-        div.subdiv.collapse(id='subdiv2')
+        div.titlebox(onclick='toggle2()')
+            div.row
+                div.col-xs-8
+                    p Add a new relationship for <span class='titlebox-text-highlight'>#{term.name}</span>:
+                div.col-xs-4
+                    p(id='toggletext2') Click to expand
+        div.subdiv(id='subdiv2', style='display: none;')
             form(action='/terms/#{term.id}/custom', method='POST')                    
                 div.row
                     div.col-xs-3
@@ -61,9 +73,13 @@ block content
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Add')
 
-        div.titlebox(data-toggle="collapse", data-target="#subdiv3")
-            p Edit this term
-        div.subdiv.collapse(id='subdiv3')
+        div.titlebox(onclick='toggle3()')
+            div.row
+                div.col-xs-8
+                    p Edit this term
+                div.col-xs-4
+                    p(id='toggletext3') Click to expand
+        div.subdiv(id='subdiv3', style='display: none;')
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
                     div.col-xs-3    
