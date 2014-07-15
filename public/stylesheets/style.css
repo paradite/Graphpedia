@@ -1,7 +1,15 @@
+/*color reference: http://www.colorcombos.com/color-schemes/11/ColorCombo11.html
+        
+    1F1209
+    003366
+    FFF8DC
+    834C24
+*/
+
 body {
     font: 20px sans-serif;
-    background-color: #eeeeee;
-    color: #132600;
+    background-color: #FFF8DC;
+    color: #001428;
     overflow-y: scroll;
 }
 
@@ -9,7 +17,7 @@ body {
     width: 80%;
     display: table;
     margin: 0 auto;
-    border: 2px solid #132600;
+    border: 2px solid #1F1209;
     border-radius: 10px; 
 }
 
@@ -28,7 +36,7 @@ a:active {
 
 /*text theme*/
 .text-normal {
-    color:#132600;
+    color:#001428;
     font-weight: bold;
 }
 
@@ -38,9 +46,16 @@ a:active {
     font-weight: bold;
 }
 
+.text-highlight:hover,
+.text-highlight:focus,
+.text-highlight:active {
+    text-decoration: none;
+    color: #90A5BC;
+}
+
 /*div theme*/
 .before-main {
-    background-color: #F2EEB3;
+    background-color: #834C24;
     height: 50px;
     width: 100%;
 }
@@ -52,7 +67,7 @@ a:active {
     padding-top: 10px;
     padding-left: 3%;
     padding-right: 3%;
-    background-color: #eeeeee;
+    background-color: #FFF8DC;
 }
 
 #menu,
@@ -66,27 +81,32 @@ a:active {
 
 .subdiv {
     min-height: 1px;
-    background-color: #B6D9AA;
+    background-color: #90A5BC;
     border-radius: 10px;
     width: 100%;
     padding: 15px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(213, 233, 207, 1);
-            box-shadow: inset 0 3px 5px rgba(213, 233, 207, 1);
+    -webkit-box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
+            box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
             /*box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);
             box-shadow: inset 0 3px 5px rgba(104, 137, 69, 1);*/
 }
 
 .titlebox {
     min-height: 1px;
-    background-color: #74D945;
-    color: 132600;
+    background-color: #003366;
+    color: #FFF8DC;
     text-align: center;
     padding: 5px;
     border-radius: 5px;
     width: 100%;
     margin-top: 15px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(183, 235, 159, 1);
-            box-shadow: inset 0 3px 5px rgba(183, 235, 159, 1);
+    -webkit-box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
+            box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
+}
+
+.titlebox-text-highlight {
+    color: #ffffff;
+    font-weight: bold;
 }
 
 .index-footer {
@@ -145,19 +165,19 @@ a:active {
 }
 
 .btn-normal {
-    border-color: #a3c399;
+    border-color: #dde4ea;
     font-size: 16px;
-    color: #132600;
-    background-color: #eff9e5;
-    -webkit-box-shadow: inset 0 3px 5px rgba(183,199,183, 1);
-            box-shadow: inset 0 3px 5px rgba(183,199,183, 1);
+    color: #1F1209;
+    background-color: #BCC9D6;
+    -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
+            box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
     opacity: 0.64;
 }
 
 .btn-normal:hover,
 .btn-normal:active,
 .btn-normal:focus {
-    color: #132600;
+    color: #1F1209;
     background-color: #f6fcf1;
     border-color: #a3c399;
     outline: 0px;
@@ -167,7 +187,7 @@ a:active {
 }
 
 .btn-header {
-    color: #132600;
+    color: #1F1209;
     background-color: #FAF9E6;
     border-color: #d9d6a1;
     -webkit-box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
@@ -178,7 +198,7 @@ a:active {
 .btn-header:hover,
 .btn-header:active,
 .btn-header:focus {
-    color: #132600;
+    color: #1F1209;
     background-color: #ffffff;
     border-color: #d9d6a1;
     outline: 0px;
@@ -190,7 +210,7 @@ a:active {
 .form-style {
     width: 100%;
     font-family: sans-serif;
-    color: #132600;
+    color: #1F1209;
     font-size: 16px;
     background-color: #FAF9E6;
     opacity: 0.64;
@@ -201,7 +221,7 @@ a:active {
 .form-style:focus,
 .form-style:active {
     width: 100%;
-    color: #132600;
+    color: #1F1209;
     font-size: 16px;
     background-color: #FAF9E6;
     border: 1px solid #ffffff;
@@ -220,7 +240,7 @@ a:active {
 
 .input-lg-style:focus {
     width: 100%;
-    color: #132600;
+    color: #1F1209;
     border-color: #ffffff;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
@@ -244,9 +264,11 @@ a:active {
     top: 50px;
     left: 0;
     bottom: 0;
-    background: #B6D9AA;
+    background-color: #003366;
+    color: #FFF8DC;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    border: none;`
 }
     #menu a {
         border: none;
@@ -260,7 +282,9 @@ a:active {
 
     #menu .pure-menu li a:hover,
     #menu .pure-menu li a:focus {
-        background: #74D945;
+        background: #FFF8DC;
+        font-size: 24px;
+        color: #003366;
     }
 
     /*
@@ -268,20 +292,21 @@ a:active {
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        background: #74D945;
+        background-color: #003366;
+        color: #ffffff;
     }
         /*
         This styles a link within a selected menu item `<li>`.
         */
         #menu .pure-menu-selected a {
-            color: #ffffff;
+            color: #FFF8DC;
         }
 
 .select-control {
     width: 100%;
     font-family: sans-serif;
     font-size: 16px;
-    color: #132600;
+    color: #1F1209;
     background-color: #FAF9E6;
     border: 1px solid #ffffff;
     outline: 0;
@@ -295,7 +320,7 @@ a:active {
 .select-control:focus,
 .select-control:active {
     width: 100%;
-    color: #132600;
+    color: #1F1209;
     font-size: 16px;
     background-color: #FAF9E6;
     border: 1px solid #ffffff;

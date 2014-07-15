@@ -5,15 +5,9 @@ block content
         div(id='termname', value=term.name)
         h1
             a.text-highlight(id='wikiurl') #{term.name} - #{term.description}
-        if term.created_at
-            p <span class='text-highlight'>Created at</span> : <span>#{created_at}</span> Singapore Time
-        if term.last_viewed_at
-            p <span class='text-highlight'>Last viewed at</span> : <span>#{last_viewed_at}</span> Singapore Time
-        if term.last_modified_at
-            p <span class='text-highlight'>Last modified at</span> : <span>#{last_modified_at}</span> Singapore Time
         div(id="tree-container")
         div.titlebox(data-toggle="collapse", data-target="#subdiv1")
-            p Details of <span class='text-highlight'>#{term.name}</span>
+            p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
         div.subdiv.collapse(id='subdiv1')
             //is_part_of related block
             if is_part_of.length
@@ -46,12 +40,12 @@ block content
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
 
         div.titlebox(data-toggle="collapse", data-target="#subdiv2")
-             p Add a new relationship for <span class='text-highlight'>#{term.name}</span>:
+             p Add a new relationship for <span class='titlebox-text-highlight'>#{term.name}</span>:
         div.subdiv.collapse(id='subdiv2')
             form(action='/terms/#{term.id}/custom', method='POST')                    
                 div.row
                     div.col-xs-3
-                        p(align='right') #{term.name}
+                        p.text-highlight(align='right') #{term.name}
                     div.col-xs-3
                         label(style="width: 100%;")
                             select(name='relationship[name]', required, id='e1', style="width: 100%;")
@@ -90,7 +84,13 @@ block content
                         input(type='hidden', name='_method', value='DELETE')
                         input.btn.btn-normal(type='submit', value='Delete Term')
 
-        div(style='height: 25px')
+        div(style='padding:15px')
+            if term.created_at
+                p <span class='text-highlight'>Created at</span> : <span>#{created_at}</span> Singapore Time
+            if term.last_viewed_at
+                p <span class='text-highlight'>Last viewed at</span> : <span>#{last_viewed_at}</span> Singapore Time
+            if term.last_modified_at
+                p <span class='text-highlight'>Last modified at</span> : <span>#{last_modified_at}</span> Singapore Time
 
 
 

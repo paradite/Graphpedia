@@ -24,10 +24,10 @@ html
     div.pure-menu.pure-menu-open#menu
         a.pure-menu-heading Hot searches
         if terms.length
-            ul
+            ul.pure-menu
                 for term in terms
                     li
-                        a(href='/terms/#{term.id}') <span class='text-highlight'>#{term.name}</span>
+                        a(href='/terms/#{term.id}') #{term.name}
         else
             p There are no terms currently.
                 
