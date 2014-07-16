@@ -202,6 +202,7 @@ a:active {
     opacity: 1;
 }
 
+
 .form-style {
     width: 100%;
     font-family: sans-serif;
@@ -326,4 +327,10 @@ a:active {
     width: 100%;
     color: #ffffff;
     opacity: 0.64;
+}
+
+.select2-container {
+
+    width: 100% !important;
+    border: none !important;
 }
