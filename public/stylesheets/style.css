@@ -173,12 +173,12 @@ a:active {
 .btn-normal:active,
 .btn-normal:focus {
     color: #1F1209;
-    background-color: #D2DBE4;
+    background-color: #dbe2e9;
     border-color: #dde4ea;
     outline: 0px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(228,233,238, 1);
-            box-shadow: inset 0 3px 5px rgba(228,233,238, 1);
-    opacity: 1;
+    -webkit-box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
+            box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
+    opacity: 0.8;
 }
 
 .btn-header {
@@ -199,7 +199,7 @@ a:active {
     outline: 0px;
     -webkit-box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
             box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
-    opacity: 1;
+    opacity: 0.8;
 }
 
 
@@ -209,8 +209,9 @@ a:active {
     color: #1F1209;
     font-size: 16px;
     background-color: #ffffff;
-    opacity: 0.32;
+    opacity: 0.64;
     border: 1px solid #ffffff;
+    border-radius: 5px;
 }
 
 .form-style:hover,
@@ -222,9 +223,10 @@ a:active {
     background-color: #ffffff;
     border: 1px solid #ffffff;
     outline: 0;
-    opacity: 0.64;
+    opacity: 0.8;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
+    border-radius: 5px;
 }
 
 .form-style::-moz-placeholder,
@@ -232,16 +234,24 @@ a:active {
 .form-style::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
+    opacity: 0.8;
+    border-radius: 5px;
+}
+
+.input-lg-style {
     opacity: 0.64;
 }
 
-.input-lg-style:focus {
+.input-lg-style:focus,
+.input-lg-style:hover,
+.input-lg-style:active {
     width: 100%;
     color: #1F1209;
     border-color: #ffffff;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
+    opacity: 0.8;
 }
 
 .input-lg-style::-moz-placeholder,
@@ -249,7 +259,7 @@ a:active {
 .input-lg-style::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
-    opacity: 0.64;
+    opacity: 0.8;
 }
 
 
@@ -268,7 +278,8 @@ a:active {
     border: none;`
 }
     #menu a {
-        border: none;
+        border-bottom: 1px solid #7f99b2;
+        color: #99adc1;
     }
 
      #menu .pure-menu,

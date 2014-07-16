@@ -60,13 +60,13 @@ block content
                         p.text-highlight(align='right') #{term.name}
                     div.col-xs-3
                         label(style="width: 100%;")
-                            select.form-control.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                            select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
                                 option(id='select-control')
                                 for type in relationship_types
                                     option(id='select-control', value='#{type}') #{type}
                     div.col-xs-4
                         label(style="width: 100%;")
-                            select(name='term[id]', required, id='e2',style="width: 100%;")
+                            select.form-style(name='term[id]', required, id='e2',style="width: 100%;")
                                 option.form-style 
                                 for term in all_others
                                     option.form-style(value='#{term.id}') #{term.name}
