@@ -6,7 +6,7 @@ block content
         div(id="tree-container")
         div(style='margin-top:15px')
 
-        div.titlebox(onclick='toggle1()')
+        div.titlebox(onclick='toggle1()', id='togglebox1', style='cursor:zoom-out')
             div.row
                 div.col-xs-8
                     p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
@@ -46,7 +46,7 @@ block content
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
             p(style='text-align:right')
                 a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
-        div.titlebox(onclick='toggle2()')
+        div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
             div.row
                 div.col-xs-8
                     p Add a new relationship for <span class='titlebox-text-highlight'>#{term.name}</span>:
@@ -72,7 +72,7 @@ block content
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Add')
 
-        div.titlebox(onclick='toggle3()')
+        div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
             div.row
                 div.col-xs-8
                     p Edit this term
