@@ -4,7 +4,25 @@ var Term = require('../models/term');
  */
 
 exports.index = function(req, res){
-	res.render('index', { user : req.user });
+    Term.getAll(function (err, terms) {
+        // Make sure there are at least 2 terms
+        if (err || terms == null || terms.length < 2) {
+            console.log("error in random");
+            return res.render('wrong');
+        }
+        var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_2.id == random_term_1.id){
+            var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+        }
+        console.log(random_term_1.id);
+        console.log(random_term_2.id);
+        res.render('index', {
+            user : req.user,
+            random_term_1: random_term_1,
+            random_term_2: random_term_2
+        });
+    });
 };
 
 /*

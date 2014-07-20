@@ -1,23 +1,22 @@
 <!-- TODO: -->
 Top 10 Hot Search
 
-Data mining
-	- From stackoverflow
-	- Parse the result
-
 User account management
 	- Need to implement admin functions (delete or review proposed edits)
 
-Abstraction of types
-	- Abstraction at parsing
-
 Allow user to search a pair of terms
+	- Done with rough UI
 
 Change viz lines to straight lines
 
 Add category label for generic categories
 
 Merge terms if same name
+	- Gave up for now
+
+Abstraction of types
+	- Abstraction at parsing
+	- Gave up for now
 <!-- UI:  -->
 Display number of terms on main page
 
@@ -52,6 +51,10 @@ Use moment.js to manage time and date
 	- Show creation time, last viewed, last modified
 	- Done 14 July
 
+Data mining
+	- From stackoverflow
+	- Parse the result
+	- Done 20 July
 
 # Node-Neo4j Template
 

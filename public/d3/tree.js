@@ -298,10 +298,10 @@ $( document ).ready(function() {
 
         link.enter().append("path")
             .attr("class", "templink")
-            .attr("d", d3.svg.diagonal())
+            .attr("d", diagonal)
             .attr('pointer-events', 'none');
 
-        link.attr("d", d3.svg.diagonal());
+        link.attr("d", diagonal);
 
         link.exit().remove();
     };
