@@ -61,6 +61,11 @@ exports.create = function (req, res, next) {
 //Add the new fields for old terms when they are requested
 
 exports.show = function (req, res, next) {
+    // Check if the user is logged in
+    // console.log(req.user);
+    // console.log(req.user != null);
+    var logged_in = (req.user != null);
+    console.log(logged_in);
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) {
@@ -128,7 +133,6 @@ exports.show = function (req, res, next) {
             is_predecessor_of_obj.name = term.REL_PREDECESSOR.replace(/_/g," ");
             is_predecessor_of_obj.children = is_predecessor_of_list;
 
-            console.log( "depend_list[i]" + depend_list.length)
             depend_obj.name = term.REL_DEPEND.replace(/_/g," ");
             depend_obj.children = depend_list;
 
@@ -208,6 +212,7 @@ exports.show = function (req, res, next) {
                 Term.getAll(function (err, terms) {
                     if (err) return next(err);
                     res.render('term', {
+                        logged_in: logged_in,
                         json: JSON.stringify(term_obj),
                         term: term,
                         created_at: created_at,
