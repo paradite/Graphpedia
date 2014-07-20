@@ -445,7 +445,7 @@ RETURN r
         });
         // data = nodes[0].data;
         // console.log("results: " + results + " nodes: " + nodes + " 1st data: ");
-        callback(null, nodes, relationships);
+        callback(null, terms, relationships);
     });
     
 }

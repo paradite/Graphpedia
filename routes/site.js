@@ -63,10 +63,15 @@ exports.path = function(req, res){
         //Matched both
         if(terms1 != null && terms2 != null && terms1.length > 0 && terms2.length > 0){
             //Find the path using two ids
-            terms1[0].getPath(terms2[0], function (err, nodes, relationships){
-                // Parse nodes and relationships for displaying
+            terms1[0].getPath(terms2[0], function (err, terms, relationships){
+                // Parse terms and relationships for displaying
                 if(err) console.log(err);
-                console.log("path: " + path);
+                console.log("terms: " + terms);
+                console.log("relationships: " + relationships);
+                res.render('pathdisplay',{
+                    terms: terms,
+                    relationships: relationships
+                });
             });
         //Not matched for either
         }else{

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div.main
+        h1 Relationship between two terms
+        div.col-xs-4
+            if terms.length
+                ul
+                    for other in terms
+                        li
+                            a.text-highlight(href='/terms/#{other.id}') #{other.name}
+        div.col-xs-4
+            if relationships.length
+                ul
+                    for rel in relationships
+                        li
+                            a.text-highlight #{rel.type}

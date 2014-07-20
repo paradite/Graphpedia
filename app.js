@@ -197,6 +197,7 @@ app.get('/search', routes.site.search);
 /*Path Routes*/
 app.get('/pathfind', routes.site.pathrender);
 app.post('/pathfind', routes.site.pathinit);
+/*Main method to search for path in database and render it*/
 app.get('/path', routes.site.path);
 
 /*Handling wrong urls*/
