@@ -3,20 +3,18 @@ extends layout_viz
 block content
     div.main
         div(id='termname', value=term.name)
-        //- h1
-        //-     a.text-highlight(id='wikiurl') #{term.name} - #{term.description}
-
         div(id="tree-container")
         div(style='margin-top:15px')
-            p(style='text-align:right')
-                a.text-highlight(id='wikiurl', target="_blank") Link to wikipedia
+
         div.titlebox(onclick='toggle1()')
             div.row
                 div.col-xs-8
                     p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
                 div.col-xs-4
-                    p(id='toggletext1') Click to expand
-        div.subdiv(id='subdiv1', style='display: none;')
+                    p(id='toggletext1') Hide
+        div.subdiv(id='subdiv1', style = "display : block;")
+            p
+                a.text-highlight #{term.name} - #{term.description}
             //is_part_of related block
             if is_part_of.length
                 p <span class='text-highlight'>#{term.name}</span> is part of <span class='text-highlight'>#{is_part_of.length}</span> terms:
@@ -46,7 +44,8 @@ block content
                                 input.btn.btn-close(type='submit', value='x')
             else
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
-
+            p(style='text-align:right')
+                a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
         div.titlebox(onclick='toggle2()')
             div.row
                 div.col-xs-8

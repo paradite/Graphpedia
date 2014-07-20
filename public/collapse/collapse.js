@@ -3,11 +3,11 @@ function toggle1() {
     var text = document.getElementById('toggletext1');
     if(ele.style.display == "block") {
         ele.style.display = "none";
-        text.innerHTML = "show";
+        text.innerHTML = "Show";
     }
     else {
         ele.style.display = "block";
-        text.innerHTML = "hide";
+        text.innerHTML = "Hide";
         window.location.hash = "subdiv1";
     }
 }
@@ -17,11 +17,11 @@ function toggle2() {
     var text = document.getElementById('toggletext2');
     if(ele.style.display == "block") {
         ele.style.display = "none";
-        text.innerHTML = "show";
+        text.innerHTML = "Show";
     }
     else {
         ele.style.display = "block";
-        text.innerHTML = "hide";
+        text.innerHTML = "Hide";
         window.location.hash = "subdiv2";
     }
 }
@@ -31,11 +31,11 @@ function toggle3() {
     var text = document.getElementById('toggletext3');
     if(ele.style.display == "block") {
         ele.style.display = "none";
-        text.innerHTML = "show";
+        text.innerHTML = "Show";
     }
     else {
         ele.style.display = "block";
-        text.innerHTML = "hide";
+        text.innerHTML = "Hide";
         window.location.hash = "subdiv3";
     }
 }

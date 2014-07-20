@@ -166,7 +166,7 @@ a:active {
     background-color: #BCC9D6;
     -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
             box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
-    opacity: 0.64;
+    opacity: 0.80;
 }
 
 .btn-normal:hover,
@@ -178,28 +178,28 @@ a:active {
     outline: 0px;
     -webkit-box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
             box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
-    opacity: 0.8;
+    opacity: 0.96;
 }
 
 .btn-header {
     color: #1F1209;
-    background-color: #FAF9E6;
+    background-color: #c1a280;
     border-color: #d9d6a1;
-    -webkit-box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
-            box-shadow: inset 0 3px 5px rgba(243, 239, 186, 1);
-    opacity: 0.64;
+    -webkit-box-shadow: inset 0 3px 5px rgba(224,208,191, 1);
+            box-shadow: inset 0 3px 5px rgba(224,208,191, 1);
+    opacity: 0.80;
 }
 
 .btn-header:hover,
 .btn-header:active,
 .btn-header:focus {
     color: #1F1209;
-    background-color: #ffffff;
+    background-color: #fffaea;
     border-color: #d9d6a1;
-    outline: 0px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
-            box-shadow: inset 0 3px 5px rgba(242, 238, 179, 1);
-    opacity: 0.8;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(255,255,255, 1);
+            box-shadow: inset 0 3px 5px rgba(255,255,255, 1);
+    opacity: 0.96;
 }
 
 
@@ -209,7 +209,7 @@ a:active {
     color: #1F1209;
     font-size: 16px;
     background-color: #ffffff;
-    opacity: 0.64;
+    opacity: 0.80;
     border: 1px solid #ffffff;
     border-radius: 5px;
 }
@@ -223,7 +223,7 @@ a:active {
     background-color: #ffffff;
     border: 1px solid #ffffff;
     outline: 0;
-    opacity: 0.8;
+    opacity: 0.96;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
     border-radius: 5px;
@@ -234,12 +234,12 @@ a:active {
 .form-style::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
-    opacity: 0.8;
+    opacity: 0.96;
     border-radius: 5px;
 }
 
 .input-lg-style {
-    opacity: 0.64;
+    opacity: 0.80;
 }
 
 .input-lg-style:focus,
@@ -251,7 +251,7 @@ a:active {
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
-    opacity: 0.8;
+    opacity: 0.96;
 }
 
 .input-lg-style::-moz-placeholder,
@@ -259,7 +259,7 @@ a:active {
 .input-lg-style::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
-    opacity: 0.8;
+    opacity: 0.96;
 }
 
 
@@ -315,7 +315,7 @@ a:active {
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
-    opacity: 0.64;
+    opacity: 0.80;
 
 }
 
@@ -337,7 +337,7 @@ a:active {
 .select-control::-webkit-input-placeholder {
     width: 100%;
     color: #ffffff;
-    opacity: 0.64;
+    opacity: 0.80;
 }
 
 .select2-container {
