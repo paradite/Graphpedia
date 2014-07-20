@@ -27,6 +27,65 @@ exports.searchinit = function(req, res){
 }
 
 /*
+GET Render the path search view
+*/
+exports.pathrender = function(req, res){
+    res.render('path');
+}
+
+/*
+POST Get the ids for terms for path
+*/
+exports.pathinit = function(req, res){
+    var name1 = req.body['name1'];
+    var name2 = req.body['name2'];
+        if(name1 == null || name2 == null){
+        res.render('index');
+    }
+    res.redirect('/path?name1=' + name1 + '&name2=' + name2);
+}
+
+/*
+GET Get the ids for terms for path
+*/
+exports.path = function(req, res){
+    var name1 = req.query.name1;
+    var name2 = req.query.name2;
+        if(name1 == null || name2 == null){
+        res.render('index');
+    }
+    //In case of multiple terms returned by name, use the first name
+    Term.getByNames(name1, name2, function (err, terms1, terms2) {
+        if (err){
+            console.log('%s', "err occured");
+            res.render('index');
+        }
+        //Matched both
+        if(terms1 != null && terms2 != null && terms1.length > 0 && terms2.length > 0){
+            //Find the path using two ids
+            terms1[0].getPath(terms2[0], function (err, nodes, relationships){
+                // Parse nodes and relationships for displaying
+                if(err) console.log(err);
+                console.log("path: " + path);
+            });
+        //Not matched for either
+        }else{
+            if(terms1 == null || terms1.length == 0) {
+                console.log('%s', "path finding fails term 1: " + name1);
+                res.render('notfound', {
+                    name: name1
+                });
+            }else if(terms2 == null || terms2.length == 0) {
+                console.log('%s', "path finding fails term 2: " + name2);
+                res.render('notfound', {
+                    name: name2
+                });
+            };
+        }
+    });
+}
+
+/*
 GET Search a term
 */
 exports.search = function(req, res){

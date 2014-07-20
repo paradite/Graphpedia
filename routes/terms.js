@@ -60,7 +60,7 @@ exports.create = function (req, res, next) {
  */
 //Add the new fields for old terms when they are requested
 
- exports.show = function (req, res, next) {
+exports.show = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) {
@@ -159,72 +159,74 @@ exports.create = function (req, res, next) {
             };
 
             function callback(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var relationship_types = JSON.parse(body);
-
-                    //deal with old relationship types
-                    var index = relationship_types.indexOf("follows");
-                    if (index > -1) {
-                        relationship_types.splice(index, 1);
-                    }
-                    var index = relationship_types.indexOf("contains");
-                    if (index > -1) {
-                        relationship_types.splice(index, 1);
-                    }
-                    //Add default ones
-                    if(relationship_types.length < 5){
-                        relationship_types = [];
-                        relationship_types.push(term.REL_INCLUDE.replace(/_/g," "));
-                        relationship_types.push(term.REL_IS_PART_OF.replace(/_/g," "));
-                        relationship_types.push(term.REL_PREDECESSOR.replace(/_/g," "));
-                        relationship_types.push(term.REL_SUCCESSOR.replace(/_/g," "));
-                        relationship_types.push(term.REL_DEPEND.replace(/_/g," "));
-                    }
-
-                    var types = "";
-
-                    relationship_types.forEach(function(item) { 
-                        types+= item;
-                        types+= " ";
-                    });
-                    //console.log("There are "+relationship_types.length+" relationships types: " + types);
-                    //console.log(all_others);
-                    //console.log('%s', JSON.stringify(term_obj));
-                    //Force user to update when newly created
-                    if(req.session.create) {
-                        res.statusCode = 201;
-                        req.session.create = false;
-                    }
-
-                    //Format the moment time for display purposes
-                    var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
-                    var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
-                    var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
-
-                    //Get all terms for sidebar
-                    Term.getAll(function (err, terms) {
-                        if (err) return next(err);
-                        res.render('term', {
-                            json: JSON.stringify(term_obj),
-                            term: term,
-                            created_at: created_at,
-                            last_modified_at: last_modified_at,
-                            last_viewed_at: last_viewed_at,
-                            is_part_of: is_part_of_list,
-                            including: including_list,
-                            depend: depend_list,
-                            successor: is_successor_of_list,
-                            predecessor: is_predecessor_of_list,
-                            all_others: all_others,
-                            relationship_types: relationship_types,
-                            terms: terms
-                        });
-                    });
+                if (error || response.statusCode != 200) {
+                    console.log("error in neo4j API callback");
+                    return res.render('wrong');
                 }
+                var relationship_types = JSON.parse(body);
+
+                //deal with old relationship types
+                var index = relationship_types.indexOf("follows");
+                if (index > -1) {
+                    relationship_types.splice(index, 1);
+                }
+                var index = relationship_types.indexOf("contains");
+                if (index > -1) {
+                    relationship_types.splice(index, 1);
+                }
+                //Add default ones
+                if(relationship_types.length < 5){
+                    relationship_types = [];
+                    relationship_types.push(term.REL_INCLUDE.replace(/_/g," "));
+                    relationship_types.push(term.REL_IS_PART_OF.replace(/_/g," "));
+                    relationship_types.push(term.REL_PREDECESSOR.replace(/_/g," "));
+                    relationship_types.push(term.REL_SUCCESSOR.replace(/_/g," "));
+                    relationship_types.push(term.REL_DEPEND.replace(/_/g," "));
+                }
+
+                var types = "";
+
+                relationship_types.forEach(function(item) { 
+                    types+= item;
+                    types+= " ";
+                });
+                //console.log("There are "+relationship_types.length+" relationships types: " + types);
+                //console.log(all_others);
+                //console.log('%s', JSON.stringify(term_obj));
+                //Force user to update when newly created
+                if(req.session.create) {
+                    res.statusCode = 201;
+                    req.session.create = false;
+                }
+
+                //Format the moment time for display purposes
+                var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+                var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+                var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
+
+                //Get all terms for sidebar
+                Term.getAll(function (err, terms) {
+                    if (err) return next(err);
+                    res.render('term', {
+                        json: JSON.stringify(term_obj),
+                        term: term,
+                        created_at: created_at,
+                        last_modified_at: last_modified_at,
+                        last_viewed_at: last_viewed_at,
+                        is_part_of: is_part_of_list,
+                        including: including_list,
+                        depend: depend_list,
+                        successor: is_successor_of_list,
+                        predecessor: is_predecessor_of_list,
+                        all_others: all_others,
+                        relationship_types: relationship_types,
+                        terms: terms
+                    });
+                });
             }
             request(options, callback);
         });
-    });
+});
 }
 
 /**
@@ -316,6 +318,7 @@ exports.newcustom = function (req, res, next) {
         });    
     });
 };
+
 
 // /**
 //  * POST /terms/:id/is_part_of

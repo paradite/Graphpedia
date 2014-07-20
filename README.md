@@ -2,15 +2,22 @@
 Top 10 Hot Search
 
 Data mining
-	From wikipedia or stackoverflow
+	- From stackoverflow
+	- Parse the result
 
 User account management
 	- Need to implement admin functions (delete or review proposed edits)
 
-Abstraction of types - Ask mentor
-	- Abstraction at querying for relationships
+Abstraction of types
+	- Abstraction at parsing
 
 Allow user to search a pair of terms
+
+Change viz lines to straight lines
+
+Add category label for generic categories
+
+Merge terms if same name
 <!-- UI:  -->
 Display number of terms on main page
 

@@ -108,6 +108,10 @@ Object.defineProperty(Term.prototype, 'REL_DEPEND', {
     get: function () { return "depends_on"; }
 });
 
+Object.defineProperty(Term.prototype, 'REL_SYNONYM', {
+    get: function () { return "synonym"; }
+});
+
 // public instance methods:
 
 Term.prototype.save = function (callback) {
@@ -236,9 +240,9 @@ Term.get = function (id, callback) {
     });
 };
 
-/*
-Get a term by name
-*/
+/**
+ * Get a term by name
+ */
 //Provided support for searching with lower case
 Term.getByName = function (name, callback) {
     //Convert the name to lower case before searching
@@ -262,9 +266,23 @@ Term.getByName = function (name, callback) {
     });
 };
 
-/*
-Get a term by partial name, used if full matching is not possible
-*/
+/**
+ * Get 2 terms by names for path
+ */
+//Provided support for searching with lower case
+Term.getByNames = function (name1, name2, callback) {
+    Term.getByName(name1, function (err, terms1) {
+        if (err) return callback(err);
+        Term.getByName(name2, function (err2, terms2){
+            if (err2) return callback(err);
+            callback(null, terms1, terms2); 
+        });
+    });
+};
+
+/**
+ * Get a term by partial name, used if full matching is not possible
+ */
 //Provided support for partial matching using regular expression
 //13 July
 Term.getByNamePartial = function (name, callback) {
@@ -304,13 +322,25 @@ Term.getAll = function (callback) {
     });
 };
 
+Term.getCount = function (callback) {
+    var query = [
+        'MATCH (term:Term)',
+        'RETURN COUNT(term)',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        callback(null, results[0]['COUNT(term)']);
+    });
+};
+
 // creates the Term and persists (saves) it to the db, incl. indexing it:
 Term.create = function (data, callback) {
     // construct a new instance of our class with the data, so it can
     // validate and extend it, etc., if we choose to do that in the future:
     var node = db.createNode(data);
     var term = new Term(node);
-
+    console.log(data);
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
@@ -330,6 +360,96 @@ Term.create = function (data, callback) {
     });
 };
 
+// creates multiple terms in one operation and persists (saves) them to the db, incl. indexing it:
+Term.createMultiple = function (data, callback) {
+    // construct a new instance of our class with the data, so it can
+    // validate and extend it, etc., if we choose to do that in the future:
+    // var node = db.createNode(data);
+    // var term = new Term(node);
+    console.log(data);
+    // but we do the actual persisting with a Cypher query, so we can also
+    // apply a label at the same time. (the save() method doesn't support
+    // that, since it uses Neo4j's REST API, which doesn't support that.)
+    var query = [
+        'CREATE (term:Term {data})',
+        'RETURN count(term)',
+    ].join('\n');
+
+    var params = {
+        data: data
+    };
+
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+        var count = new Term(results[0]['count(term)']);
+        callback(null, count);
+    });
+};
+
+/**
+ * Get the path from one node to another
+ * @param  {Term}   other    the other term
+ * @param  {callback} callback the callback with the nodes and relationships as arrays
+ * @return {none}
+ * @author paradite
+ */
+Term.prototype.getPath = function (other, callback) {
+/*
+MATCH (actor { name:'Charlie Sheen' })-[r:ACTED_IN*2]-(co_actor)
+RETURN r
+ */
+
+    // console.log("in getPath ids: " + this.id + " " + other.id);
+    //Create MATCH query with terms and path
+    var rels = [
+        Term.REL_INCLUDE,
+        Term.REL_DEPEND,
+        Term.REL_PREDECESSOR,
+        Term.REL_SUCCESSOR,
+        Term.REL_IS_PART_OF,
+        Term.REL_SYNONYM,
+    ].join('|');
+    // var match_rels = 'MATCH (term:Term)-[r:'+ rels + '*1..5]-(other:Term)'
+    var match_term = 'MATCH (term:Term),(other:Term),';
+    var match_path = ' p = shortestPath((term)-[r*..6]->(other))';
+    var query = [
+        match_term + match_path,
+        'WHERE ID(term) = {termId} AND ID(other) = {otherId}',
+        'RETURN nodes(p), relationships(p)',
+    ].join('\n')
+
+    var params = {
+        termId: this.id,
+        otherId: other.id,
+    };
+
+/*    this._node.path(other._node, rels, 'all', 5, 'shortestPath', function (err, path){
+        if(err) console.log(err);
+        console.log(path.nodes);
+    });*/
+
+    db.query(query, params, function (err, results) {
+        if (err) return callback(err);
+        results = results[0];
+        // console.log(results);
+        var nodes = results['nodes(p)'];
+        var relationships = results['relationships(p)'];
+        var terms = nodes.map(function (node) {
+            return new Term(node);
+        });
+        terms.forEach(function (term){
+            console.log(term.name + ":" + term.description);
+        });
+        relationships.forEach(function (relationship){
+            console.log("relationship type:" + relationship.type);
+        });
+        // data = nodes[0].data;
+        // console.log("results: " + results + " nodes: " + nodes + " 1st data: ");
+        callback(null, nodes, relationships);
+    });
+    
+}
+
 /*
 Method to parse the data from neo4j databse to json objects for rendering of d3.js
 Author: Zhu Liang
@@ -345,7 +465,6 @@ Term.prototype.parse = function (arr_obs){
     }
     return parsed;
 }
-
 
 /*MATCH n RETURN n LIMIT 5;*/
 

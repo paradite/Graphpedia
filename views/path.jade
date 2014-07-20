@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div.main
+        h1 Path Page
+        br
+        form(role='form', action="/pathfind",method="post", style='max-width: 300px;')
+            .form-group
+                input.form-control(type='text', name="name1", placeholder='First Term')
+            a and
+            .form-group
+                input.form-control(type='text', name="name2", placeholder='Second Term')
+            button.btn.btn-default(type='submit') Submit
+            &nbsp;
