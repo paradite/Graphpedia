@@ -70,14 +70,6 @@ block content
                             a.btn.btn-normal(type='submit') Search
                         &nbsp;
 
-
-
-
-
-
-
-
-
         div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
             div.row
                 div.col-xs-8
@@ -89,7 +81,7 @@ block content
             form(action='/terms/#{term.id}/custom', method='POST')                    
                 div.row
                     div.col-xs-3
-                        p.text-highlight(align='right') #{term.name}
+                        p(style='padding-top: 5px', align='center') #{term.name}
                     div.col-xs-3
                         label(style="width: 100%;")
                             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
@@ -105,7 +97,7 @@ block content
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Add')
             br
-            p Edit #{term.name}:
+            p(style='padding-top: 5px') Edit #{term.name}:
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
                     div.col-xs-3    
