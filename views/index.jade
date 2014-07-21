@@ -12,7 +12,7 @@ block content
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
 
-    //- div
+    //- div.index-main
     //-     p I would like to add a new relationship:
     //-     form(action='', method='POST')  
     //-         div.col-xs-3
@@ -27,3 +27,19 @@ block content
     //-             a random2
     //-         div.col-xs-2
     //-             a.btn.btn-normal submit
+    div.index-main
+        //- div.row
+        //-     div.col-xs-3
+        //-         p(align='right', style='padding-top: 5px') Relationship between
+        //-     div.col-xs-9
+        //-         form(role='form', action="/pathfind",method="post")
+        //-             div.col-xs-4
+        //-                 input.form-control.form-style(type='text', name="name1", placeholder='First Term')
+        //-             div.col-xs-1
+        //-                 p(style='padding-top: 5px') and
+        //-             div.col-xs-4
+        //-                 input.form-control.form-style(type='text', name="name2", placeholder='Second Term')
+        //-             div.col-xs-2
+        //-                 a.btn.btn-normal(type='submit') Search
+        //-             &nbsp;
+

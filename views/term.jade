@@ -46,13 +46,46 @@ block content
                 p <span class='text-highlight'>#{term.name}</span> does not includes any terms currently.
             p(style='text-align:right')
                 a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
+
         div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
             div.row
                 div.col-xs-8
-                    p Add a new relationship for <span class='titlebox-text-highlight'>#{term.name}</span>:
+                    p Search inside <span class='titlebox-text-highlight'>#{term.name}</span>
                 div.col-xs-4
                     p(id='toggletext2') Click to expand
         div.subdiv(id='subdiv2', style='display: none;')
+            div.row
+                div.col-xs-4
+                    p(align='center', style='padding-top: 5px') Relationship between
+                div.col-xs-8
+                    form(role='form', action="/pathfind",method="post")
+                        div.col-xs-4
+                            //- input.form-control.form-style(type='text', name="name1", placeholder='First Term')
+                            p(style='padding-top: 5px', align='center') #{term.name}                        
+                        div.col-xs-1
+                            p(style='padding-top: 5px', align='center') and
+                        div.col-xs-4
+                            input.form-control.form-style(type='text', name="name2", placeholder='Second Term')
+                        div.col-xs-2
+                            a.btn.btn-normal(type='submit') Search
+                        &nbsp;
+
+
+
+
+
+
+
+
+
+        div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
+            div.row
+                div.col-xs-8
+                    p Manage <span class='titlebox-text-highlight'>#{term.name}</span>
+                div.col-xs-4
+                    p(id='toggletext3') Click to expand
+        div.subdiv(id='subdiv3', style='display: none;')
+            p Add a new relationship for #{term.name}:
             form(action='/terms/#{term.id}/custom', method='POST')                    
                 div.row
                     div.col-xs-3
@@ -71,14 +104,8 @@ block content
                                     option.form-style(value='#{term.id}') #{term.name}
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Add')
-
-        div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
-            div.row
-                div.col-xs-8
-                    p Edit this term
-                div.col-xs-4
-                    p(id='toggletext3') Click to expand
-        div.subdiv(id='subdiv3', style='display: none;')
+            br
+            p Edit #{term.name}:
             form(action='/terms/#{term.id}', method='POST')            
                 div.row
                     div.col-xs-3    
@@ -90,15 +117,14 @@ block content
                             input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Update')
-
+            br
             form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 div.row
                     div.col-xs-10
                         p Or you can delete the term
                     div.col-xs-2
                         input(type='hidden', name='_method', value='DELETE')
-                        input.btn.btn-normal(type='submit', value='Delete Term')
-
+                        input.btn.btn-normal(type='submit', value='Delete Term')            
         div(style='padding:15px')
             if term.created_at
                 p <span class='text-highlight'>Created at</span> : <span>#{created_at}</span> Singapore Time
