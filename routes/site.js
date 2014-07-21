@@ -1,9 +1,10 @@
 var Term = require('../models/term');
+var request = require('request');
 /*
  * GET home page.
  */
 
-exports.index = function(req, res){
+ exports.index = function(req, res){
     Term.getAll(function (err, terms) {
         // Make sure there are at least 2 terms
         if (err || terms == null || terms.length < 2) {
@@ -17,19 +18,69 @@ exports.index = function(req, res){
         }
         console.log(random_term_1.id);
         console.log(random_term_2.id);
-        res.render('index', {
-            user : req.user,
-            random_term_1: random_term_1,
-            random_term_2: random_term_2
+        //Get all the relationships
+        //Heroku neo4j database
+        var base_url = process.env['NEO4J_URL'] ||
+        process.env['GRAPHENEDB_URL'] ||
+        'http://localhost:7474'
+
+        //Use neo4j REST API to get all relationship
+        var options = {
+            url: base_url + '/db/data/relationship/types',
+            headers: {
+                'User-Agent': 'request'
+            }
+        };
+
+        function callback(error, response, body) {
+            if (error || response.statusCode != 200) {
+                console.log("error in neo4j API callback");
+                return res.render('wrong');
+            }
+            var relationship_types = JSON.parse(body);
+
+                //deal with old relationship types
+                var index = relationship_types.indexOf("follows");
+                if (index > -1) {
+                    relationship_types.splice(index, 1);
+                }
+                var index = relationship_types.indexOf("contains");
+                if (index > -1) {
+                    relationship_types.splice(index, 1);
+                }
+                //Add default ones
+                if(relationship_types.length < 5){
+                    relationship_types = [];
+                    relationship_types.push(random_term_1.REL_INCLUDE.replace(/_/g," "));
+                    relationship_types.push(random_term_1.REL_IS_PART_OF.replace(/_/g," "));
+                    relationship_types.push(random_term_1.REL_PREDECESSOR.replace(/_/g," "));
+                    relationship_types.push(random_term_1.REL_SUCCESSOR.replace(/_/g," "));
+                    relationship_types.push(random_term_1.REL_DEPEND.replace(/_/g," "));
+                }
+
+                var types = "";
+
+                relationship_types.forEach(function(item) { 
+                    types+= item;
+                    types+= " ";
+                });
+                //console.log("There are "+relationship_types.length+" relationships types: " + types);
+                res.render('index', {
+                    user : req.user,
+                    random_term_1: random_term_1,
+                    random_term_2: random_term_2,
+                    relationship_types: relationship_types
+                });
+            }
+            request(options, callback);
         });
-    });
 };
 
 /*
  * POST home page.
  */
 
-exports.indexpost = function(req, res, next){
+ exports.indexpost = function(req, res, next){
     res.render('index');
 };
 
@@ -38,10 +89,10 @@ POST Direct the search to the item-specific-url
 */
 exports.searchinit = function(req, res){
 	var name = req.body['name'];
-		if(name == null){
-		res.render('index');
-	}
-	res.redirect('/search?name=' + name);
+  if(name == null){
+      res.render('index');
+  }
+  res.redirect('/search?name=' + name);
 }
 
 /*
@@ -57,7 +108,7 @@ POST Get the ids for terms for path
 exports.pathinit = function(req, res){
     var name1 = req.body['name1'];
     var name2 = req.body['name2'];
-        if(name1 == null || name2 == null){
+    if(name1 == null || name2 == null){
         res.render('index');
     }
     res.redirect('/path?name1=' + name1 + '&name2=' + name2);
@@ -69,7 +120,7 @@ GET Get the ids for terms for path
 exports.path = function(req, res){
     var name1 = req.query.name1;
     var name2 = req.query.name2;
-        if(name1 == null || name2 == null){
+    if(name1 == null || name2 == null){
         res.render('index');
     }
     //In case of multiple terms returned by name, use the first name
@@ -92,20 +143,20 @@ exports.path = function(req, res){
                 });
             });
         //Not matched for either
-        }else{
-            if(terms1 == null || terms1.length == 0) {
-                console.log('%s', "path finding fails term 1: " + name1);
-                res.render('notfound', {
-                    name: name1
-                });
-            }else if(terms2 == null || terms2.length == 0) {
-                console.log('%s', "path finding fails term 2: " + name2);
-                res.render('notfound', {
-                    name: name2
-                });
-            };
-        }
-    });
+    }else{
+        if(terms1 == null || terms1.length == 0) {
+            console.log('%s', "path finding fails term 1: " + name1);
+            res.render('notfound', {
+                name: name1
+            });
+        }else if(terms2 == null || terms2.length == 0) {
+            console.log('%s', "path finding fails term 2: " + name2);
+            res.render('notfound', {
+                name: name2
+            });
+        };
+    }
+});
 }
 
 /*
@@ -115,8 +166,8 @@ exports.search = function(req, res){
 	var name = req.query.name;
 	if(name == null){
         console.log('%s', "name is null");
-		res.render('index');
-	}
+        res.render('index');
+    }
 
     Term.getByName(name, function (err, terms) {
         if (err){
@@ -140,8 +191,8 @@ exports.search = function(req, res){
                 });
             }
         //Not matched
-        }else if(terms == null || terms.length == 0){
-            console.log('%s', "before calling getByNamePartial.");
+    }else if(terms == null || terms.length == 0){
+        console.log('%s', "before calling getByNamePartial.");
             //Instead of notfound, try partial matching
             Term.getByNamePartial(name, function (err, terms_partial) {
                 console.log('%s', "inside partial callback");
@@ -153,31 +204,31 @@ exports.search = function(req, res){
                             terms: terms_partial
                         });
                     //Redirect if partial match only finds one
-                    }else if(terms_partial.length == 1){
-                        res.redirect('/terms/' + terms_partial[0].id);
-                    }
-                //Not matched
-                }else{
-                    console.log('%s', "term not found partially");
-                    res.render('notfound', {
-                    name: name
-                    });
+                }else if(terms_partial.length == 1){
+                    res.redirect('/terms/' + terms_partial[0].id);
                 }
-            });
+                //Not matched
+            }else{
+                console.log('%s', "term not found partially");
+                res.render('notfound', {
+                    name: name
+                });
+            }
+        });
         //This should never happen
-        }else{
-            console.log('%s', "term not found but not null or empty?");
-            res.render('notfound', {
-                name: name
-            });
-        }
-    });
+    }else{
+        console.log('%s', "term not found but not null or empty?");
+        res.render('notfound', {
+            name: name
+        });
+    }
+});
 }
 
 /*
  * GET home page.
  */
 
-exports.wrong = function(req, res){
+ exports.wrong = function(req, res){
     res.render('wrong');
 };
