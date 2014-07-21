@@ -12,34 +12,18 @@ block content
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
 
-    //- div.index-main
-    //-     p I would like to add a new relationship:
-    //-     form(action='', method='POST')  
-    //-         div.col-xs-3
-    //-             a random1
-    //-         div.col-xs-4
-    //-             label(style="width: 100%;")
-    //-                 select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-    //-                     option(id='select-control')
-    //-                     for type in relationship_types
-    //-                         option(id='select-control', value='#{type}') #{type}
-    //-         div.col-xs-3
-    //-             a random2
-    //-         div.col-xs-2
-    //-             a.btn.btn-normal submit
     div.index-main
-        //- div.row
-        //-     div.col-xs-3
-        //-         p(align='right', style='padding-top: 5px') Relationship between
-        //-     div.col-xs-9
-        //-         form(role='form', action="/pathfind",method="post")
-        //-             div.col-xs-4
-        //-                 input.form-control.form-style(type='text', name="name1", placeholder='First Term')
-        //-             div.col-xs-1
-        //-                 p(style='padding-top: 5px') and
-        //-             div.col-xs-4
-        //-                 input.form-control.form-style(type='text', name="name2", placeholder='Second Term')
-        //-             div.col-xs-2
-        //-                 a.btn.btn-normal(type='submit') Search
-        //-             &nbsp;
-
+        p I would like to add a new relationship:
+        form(action='/terms/#{random_term_1.id}/custom', method='POST')
+            div.col-xs-3
+                p #{random_term_1.name}
+            div.col-xs-4
+                label(style="width: 100%;")
+                    select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                        option(id='select-control')
+                        for type in relationship_types
+                            option(id='select-control', value='#{type}') #{type}
+            div.col-xs-3
+                p #{random_term_2.name}
+            div.col-xs-2
+                a.btn.btn-normal(type='submit', value='Add')
