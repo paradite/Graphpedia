@@ -82,6 +82,7 @@ block content
                 div.row
                     div.col-xs-3
                         p(style='padding-top: 5px', align='center') #{term.name}
+                        input(display='none', type='text', name="name1", placeholder='#{term.name}')
                     div.col-xs-3
                         label(style="width: 100%;")
                             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
