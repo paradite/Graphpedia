@@ -49,9 +49,15 @@ app.locals({
 // passport config
 var Account = require('./models/account');
 passport.use(Account.createStrategy());
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
 
+passport.deserializeUser(function(id, done) {
+  Account.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 // mongoose
 mongoose.connect(mongodb_url, function(err) { if (err) console.log(err); });
 
