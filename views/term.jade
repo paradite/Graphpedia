@@ -49,11 +49,11 @@ block content
                         a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
                 //- li
                 //-     //is_successor_of related block
-                //-     if is_successor_of.length
+                //-     if is_successor_of.children.length
                 //-         p <strong>#{term.name}</strong> is a successor of <strong>#{is_successor_of.length}</strong> terms:
                 //-         // TODO should say 'term' if only one! ;)
                 //-         ul
-                //-             for other in is_successor_of
+                //-             for other in show.is_successor_of
                 //-                 li
                 //-                     form(action='/terms/#{term.id}/uncustom', method='POST')
                 //-                         a.text-highlight(href='/terms/#{other.id}') #{other.name}

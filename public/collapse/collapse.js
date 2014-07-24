@@ -4,12 +4,13 @@ $(document).ready(function() {
             $('#subdiv1').slideDown("slow");
             $('#toggletext1').text("Show");
             $('#togglebox1').css('cursor', 'zoom-in');
-            console.log("Show");
+            $('html, body').animate({
+                scrollTop: $("#togglebox1").offset().top
+            }, 2000);
         } else{
             $('#subdiv1').slideUp("slow");
             $('#toggletext1').text("Hide");
             $('#togglebox1').css('cursor', 'zoom-out');
-            console.log("hide");
         };
     })
 
@@ -18,12 +19,13 @@ $(document).ready(function() {
             $('#subdiv2').slideDown("slow");
             $('#toggletext2').text("Show");
             $('#togglebox2').css('cursor', 'zoom-in');
-            console.log("Show");
+            $('html, body').animate({
+                scrollTop: $("#togglebox2").offset().top
+            }, 2000)
         } else{
             $('#subdiv2').slideUp("slow");
             $('#toggletext2').text("Hide");
             $('#togglebox2').css('cursor', 'zoom-out');
-            console.log("hide");
         };
     })
 
@@ -32,12 +34,13 @@ $(document).ready(function() {
             $('#subdiv3').slideDown("slow");
             $('#toggletext3').text("Show");
             $('#togglebox3').css('cursor', 'zoom-in');
-            console.log("Show");
+            $('html, body').animate({
+                scrollTop: $("#togglebox3").offset().top
+            }, 2000)
         } else{
             $('#subdiv3').slideUp("slow");
             $('#toggletext3').text("Hide");
             $('#togglebox3').css('cursor', 'zoom-out');
-            console.log("hide");
         };
     })
 });
