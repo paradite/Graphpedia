@@ -45,24 +45,54 @@ block content
                                         input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> does not includes any terms currently.
-                    p(style='text-align:right')
-                        a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
-                //- li
-                //-     //is_successor_of related block
-                //-     if is_successor_of.children.length
-                //-         p <strong>#{term.name}</strong> is a successor of <strong>#{is_successor_of.length}</strong> terms:
-                //-         // TODO should say 'term' if only one! ;)
-                //-         ul
-                //-             for other in show.is_successor_of
-                //-                 li
-                //-                     form(action='/terms/#{term.id}/uncustom', method='POST')
-                //-                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
-                //-                         input(type='hidden', name='term[id]', value='#{other.id}')
-                //-                         input(type='hidden', name='relationship[name]', value='is_successor_of')
-                //-                         input.btn.btn-close(type='submit', value='x')
-                //-     else
-                //-         p <strong>#{term.name}</strong> isn't a successor of any terms.
+                li
+                    //depend related block
+                    if depend.length
+                        p <strong>#{term.name}</strong> depends on <strong>#{depend.length}</strong> terms:
+                        // TODO should say 'term' if only one! ;)
+                        ul
+                            for other in depend
+                                li
+                                    form(action='/terms/#{term.id}/uncustom', method='POST')
+                                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                        input(type='hidden', name='term[id]', value='#{other.id}')
+                                        input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                        input.btn.btn-close(type='submit', value='x')
+                    else
+                        p <strong>#{term.name}</strong> does not depend on any terms.
 
+                li
+                    //successor related block
+                    if successor.length
+                        p <strong>#{term.name}</strong> is a successor of <strong>#{successor.length}</strong> terms:
+                        // TODO should say 'term' if only one! ;)
+                        ul
+                            for other in successor
+                                li
+                                    form(action='/terms/#{term.id}/uncustom', method='POST')
+                                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                        input(type='hidden', name='term[id]', value='#{other.id}')
+                                        input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                        input.btn.btn-close(type='submit', value='x')
+                    else
+                        p <strong>#{term.name}</strong> is not a successor of any terms.
+
+                li
+                    //predecessor related block
+                    if predecessor.length
+                        p <strong>#{term.name}</strong> is a predecessor of <strong>#{predecessor.length}</strong> terms:
+                        ul
+                            for other in predecessor
+                                li
+                                    form(action='/terms/#{term.id}/uncustom', method='POST')
+                                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                        input(type='hidden', name='term[id]', value='#{other.id}')
+                                        input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                        input.btn.btn-close(type='submit', value='x')
+                    else
+                        p <strong>#{term.name}</strong> is not a predecessor of any terms.
+                p(style='text-align:right')
+                    a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
 
         div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
             div.row
