@@ -12,27 +12,26 @@ block content
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
 
-    div
-        div.index-main(id='askBox', style='opacity:0.88')
-            div.subdiv
-                p I see a relationship
-                div.row
-                    form(action='/terms/#{random_term_1.id}/custom', method='POST')
-                        div.col-xs-3
-                            a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
-                        div.col-xs-4
-                            label(style="width: 100%;")
-                                select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-                                    option.form-style(id='select-control')
-                                    for type in relationship_types
-                                        option.form-style(id='select-control', value='#{type}') #{type}
-                        div.col-xs-3
-                            a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_2.name}     
-                        div.col-xs-2
-                            a.btn.btn-normal(type='submit', value='Add', id='add') Add
-            div.closebox
-                div.row
-                    div.col-xs-10
-                        p I do not see any relationship between them.
+    div.index-main(id='askBox', style='opacity:0.88')
+        div.subdiv
+            p I see a relationship
+            div.row
+                form(action='/terms/#{random_term_1.id}/custom', method='POST')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}     
                     div.col-xs-2
-                        input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+                        a.btn.btn-normal(type='submit', value='Add', id='add') Add
+        div.closebox
+            div.row
+                div.col-xs-10
+                    p I do not see any relationship between them.
+                div.col-xs-2
+                    input.btn.btn-close(id='closeButton', value='x', style='float:right') X
