@@ -19,7 +19,7 @@ block content
                 div.row
                     form(action='/terms/#{random_term_1.id}/custom', method='POST')
                         div.col-xs-3
-                            p <strong>#{random_term_1.name}</strong>
+                            a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
                         div.col-xs-4
                             label(style="width: 100%;")
                                 select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
@@ -27,9 +27,9 @@ block content
                                     for type in relationship_types
                                         option.form-style(id='select-control', value='#{type}') #{type}
                         div.col-xs-3
-                            p <strong>#{random_term_2.name}</strong>
+                            a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_2.name}     
                         div.col-xs-2
-                            a.btn.btn-normal(type='submit', value='Add') Add
+                            a.btn.btn-normal(type='submit', value='Add', id='add') Add
             div.closebox
                 div.row
                     div.col-xs-10
