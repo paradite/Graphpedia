@@ -75,11 +75,10 @@ a:active {
 }
 
 .index-main {
-
     margin-top: 50px;
     padding-top: 10px;
-    padding-left: 3%;
-    padding-right: 3%;
+    padding-left: 10%;
+    padding-right: 10%;
     background-color: #FFF8DC;
 }
 
@@ -95,7 +94,7 @@ a:active {
 .subdiv {
     min-height: 1px;
     background-color: #90A5BC;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 100%;
     padding: 15px;
     -webkit-box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
@@ -108,9 +107,23 @@ a:active {
     color: #FFF8DC;
     text-align: center;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 15px;
     width: 100%;
     margin-top: 15px;
+    -webkit-box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
+            box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
+}
+
+.closebox {
+    min-height: 1px;
+    background-color: #003366;
+    color: #FFF8DC;
+    margin-top: 0px;
+    padding-top: .1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 15px;
+    width: 100%;
     -webkit-box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
             box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
 }
@@ -156,10 +169,10 @@ a:active {
 }
 
 .btn-close {
-    color: #605F61;
-    border: 1px solid #427F00;
-    border-radius: 5px;
-    background: #ffffff;
+    color: #000000;
+    border: 1px solid #003366;
+    border-radius: 15px;
+    background-color: #ffffff;
     font-size: 20px;
     font-weight: bold;
     display: inline-block;

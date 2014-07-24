@@ -6,7 +6,7 @@ block content
         div(id="tree-container")
         div(style='margin-top:15px')
 
-        div.titlebox(onclick='toggle1()', id='togglebox1', style='cursor:zoom-out')
+        div.titlebox(id='togglebox1', style='cursor:zoom-out')
             div.row
                 div.col-xs-8
                     p Details of <span class='titlebox-text-highlight'>#{term.name}</span>
@@ -103,9 +103,9 @@ block content
                     div.col-xs-3
                         label(style="width: 100%;")
                             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-                                option(id='select-control')
+                                option.form-style(id='select-control')
                                 for type in relationship_types
-                                    option(id='select-control', value='#{type}') #{type}
+                                    option.form-style(id='select-control', value='#{type}') #{type}
                     div.col-xs-4
                         label(style="width: 100%;")
                             select.form-style(name='term[id]', required, id='e2',style="width: 100%;")

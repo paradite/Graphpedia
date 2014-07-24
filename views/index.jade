@@ -8,22 +8,31 @@ block content
         div.row.search-bar.vertical-center
             div.col-xs-3
             div.col-xs-6
-                input.form-control.input-lg.input-lg-style.form-style(type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
+                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
 
-    div.index-main
-        p I would like to add a new relationship:
-        form(action='/terms/#{random_term_1.id}/custom', method='POST')
-            div.col-xs-3
-                p #{random_term_1.name}
-            div.col-xs-4
-                label(style="width: 100%;")
-                    select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-                        option(id='select-control')
-                        for type in relationship_types
-                            option(id='select-control', value='#{type}') #{type}
-            div.col-xs-3
-                p #{random_term_2.name}
-            div.col-xs-2
-                a.btn.btn-normal(type='submit', value='Add')
+    div
+        div.index-main(id='askBox', style='opacity:0.88')
+            div.subdiv
+                p I see a relationship
+                div.row
+                    form(action='/terms/#{random_term_1.id}/custom', method='POST')
+                        div.col-xs-3
+                            p <strong>#{random_term_1.name}</strong>
+                        div.col-xs-4
+                            label(style="width: 100%;")
+                                select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                                    option.form-style(id='select-control')
+                                    for type in relationship_types
+                                        option.form-style(id='select-control', value='#{type}') #{type}
+                        div.col-xs-3
+                            p <strong>#{random_term_2.name}</strong>
+                        div.col-xs-2
+                            a.btn.btn-normal(type='submit', value='Add') Add
+            div.closebox
+                div.row
+                    div.col-xs-10
+                        p I do not see any relationship between them.
+                    div.col-xs-2
+                        input.btn.btn-close(id='closeButton', onclick='closeAskBox()', value='x', style='float:right') X
