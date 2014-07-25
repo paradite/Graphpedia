@@ -16,7 +16,7 @@ block content
         div.subdiv
             p I see a relationship
             div.row
-                form(action='/terms/#{random_term_1.id}/custom', method='POST')
+                form(action='add', method='POST')
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
                     div.col-xs-4
@@ -26,9 +26,9 @@ block content
                                 for type in relationship_types
                                     option.form-style(id='select-control', value='#{type}') #{type}
                     div.col-xs-3
-                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}     
+                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        a.btn.btn-normal(type='submit', value='Add', id='add') Add
+                        a.btn.btn-normal(type='submit', value='Create', id='add') Add
         div.closebox
             div.row
                 div.col-xs-10

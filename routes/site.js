@@ -229,6 +229,29 @@ exports.search = function(req, res){
  * GET home page.
  */
 
- exports.wrong = function(req, res){
+exports.wrong = function(req, res){
     res.render('wrong');
+};
+
+
+/**
+ * just named it anyhow...
+ * POST /terms/:id/add
+ */
+exports.add = function (req, res, next) {
+    console.log('here');
+    Term.get(req.body.random_term_1.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.random_term_2.id, function (err, other) {
+            if (err) return next(err);
+            term.custom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
+                if (err) return next(err);
+                term.last_modified_at = moment().format();
+                term.save(function (err) {
+                    if (err) return next(err);
+                    res.redirect('/terms/' + term.id);
+                });
+            });
+        });
+    });
 };
