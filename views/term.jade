@@ -4,7 +4,7 @@ block content
     div.main
         div(id='termname', value=term.name)
         if info
-            h4= info
+            h4(align='center') #{info}
         div(id="tree-container")
         div(style='margin-top:15px')
 
@@ -58,7 +58,7 @@ block content
                                     form(action='/terms/#{term.id}/uncustom', method='POST')
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
-                                        input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                        input(type='hidden', name='relationship[name]', value='depends_on')
                                         input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> does not depend on any terms.
@@ -89,12 +89,12 @@ block content
                                     form(action='/terms/#{term.id}/uncustom', method='POST')
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
-                                        input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                        input(type='hidden', name='relationship[name]', value='is_predecessor_of')
                                         input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> is not a predecessor of any terms.
                 p(style='text-align:right')
-                    a.text-highlight(id='wikiurl', target="_blank") #{term.name} in wikipedia
+                    a.text-highlight(id='wikiurl', target="_blank") #{term.name} in Wikipedia
 
         div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
             div.row

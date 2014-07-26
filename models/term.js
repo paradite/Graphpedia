@@ -441,10 +441,10 @@ RETURN r
             return new Term(node);
         });
         terms.forEach(function (term){
-            console.log(term.name + ":" + term.description);
+            // console.log(term.name + ":" + term.description);
         });
         relationships.forEach(function (relationship){
-            console.log("relationship type:" + relationship.type);
+            // console.log("relationship type:" + relationship.type);
         });
         // data = nodes[0].data;
         // console.log("results: " + results + " nodes: " + nodes + " 1st data: ");

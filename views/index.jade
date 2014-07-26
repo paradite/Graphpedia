@@ -11,11 +11,14 @@ block content
                 input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
+    //- Search a pair of terms
+    div.vertical-center(style='margin-top: 65px; margin-left: 35%;')
+        a(href='/path', align="center") Search for relationship between two terms
 
-    div.index-main(id='askBox', style='opacity:0.88')
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 3%;')
         div.subdiv
             input.btn.btn-close(id='closeButton', value='x', style='float:right') X
-            p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
                 form(action='/suggest', method='POST')
@@ -32,12 +35,12 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add') Add
-        div.closebox
-            div.row
-                div.col-xs-4
-                div.col-xs-4
-                    a(href='/' ) Try another pair of terms
-                div.col-xs-4
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+        //- div.closebox
+        //-     div.row
+        //-         div.col-xs-4
+        //-         div.col-xs-4
+        //-             a(href='/' ) Try another pair of terms
+        //-         div.col-xs-4
                 //- div.col-xs-2
                 //-     input.btn.btn-close(id='closeButton', value='x', style='float:right') X

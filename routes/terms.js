@@ -88,29 +88,41 @@ exports.show = function (req, res, next) {
             if (err) return next(err);
             //Parse all related terms
             var terms_list = term.parse(rel_terms);
-            //Add them into lists according to relationship types
+            //Generate list for d3.js
             var including_list = [];
             var is_part_of_list = [];
             var is_successor_of_list = [];
             var is_predecessor_of_list = [];
             var depend_list = [];
+
+            // Generate list for jade with id
+            var including_list_full = [];
+            var is_part_of_list_full = [];
+            var is_successor_of_list_full = [];
+            var is_predecessor_of_list_full = [];
+            var depend_list_full = [];
             
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
                 if (rel_names[i] == term.REL_INCLUDE) {
                     including_list.push(terms_list[i]);
+                    including_list_full.push(rel_terms[i]);
                     
                 }else if(rel_names[i] == term.REL_DEPEND){
                     depend_list.push(terms_list[i]);
+                    depend_list_full.push(rel_terms[i]);
 
                 }else if(rel_names[i] == term.REL_PREDECESSOR){
                     is_predecessor_of_list.push(terms_list[i]);
+                    is_predecessor_of_list_full.push(rel_terms[i]);
 
                 }else if(rel_names[i] == term.REL_SUCCESSOR){
                     is_successor_of_list.push(terms_list[i]);
+                    is_successor_of_list_full.push(rel_terms[i]);
 
                 }else if(rel_names[i] == term.REL_IS_PART_OF){
                     is_part_of_list.push(terms_list[i]);
+                    is_part_of_list_full.push(rel_terms[i]);
                 }   
             };
 
@@ -139,10 +151,12 @@ exports.show = function (req, res, next) {
             // var including_list = term.parse(including);
             // var is_part_of_list = term.parse(is_part_of);
 
-            var term_obj = new Object();
-            term_obj.name = term.name;
-            term_obj.description =term.description;
-            term_obj.children = [];
+            // var term_obj = new Object();
+            var term_obj = {
+                name: term.name,
+                description: term.description,
+                children: []
+            };
             term_obj.children.push(is_part_of_obj);
             term_obj.children.push(including_obj);
             term_obj.children.push(is_successor_of_obj);
@@ -209,7 +223,7 @@ exports.show = function (req, res, next) {
                 var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                 // Pass in additional info
                 var info;
-                console.log(req.query.info);
+                // console.log(req.query.info);
                 if(req.query.info == 'new'){
                     console.log("new");
                     info = 'New relationship added. Thanks for your contribution!';
@@ -224,11 +238,11 @@ exports.show = function (req, res, next) {
                         created_at: created_at,
                         last_modified_at: last_modified_at,
                         last_viewed_at: last_viewed_at,
-                        is_part_of: is_part_of_list,
-                        including: including_list,
-                        depend: depend_list,
-                        successor: is_successor_of_list,
-                        predecessor: is_predecessor_of_list,
+                        is_part_of: is_part_of_list_full,
+                        including: including_list_full,
+                        depend: depend_list_full,
+                        successor: is_successor_of_list_full,
+                        predecessor: is_predecessor_of_list_full,
                         all_others: all_others,
                         relationship_types: relationship_types,
                         terms: terms,
@@ -296,6 +310,7 @@ exports.custom = function (req, res, next) {
  * POST /terms/:id/uncustom
  */
 exports.uncustom = function (req, res, next) {
+    console.log(req.params.id + " and " + req.body.term.id + "and " + req.body.relationship.name.replace(/ /g,"_"));
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.term.id, function (err, other) {

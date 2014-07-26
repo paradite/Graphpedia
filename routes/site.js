@@ -135,6 +135,8 @@ exports.path = function(req, res){
             //Find the path using two ids
             terms1[0].getPath(terms2[0], function (err, terms, relationships){
                 // Parse terms and relationships for displaying
+                var path_obj = parsePath(terms, relationships);
+                
                 if(err) console.log(err);
                 console.log("terms: " + terms);
                 console.log("relationships: " + relationships);
@@ -142,7 +144,8 @@ exports.path = function(req, res){
                     name1: name1,
                     name2: name2,
                     terms: terms,
-                    relationships: relationships
+                    relationships: relationships,
+                    json: JSON.stringify(path_obj),
                 });
             });
         //Not matched for either
@@ -160,6 +163,40 @@ exports.path = function(req, res){
         };
     }
 });
+    function parsePath (terms, relationships){
+        if(terms.length != (relationships.length + 1)){
+            console.log("wrong number of terms and relationships");
+            return {};
+        }
+        // Total count
+        var term_count = terms.length;
+        var relationship_count = relationships.length;
+        // Current index to add
+        var term_index = term_count - 1;
+        var relationship_index = relationship_count - 1;
+        var path_obj = {
+            name: terms[term_index].name,
+            description: terms[term_index].description,
+        };
+        term_index--;
+        while(relationship_index >= 0){
+            // Still have relationships, add
+            
+            path_obj = {
+                name: relationships[relationship_index].type,
+                children: [path_obj]
+            }
+
+            path_obj = {
+                name: terms[term_index].name,
+                description: terms[term_index].description,
+                children: [path_obj]
+            }
+            relationship_index--;
+            term_index--;
+        }
+        return path_obj;
+    }
 }
 
 /*
