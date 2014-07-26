@@ -4,10 +4,8 @@ Top 10 Hot Search
 User account management
 	- Need to implement admin functions (delete or review proposed edits)
 
-Allow user to search a pair of terms
-	- Done with rough UI
-
 Change viz lines to straight lines
+	-Dropped idea
 
 Add category label for generic categories
 
@@ -55,6 +53,14 @@ Data mining
 	- From stackoverflow
 	- Parse the result
 	- Done 20 July
+
+Allow user to search a pair of terms
+	- Done with rough UI
+	- Done with d3.js UI
+	- Done on 26 July
+
+Allow user to propose relationship on index
+	- DOne on 26 July
 
 # Node-Neo4j Template
 
