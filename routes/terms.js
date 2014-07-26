@@ -65,7 +65,7 @@ exports.show = function (req, res, next) {
     // console.log(req.user);
     // console.log(req.user != null);
     var logged_in = (req.user != null);
-    console.log(logged_in);
+    console.log("user logged in: " + logged_in);
     Term.get(req.params.id, function (err, term) {
         //console.log('%s', term.description + " " + term.name);
         if (err) {
@@ -207,7 +207,13 @@ exports.show = function (req, res, next) {
                 var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                 var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                 var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
-
+                // Pass in additional info
+                var info;
+                console.log(req.query.info);
+                if(req.query.info == 'new'){
+                    console.log("new");
+                    info = 'New relationship added. Thanks for your contribution!';
+                }
                 //Get all terms for sidebar
                 Term.getAll(function (err, terms) {
                     if (err) return next(err);
@@ -225,7 +231,8 @@ exports.show = function (req, res, next) {
                         predecessor: is_predecessor_of_list,
                         all_others: all_others,
                         relationship_types: relationship_types,
-                        terms: terms
+                        terms: terms,
+                        info: info
                     });
                 });
             }

@@ -1,5 +1,6 @@
 var Term = require('../models/term');
 var request = require('request');
+var moment = require('moment');
 /*
  * GET home page.
  */
@@ -138,6 +139,8 @@ exports.path = function(req, res){
                 console.log("terms: " + terms);
                 console.log("relationships: " + relationships);
                 res.render('pathdisplay',{
+                    name1: name1,
+                    name2: name2,
                     terms: terms,
                     relationships: relationships
                 });
@@ -235,11 +238,10 @@ exports.wrong = function(req, res){
 
 
 /**
- * just named it anyhow...
- * POST /terms/:id/add
+ * POST /suggest
  */
-exports.add = function (req, res, next) {
-    console.log('here');
+exports.suggest = function (req, res, next) {
+    // console.log('here');
     Term.get(req.body.random_term_1.id, function (err, term) {
         if (err) return next(err);
         Term.get(req.body.random_term_2.id, function (err, other) {
@@ -249,7 +251,7 @@ exports.add = function (req, res, next) {
                 term.last_modified_at = moment().format();
                 term.save(function (err) {
                     if (err) return next(err);
-                    res.redirect('/terms/' + term.id);
+                    res.redirect('/terms/' + req.body.random_term_1.id + '?info=new');
                 });
             });
         });

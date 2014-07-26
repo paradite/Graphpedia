@@ -178,6 +178,9 @@ app.post('/', routes.site.indexpost);
 /*Random term page*/
 app.get('/random_term', routes.terms.random_term);
 
+/*Suggest relationship*/
+app.post('/suggest', routes.site.suggest);
+
 /*All terms page*/
 app.get('/terms', routes.terms.list);
 

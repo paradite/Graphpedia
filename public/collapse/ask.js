@@ -4,7 +4,7 @@ $(document).ready(function(){
     });
     $("#add").click(function () {
         if ($('#e1').select2("val") != ''){
-            alert("Thanks for your contribution!");
+            // alert("Thanks for your contribution!");
 /*            window.location.replace('/');*/
         }
     });

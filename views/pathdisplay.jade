@@ -2,13 +2,15 @@ extends layout
 
 block content
     div.main
-        h1 Relationship between two terms
-        div.col-xs-4
+        h1 Relationship between #{name1} and #{name2}: 
             if terms.length
-                ul
-                    for other in terms
-                        li
-                            a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                div.col-xs-4
+                    ul
+                        for other in terms
+                            li
+                                a.text-highlight(href='/terms/#{other.id}') #{other.name}
+            else
+                h4 No relationships yet.
         div.col-xs-4
             if relationships.length
                 ul

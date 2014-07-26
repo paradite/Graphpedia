@@ -432,6 +432,9 @@ RETURN r
         if (err) return callback(err);
         results = results[0];
         // console.log(results);
+        if(!results){
+            return callback(null, [], []);
+        }
         var nodes = results['nodes(p)'];
         var relationships = results['relationships(p)'];
         var terms = nodes.map(function (node) {
