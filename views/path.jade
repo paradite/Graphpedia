@@ -2,13 +2,15 @@ extends layout
 
 block content
     div.main
-        h1 Path Page
+        h1 Visualize relationship between
         br
-        form(role='form', action="/pathfind",method="post", style='max-width: 300px;')
-            .form-group
-                input.form-control(type='text', name="name1", placeholder='First Term')
-            a and
-            .form-group
-                input.form-control(type='text', name="name2", placeholder='Second Term')
-            button.btn.btn-default(type='submit') Submit
-            &nbsp;
+        form(role='form', action="/pathfind",method="post")
+            div.row
+                div.col-xs-3
+                    input.form-control(type='text', name="name1", placeholder='First Term')
+                div.col-xs-1
+                    p(align='center') and
+                div.col-xs-3
+                    input.form-control(type='text', name="name2", placeholder='Second Term')
+                div.col-xs-2
+                    button.btn.btn-default(type='submit') Submit
