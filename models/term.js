@@ -322,6 +322,30 @@ Term.getAll = function (callback) {
     });
 };
 
+/**
+ * Get the recent terms
+ * @param  {Function} callback 
+ * @return {array}    terms
+ */
+Term.getRecent = function (callback) {
+    var query = [
+        'MATCH (term:Term)',
+        'WHERE HAS (term.last_viewed_at)',
+        'RETURN term ORDER BY term.last_viewed_at DESC LIMIT 20',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        var terms = results.map(function (result) {
+            return new Term(result['term']);
+        });
+        terms.forEach(function (term) {
+            console.log(term.name);
+        });
+        callback(null, terms);
+    });
+}
+
 Term.getCount = function (callback) {
     var query = [
         'MATCH (term:Term)',

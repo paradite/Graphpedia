@@ -228,8 +228,8 @@ exports.show = function (req, res, next) {
                     console.log("new");
                     info = 'New relationship added. Thanks for your contribution!';
                 }
-                //Get all terms for sidebar
-                Term.getAll(function (err, terms) {
+                //Get recent terms for sidebar
+                Term.getRecent(function (err, recent_terms) {
                     if (err) return next(err);
                     res.render('term', {
                         logged_in: logged_in,
@@ -245,7 +245,7 @@ exports.show = function (req, res, next) {
                         predecessor: is_predecessor_of_list_full,
                         all_others: all_others,
                         relationship_types: relationship_types,
-                        terms: terms,
+                        terms: recent_terms,
                         info: info
                     });
                 });
