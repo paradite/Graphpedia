@@ -1,0 +1,115 @@
+extends layout_index
+
+block content
+    div(style='margin-top:5%;')
+        h1(align='center') Contribute to us by adding lots of relationships:
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
+        div.subdiv
+            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+
+            div.row
+                form(action='/contribute', method='POST')
+                    input(type='hidden', name='random_term_1[id]', value='#{random_term_1.id}')
+                    input(type='hidden', name='random_term_2[id]', value='#{random_term_2.id}')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
+                    div.col-xs-2
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
+        div.subdiv
+            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+
+            div.row
+                form(action='/contribute', method='POST')
+                    input(type='hidden', name='random_term_1[id]', value='#{random_term_3.id}')
+                    input(type='hidden', name='random_term_2[id]', value='#{random_term_4.id}')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_3.id}') #{random_term_3.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_4.id}') #{random_term_4.name}
+                    div.col-xs-2
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
+        div.subdiv
+            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+
+            div.row
+                form(action='/contribute', method='POST')
+                    input(type='hidden', name='random_term_1[id]', value='#{random_term_5.id}')
+                    input(type='hidden', name='random_term_2[id]', value='#{random_term_6.id}')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_5.id}') #{random_term_5.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_6.id}') #{random_term_6.name}
+                    div.col-xs-2
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
+        div.subdiv
+            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+
+            div.row
+                form(action='/contribute', method='POST')
+                    input(type='hidden', name='random_term_1[id]', value='#{random_term_7.id}')
+                    input(type='hidden', name='random_term_2[id]', value='#{random_term_8.id}')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_7.id}') #{random_term_7.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_8.id}') #{random_term_8.name}
+                    div.col-xs-2
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+
+    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
+        div.subdiv
+            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+            //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
+
+            div.row
+                form(action='/contribute', method='POST')
+                    input(type='hidden', name='random_term_1[id]', value='#{random_term_9.id}')
+                    input(type='hidden', name='random_term_2[id]', value='#{random_term_10.id}')
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_9.id}') #{random_term_9.name}
+                    div.col-xs-4
+                        label(style="width: 100%;")
+                            select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
+                                option.form-style(id='select-control')
+                                for type in relationship_types
+                                    option.form-style(id='select-control', value='#{type}') #{type}
+                    div.col-xs-3
+                        a.text-highlight(href='/terms/#{random_term_10.id}') #{random_term_10.name}
+                    div.col-xs-2
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+    if (typeof info !== "undefined")
+    h4(align='center')=info

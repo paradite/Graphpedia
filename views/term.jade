@@ -3,7 +3,7 @@ extends layout_viz
 block content
     div.main
         div(id='termname', value=term.name)
-        if info
+        if (typeof info !== "undefined") 
             h4(align='center') #{info}
         div(id="tree-container")
         div(style='margin-top:15px')
