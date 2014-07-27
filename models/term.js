@@ -339,9 +339,9 @@ Term.getRecent = function (callback) {
         var terms = results.map(function (result) {
             return new Term(result['term']);
         });
-        terms.forEach(function (term) {
-            console.log(term.name);
-        });
+        // terms.forEach(function (term) {
+        //     console.log(term.name);
+        // });
         callback(null, terms);
     });
 }
