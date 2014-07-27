@@ -1,20 +1,15 @@
 <!-- TODO: -->
 Top 10 Hot Search
 
-User account management
-	- Need to implement admin functions (delete or review proposed edits)
-
 Change viz lines to straight lines
 	-Dropped idea
 
 Add category label for generic categories
 
-Merge terms if same name
-	- Gave up for now
-
 Abstraction of types
 	- Abstraction at parsing
 	- Gave up for now
+
 <!-- UI:  -->
 Display number of terms on main page
 
@@ -61,6 +56,13 @@ Allow user to search a pair of terms
 
 Allow user to propose relationship on index
 	- DOne on 26 July
+
+User account management
+	- Need to implement admin functions (delete or review proposed edits)
+	- Delete function limited to admin - 27 July
+
+Merge terms if same name
+	- Merge on creating terms - 27 July
 
 # Node-Neo4j Template
 

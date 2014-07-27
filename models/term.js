@@ -368,8 +368,10 @@ Term.create = function (data, callback) {
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
+
+    // Use MERGE instead of CREATE to ensure that the name is unique
     var query = [
-        'CREATE (term:Term {data})',
+        'MERGE (term:Term {data})',
         'RETURN term',
     ].join('\n');
 

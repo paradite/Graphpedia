@@ -238,12 +238,14 @@ exports.search = function(req, res){
                 console.log('%s', "inside partial callback");
                 //Matched Partial
                 if(terms_partial != null && terms_partial.length > 0){
-                    //Show a list if partial matching finds more than one
-                    if(terms_partial.length > 1){
+                    //Show a list if partial matching finds one or more
+                    //Also give option to create the term
+                    if(terms_partial.length >= 1){
                         res.render('terms',{
-                            terms: terms_partial
+                            terms: terms_partial,
+                            name: name
                         });
-                    //Redirect if partial match only finds one
+                    //DO NOT Redirect if partial match only finds one
                 }else if(terms_partial.length == 1){
                     res.redirect('/terms/' + terms_partial[0].id);
                 }
