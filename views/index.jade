@@ -11,9 +11,9 @@ block content
                 input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
             div.col-xs-3
                 input.btn.btn-lg.btn-header(type='submit', value='Search')
-    //- Search a pair of terms
-    div.vertical-center(style='margin-top: 65px; margin-left: 35%;')
-        a(href='/path', align="center") Search for relationship between two terms
+    //- //- Search a pair of terms
+    //- div.vertical-center(style='margin-top: 65px; margin-left: 35%;')
+    //-     a(href='/path', align="center") Search for relationship between two terms
 
     div.index-main(id='askBox', style='opacity:0.88; margin-top: 3%;')
         div.subdiv
@@ -26,7 +26,7 @@ block content
                     input(type='hidden', name='random_term_2[id]', value='#{random_term_2.id}')
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_1.id}') #{random_term_1.name}
-                    div.col-xs-4
+                    div.col-xs-3
                         label(style="width: 100%;")
                             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
                                 option.form-style(id='select-control')
@@ -35,7 +35,7 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+                        input.btn.btn-normal(type='submit', value='Relate them', id='add')
         //- div.closebox
         //-     div.row
         //-         div.col-xs-4
