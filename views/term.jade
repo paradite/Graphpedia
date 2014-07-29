@@ -3,7 +3,7 @@ extends layout_viz
 block content
     div.main
         div(id='termname', value=term.name)
-        if info
+        if (typeof info !== "undefined") 
             h4(align='center') #{info}
         div(id="tree-container")
         div(style='margin-top:15px')
@@ -24,12 +24,13 @@ block content
                         // TODO should say 'term' if only one! ;)
                         ul
                             for other in is_part_of
-                                li
+                                li                                    
                                     form(action='/terms/#{term.id}/uncustom', method='POST')
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
                                         input(type='hidden', name='relationship[name]', value='is_part_of')
-                                        input.btn.btn-close(type='submit', value='x')
+                                        if logged_in
+                                            input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> isn't part of any terms.
                 li
@@ -44,7 +45,8 @@ block content
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
                                         input(type='hidden', name='relationship[name]', value='includes')
-                                        input.btn.btn-close(type='submit', value='x')
+                                        if logged_in
+                                            input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> does not includes any terms currently.
                 li
@@ -59,7 +61,8 @@ block content
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
                                         input(type='hidden', name='relationship[name]', value='depends_on')
-                                        input.btn.btn-close(type='submit', value='x')
+                                        if logged_in
+                                            input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> does not depend on any terms.
 
@@ -70,12 +73,13 @@ block content
                         // TODO should say 'term' if only one! ;)
                         ul
                             for other in successor
-                                li
+                                li                                    
                                     form(action='/terms/#{term.id}/uncustom', method='POST')
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
                                         input(type='hidden', name='relationship[name]', value='is_successor_of')
-                                        input.btn.btn-close(type='submit', value='x')
+                                        if logged_in
+                                            input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> is not a successor of any terms.
 
@@ -90,7 +94,8 @@ block content
                                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                         input(type='hidden', name='term[id]', value='#{other.id}')
                                         input(type='hidden', name='relationship[name]', value='is_predecessor_of')
-                                        input.btn.btn-close(type='submit', value='x')
+                                        if logged_in
+                                            input.btn.btn-close(type='submit', value='x')
                     else
                         p <strong>#{term.name}</strong> is not a predecessor of any terms.
                 p(style='text-align:right')
@@ -163,10 +168,16 @@ block content
             form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
                 div.row
                     div.col-xs-10
-                        p Or you can delete <strong>#{term.name}</strong>
+                        if logged_in
+                            p Delete <strong>#{term.name}</strong> :
+                        else
+                            p (Delete function only available for moderators)
                     div.col-xs-2
-                        input(type='hidden', name='_method', value='DELETE')
-                        input.btn.btn-normal(type='submit', value='Delete Term')            
+                        if logged_in
+                            input(type='hidden', name='_method', value='DELETE')
+                            input.btn.btn-normal(type='submit', value='Delete Term')
+                        else
+                            input.btn.btn-normal(type='submit', value='Delete Term', disabled="disabled")
         div(style='padding:15px')
             if term.created_at
                 p <strong>Created at</strong> : <span>#{created_at}</span> Singapore Time

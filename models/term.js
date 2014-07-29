@@ -322,6 +322,30 @@ Term.getAll = function (callback) {
     });
 };
 
+/**
+ * Get the recent terms
+ * @param  {Function} callback 
+ * @return {array}    terms
+ */
+Term.getRecent = function (callback) {
+    var query = [
+        'MATCH (term:Term)',
+        'WHERE HAS (term.last_viewed_at)',
+        'RETURN term ORDER BY term.last_viewed_at DESC LIMIT 20',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        var terms = results.map(function (result) {
+            return new Term(result['term']);
+        });
+        // terms.forEach(function (term) {
+        //     console.log(term.name);
+        // });
+        callback(null, terms);
+    });
+}
+
 Term.getCount = function (callback) {
     var query = [
         'MATCH (term:Term)',
@@ -344,6 +368,7 @@ Term.create = function (data, callback) {
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
+
     var query = [
         'CREATE (term:Term {data})',
         'RETURN term',

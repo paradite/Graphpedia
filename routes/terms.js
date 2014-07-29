@@ -212,24 +212,27 @@ exports.show = function (req, res, next) {
                 //console.log(all_others);
                 //console.log('%s', JSON.stringify(term_obj));
                 //Force user to update when newly created
+                // Pass in additional info when newly created
+                var info = null;
                 if(req.session.create) {
                     res.statusCode = 201;
                     req.session.create = false;
+                    console.log("new term created");
+                    info = 'New term added. Thanks for your contribution!';
                 }
-
+                if(req.session.suggested) {
+                    res.statusCode = 201;
+                    req.session.suggested = false;
+                    console.log("new relationship created");
+                    info = 'New relationship added. Thanks for your contribution!';
+                }
                 //Format the moment time for display purposes
                 var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                 var last_modified_at = moment(term.last_modified_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
                 var last_viewed_at = moment(term.last_viewed_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");
-                // Pass in additional info
-                var info;
-                // console.log(req.query.info);
-                if(req.query.info == 'new'){
-                    console.log("new");
-                    info = 'New relationship added. Thanks for your contribution!';
-                }
-                //Get all terms for sidebar
-                Term.getAll(function (err, terms) {
+
+                //Get recent terms for sidebar
+                Term.getRecent(function (err, recent_terms) {
                     if (err) return next(err);
                     res.render('term', {
                         logged_in: logged_in,
@@ -245,7 +248,7 @@ exports.show = function (req, res, next) {
                         predecessor: is_predecessor_of_list_full,
                         all_others: all_others,
                         relationship_types: relationship_types,
-                        terms: terms,
+                        terms: recent_terms,
                         info: info
                     });
                 });

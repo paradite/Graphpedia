@@ -7,4 +7,8 @@ $(document).ready(function() {
         placeholder: "Term",
         allowClear: true,
         });
+    $(".e1").select2({
+    placeholder: "Relationship",
+    allowClear: true,
+    });
 });

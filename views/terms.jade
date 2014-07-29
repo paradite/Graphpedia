@@ -13,13 +13,18 @@ block content
         else
             p There are no terms currently.
 
-        form(action='', method='POST')
+        form(action='/terms', method='POST')
             div.row
                 div.col-xs-3    
                     p Create a new term:
                 div.col-xs-2
-                    input.form-control.form-style(type='text', name='name', placeholder='Name', required)
+                    if (typeof name !== "undefined") 
+                        input.form-control.form-style(type='text', name='name', value='#{name}', required)
+                    else
+                        input.form-control.form-style(type='text', name='name', placeholder='Term', required)
                 div.col-xs-4
                     input.form-control.form-style(type='text', name='description', placeholder='a description for your term', required)
                 div.col-xs-1
                     input.btn.btn-normal(type='submit', value='Create')
+        br
+        br

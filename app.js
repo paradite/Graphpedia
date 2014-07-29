@@ -175,6 +175,10 @@ app.get('/ping', function(req, res){
 app.get('/', routes.site.index);
 app.post('/', routes.site.indexpost);
 
+/*Contribute page*/
+app.get('/contribute', routes.site.contribute);
+app.post('/contribute', routes.site.contributeadd);
+
 /*Random term page*/
 app.get('/random_term', routes.terms.random_term);
 

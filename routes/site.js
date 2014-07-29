@@ -17,8 +17,6 @@ var moment = require('moment');
         while(random_term_2.id == random_term_1.id){
             var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
         }
-        console.log(random_term_1.id);
-        console.log(random_term_2.id);
         //Get all the relationships
         //Heroku neo4j database
         var base_url = process.env['NEO4J_URL'] ||
@@ -59,13 +57,6 @@ var moment = require('moment');
                     relationship_types.push(random_term_1.REL_DEPEND.replace(/_/g," "));
                 }
 
-                var types = "";
-
-                relationship_types.forEach(function(item) { 
-                    types+= item;
-                    types+= " ";
-                });
-                //console.log("There are "+relationship_types.length+" relationships types: " + types);
                 res.render('index', {
                     user : req.user,
                     random_term_1: random_term_1,
@@ -84,6 +75,114 @@ var moment = require('moment');
  exports.indexpost = function(req, res, next){
     res.render('index');
 };
+
+
+/*
+ * GET contribute page.
+ */
+
+ exports.contribute = function(req, res, next){
+    Term.getAll(function (err, terms) {
+    // Make sure there are at least 2 terms
+    if (err || terms == null || terms.length < 2) {
+        console.log("error in random");
+        return res.render('wrong');
+    }
+    var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
+    var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+    while(random_term_2.id == random_term_1.id){
+        var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+    }
+    var random_term_3 = terms[Math.floor(Math.random()*terms.length)];
+    var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
+    while(random_term_3.id == random_term_4.id){
+        var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
+    }
+    var random_term_5 = terms[Math.floor(Math.random()*terms.length)];
+    var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
+    while(random_term_5.id == random_term_6.id){
+        var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
+    }
+    var random_term_7 = terms[Math.floor(Math.random()*terms.length)];
+    var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
+    while(random_term_8.id == random_term_7.id){
+        var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
+    }
+    var random_term_9 = terms[Math.floor(Math.random()*terms.length)];
+    var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
+    while(random_term_10.id == random_term_9.id){
+        var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
+    }
+    
+    //Get all the relationships
+    //Heroku neo4j database
+    var base_url = process.env['NEO4J_URL'] ||
+    process.env['GRAPHENEDB_URL'] ||
+    'http://localhost:7474'
+
+    //Use neo4j REST API to get all relationship
+    var options = {
+        url: base_url + '/db/data/relationship/types',
+        headers: {
+            'User-Agent': 'request'
+        }
+    };
+
+    function callback(error, response, body) {
+        if (error || response.statusCode != 200) {
+            console.log("error in neo4j API callback");
+            return res.render('wrong');
+        }
+        var relationship_types = JSON.parse(body);
+
+            //deal with old relationship types
+            var index = relationship_types.indexOf("follows");
+            if (index > -1) {
+                relationship_types.splice(index, 1);
+            }
+            var index = relationship_types.indexOf("contains");
+            if (index > -1) {
+                relationship_types.splice(index, 1);
+            }
+            //Add default ones
+            if(relationship_types.length < 5){
+                relationship_types = [];
+                relationship_types.push(random_term_1.REL_INCLUDE.replace(/_/g," "));
+                relationship_types.push(random_term_1.REL_IS_PART_OF.replace(/_/g," "));
+                relationship_types.push(random_term_1.REL_PREDECESSOR.replace(/_/g," "));
+                relationship_types.push(random_term_1.REL_SUCCESSOR.replace(/_/g," "));
+                relationship_types.push(random_term_1.REL_DEPEND.replace(/_/g," "));
+            }
+            // Pass in additional info
+            var info = null;
+            // console.log(req.query.info);
+            if(req.session.contributed){
+                req.session.contributed = false;
+                console.log("new relationship added");
+                info = 'Relationship successfully created. Thanks for your contribution!';
+            }
+            res.render('contribute', {
+                user : req.user,
+                random_term_1: random_term_1,
+                random_term_2: random_term_2,
+                random_term_3: random_term_3,
+                random_term_4: random_term_4,
+                random_term_5: random_term_5,
+                random_term_6: random_term_6,
+                random_term_7: random_term_7,
+                random_term_8: random_term_8,
+                random_term_9: random_term_9,
+                random_term_10: random_term_10,
+                relationship_types: relationship_types,
+                info: info
+            });
+        }
+        request(options, callback);
+    });
+
+
+};
+
 
 /*
 POST Direct the search to the item-specific-url
@@ -238,12 +337,14 @@ exports.search = function(req, res){
                 console.log('%s', "inside partial callback");
                 //Matched Partial
                 if(terms_partial != null && terms_partial.length > 0){
-                    //Show a list if partial matching finds more than one
-                    if(terms_partial.length > 1){
+                    //Show a list if partial matching finds one or more
+                    //Also give option to create the term
+                    if(terms_partial.length >= 1){
                         res.render('terms',{
-                            terms: terms_partial
+                            terms: terms_partial,
+                            name: name
                         });
-                    //Redirect if partial match only finds one
+                    //DO NOT Redirect if partial match only finds one
                 }else if(terms_partial.length == 1){
                     res.redirect('/terms/' + terms_partial[0].id);
                 }
@@ -288,7 +389,30 @@ exports.suggest = function (req, res, next) {
                 term.last_modified_at = moment().format();
                 term.save(function (err) {
                     if (err) return next(err);
-                    res.redirect('/terms/' + req.body.random_term_1.id + '?info=new');
+                    req.session.suggested = true;
+                    res.redirect('/terms/' + req.body.random_term_1.id);
+                });
+            });
+        });
+    });
+};
+
+/**
+ * POST /contribute
+ */
+exports.contributeadd = function (req, res, next) {
+    // console.log('here');
+    Term.get(req.body.random_term_1.id, function (err, term) {
+        if (err) return next(err);
+        Term.get(req.body.random_term_2.id, function (err, other) {
+            if (err) return next(err);
+            term.custom(other, req.body.relationship.name.replace(/ /g,"_"), function (err) {
+                if (err) return next(err);
+                term.last_modified_at = moment().format();
+                term.save(function (err) {
+                    if (err) return next(err);
+                    req.session.contributed = true;
+                    res.redirect('/contribute');
                 });
             });
         });

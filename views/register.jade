@@ -17,4 +17,5 @@ block content
             a(href='/')
                 button.btn.btn-primary(type="button") Cancel
         br
-        h4= info
+        if (typeof info !== "undefined") 
+            h4= info
