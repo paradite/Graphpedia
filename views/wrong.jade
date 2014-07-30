@@ -1,15 +1,15 @@
 extends layout
 
 block content
-    div.main
+    div.subdiv(style='margin-top:10%')
         p Sorry, this url is invalid.
         p Would you like to create a new term?
 
         form(action='/terms', method='POST')
             div.row
-                div.col-xs-2
+                div.col-xs-3
                     input.form-control.form-style(type='text', autofocus='autofocus', name='name', placeholder='Name', required)
-                div.col-xs-4
+                div.col-xs-7
                     input.form-control.form-style(type='text', name='description', placeholder='A short description of this term.',required)
-                div.col-xs-1
+                div.col-xs-2
                     input.btn.btn-normal(type='submit', value='Create')

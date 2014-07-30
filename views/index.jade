@@ -1,9 +1,6 @@
 extends layout_index
 
 block content
-    //- p(style='padding-top:75px; padding-left: 25px')
-    //-     a.text-highlight(href='/terms') View all terms
-    //-     a.text-highlight(href='/random_term') random term
     form(action='/search', method='POST')
         div.row.search-bar.vertical-center
             div.col-xs-3
@@ -14,13 +11,13 @@ block content
 
     //- Search a pair of terms
     div.vertical-center(style='margin-top: 65px; margin-left: 37%;')
-        a(href='/pathfind', align="center") search two terms
-        a='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'
-        a(href='/contribute', align="center") contribute to us
+        a.text-link(href='/pathfind', align="center") search two terms
+        a(style='color: #428BCA')='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'
+        a.text-link(href='/contribute', align="center") contribute to us
 
 
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 3%;')
-        div.subdiv
+    div.index-main
+        div.subdiv(id='askBox')
             input.btn.btn-close(id='closeButton', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
@@ -39,12 +36,5 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add')
-        //- div.closebox
-        //-     div.row
-        //-         div.col-xs-4
-        //-         div.col-xs-4
-        //-             a(href='/' ) Try another pair of terms
-        //-         div.col-xs-4
-                //- div.col-xs-2
-                //-     input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+                        input.btn.btn-normal(type='submit', value='Relate them')
+

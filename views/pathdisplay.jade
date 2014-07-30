@@ -1,12 +1,8 @@
 extends layout_path
 
 block content
-    div
-        br
-        br
-        div.col-xs-3
-        div.col-xs-8
-            h1 Relationship between #{name1} and #{name2}: 
+    div.subdiv
+        h2 Relationship between <strong>#{name1}</strong> and <strong>#{name2}</strong>: 
         div(id="tree-container")
         div
             if terms.length

@@ -1,16 +1,16 @@
 extends layout
 
 block content
-    div.main
+    div.subdiv(style='margin-top:10%')
         p The term <span class='text-highlight'>#{name}</span> does not exist yet.
         p Would you like to create the term <span class='text-highlight'>#{name}</span> ?
 
         form(action='/terms', method='POST')
             p Create a new term:
             div.row
-                div.col-xs-2
+                div.col-xs-3
                     input.form-control.form-style(type='text', name='name', value='#{name}', required)
-                div.col-xs-4
+                div.col-xs-7
                     input.form-control.form-style(type='text', autofocus='autofocus', name='description', placeholder='A short description of this term.',required)
-                div.col-xs-1
+                div.col-xs-2
                     input.btn.btn-normal(type='submit', value='Create')

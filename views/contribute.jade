@@ -3,9 +3,9 @@ extends layout_index
 block content
     div(style='margin-top:5%;')
         h1(align='center') Contribute to us by adding lots of relationships:
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
-        div.subdiv
-            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+    div.index-main(style='opacity:0.88; margin-top: 1%;')
+        div.subdiv(id='askBox1')
+            input.btn.btn-close(id='closeButton1', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
@@ -23,11 +23,11 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
 
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
-        div.subdiv
-            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+    div.index-main(style='opacity:0.88; margin-top: 1%;')
+        div.subdiv(id='askBox2')
+            input.btn.btn-close(id='closeButton2', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
@@ -45,10 +45,10 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_4.id}') #{random_term_4.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
-        div.subdiv
-            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
+    div.index-main(style='opacity:0.88; margin-top: 1%;')
+        div.subdiv(id='askBox3')
+            input.btn.btn-close(id='closeButton3', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
@@ -66,11 +66,11 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_6.id}') #{random_term_6.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
 
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
-        div.subdiv
-            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+    div.index-main(style='opacity:0.88; margin-top: 1%;')
+        div.subdiv(id='askBox4')
+            input.btn.btn-close(id='closeButton4', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
@@ -88,11 +88,11 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_8.id}') #{random_term_8.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
 
-    div.index-main(id='askBox', style='opacity:0.88; margin-top: 1%;')
-        div.subdiv
-            input.btn.btn-close(id='closeButton', value='x', style='float:right') X
+    div.index-main(style='opacity:0.88; margin-top: 1%;')
+        div.subdiv(id='askBox5')
+            input.btn.btn-close(id='closeButton5', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
@@ -110,6 +110,6 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_10.id}') #{random_term_10.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them', id='add', style='margin-top: -25px') Add
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
     if (typeof info !== "undefined")
     h4(align='center')=info

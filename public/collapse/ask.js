@@ -2,10 +2,22 @@ $(document).ready(function(){
     $("#closeButton").click(function(){
         $("#askBox").fadeOut(1000);
     });
-    $("#add").click(function () {
-        if ($('#e1').select2("val") != ''){
-            // alert("Thanks for your contribution!");
-/*            window.location.replace('/');*/
-        }
+    $("#closeButton1").click(function(){
+        $("#askBox1").fadeOut(1000);
+    });
+    $("#closeButton2").click(function(){
+        $("#askBox2").fadeOut(1000);
+    });
+    $("#closeButton3").click(function(){
+        $("#askBox3").fadeOut(1000);
+    });
+    $("#closeButton4").click(function(){
+        $("#askBox4").fadeOut(1000);
+    });
+    $("#closeButton5").click(function(){
+        $("#askBox5").fadeOut(1000);
+    });
+    $("#closeButton6").click(function(){
+        $("#askBox6").fadeOut(1000);
     });
 });
