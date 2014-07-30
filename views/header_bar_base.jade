@@ -1,9 +1,11 @@
 nav.before-main.navbar.navbar-fixed-top
     nav.navbar
         div.container-fluid
-            div.navbar-header.col-xs-3
-                a.navbar-left.navbar-brand.text-normal(href='/') <strong>Graphedia</strong>
-            div.col-xs-9
+            div.navbar-header.col-xs-2
+                a(href='/')
+                    img(src="http://oi59.tinypic.com/2hno17s.jpg", style='width:100%; height:100%; padding:5px')
+                //- a.navbar-left.navbar-brand.text-normal(href='/') <strong>Graphedia</strong>
+            div.col-xs-10
                 form.navbar-form(action='/search', method='POST', role="search")
                     div.form-group.col-xs-8
                         block center

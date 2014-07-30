@@ -7,5 +7,7 @@ block right
     if (user)
         form.inline
             div.row
-                p Welcome, #{user.username}
-                a(href="/logout") Logout
+                div.col-xs-9
+                    p Welcome, #{user.username}
+                div.col-xs-3    
+                    a(href="/logout") Logout
