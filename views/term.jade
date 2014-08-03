@@ -27,7 +27,7 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='is_part_of')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_IS_PART_OF}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
@@ -43,7 +43,7 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='includes')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_INCLUDE}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
@@ -59,7 +59,7 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='depends_on')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_DEPEND}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
@@ -76,7 +76,7 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='is_successor_of')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_SUCCESSOR}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
@@ -92,11 +92,27 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='is_predecessor_of')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_PREDECESSOR}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> is not a predecessor of any terms.
+
+            li
+                //related related block
+                if related.length
+                    p <strong>#{term.name}</strong> is related to <strong>#{related.length}</strong> terms:
+                    ul
+                        for other in related
+                            li
+                                form(action='/terms/#{term.id}/uncustom', method='POST')
+                                    a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                    input(type='hidden', name='term[id]', value='#{other.id}')
+                                    input(type='hidden', name='relationship[name]', value='#{other.REL_RELATED}')
+                                    if logged_in
+                                        input.btn.btn-close(type='submit', value='x')
+                else
+                    p <strong>#{term.name}</strong> is not related to any terms.
             p(style='text-align:right')
                 a.text-highlight(id='wikiurl', target="_blank") #{term.name} in Wikipedia
 

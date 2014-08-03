@@ -133,6 +133,7 @@ exports.show = function (req, res, next) {
             var is_successor_of_list = [];
             var is_predecessor_of_list = [];
             var depend_list = [];
+            var related_list = [];
 
             // Generate list for jade with id
             var including_list_full = [];
@@ -140,7 +141,8 @@ exports.show = function (req, res, next) {
             var is_successor_of_list_full = [];
             var is_predecessor_of_list_full = [];
             var depend_list_full = [];
-            
+            var related_list_full = [];
+
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
                 if (rel_names[i] == term.REL_INCLUDE) {
@@ -162,7 +164,11 @@ exports.show = function (req, res, next) {
                 }else if(rel_names[i] == term.REL_IS_PART_OF){
                     is_part_of_list.push(terms_list[i]);
                     is_part_of_list_full.push(rel_terms[i]);
-                }   
+
+                }else if(rel_names[i] == term.REL_RELATED){
+                    related_list.push(terms_list[i]);
+                    related_list_full.push(rel_terms[i]);
+                }
             };
 
             //Create JSON objects for d3.js rendering
@@ -171,6 +177,7 @@ exports.show = function (req, res, next) {
             var is_successor_of_obj = new Object();
             var is_predecessor_of_obj = new Object();
             var depend_obj = new Object();
+            var related_obj = new Object();
 
             including_obj.name = term.REL_INCLUDE.replace(/_/g," ");
             including_obj.children = including_list;
@@ -187,6 +194,9 @@ exports.show = function (req, res, next) {
             depend_obj.name = term.REL_DEPEND.replace(/_/g," ");
             depend_obj.children = depend_list;
 
+            related_obj.name = term.REL_RELATED.replace(/_/g," ");
+            related_obj.children = related_list;
+
             // var including_list = term.parse(including);
             // var is_part_of_list = term.parse(is_part_of);
 
@@ -201,6 +211,7 @@ exports.show = function (req, res, next) {
             term_obj.children.push(is_successor_of_obj);
             term_obj.children.push(is_predecessor_of_obj);
             term_obj.children.push(depend_obj);
+            term_obj.children.push(related_obj);
 
             //Heroku neo4j database
             var base_url = process.env['NEO4J_URL'] ||
@@ -231,23 +242,15 @@ exports.show = function (req, res, next) {
                 if (index > -1) {
                     relationship_types.splice(index, 1);
                 }
+
+                // Parse the underscore
+                relationship_types = relationship_types.map(function(rel){return rel.replace(/_/g," ")});
+
                 //Add default ones
-                if(relationship_types.length < 5){
-                    relationship_types = [];
-                    relationship_types.push(term.REL_INCLUDE.replace(/_/g," "));
-                    relationship_types.push(term.REL_IS_PART_OF.replace(/_/g," "));
-                    relationship_types.push(term.REL_PREDECESSOR.replace(/_/g," "));
-                    relationship_types.push(term.REL_SUCCESSOR.replace(/_/g," "));
-                    relationship_types.push(term.REL_DEPEND.replace(/_/g," "));
+                if(relationship_types.length < 6){
+                    relationship_types = term.getAllRelationships();
                 }
 
-                var types = "";
-
-                relationship_types.forEach(function(item) { 
-                    types+= item;
-                    types+= " ";
-                });
-                //console.log("There are "+relationship_types.length+" relationships types: " + types);
                 //console.log(all_others);
                 //console.log('%s', JSON.stringify(term_obj));
                 //Force user to update when newly created
@@ -290,6 +293,7 @@ exports.show = function (req, res, next) {
                         depend: depend_list_full,
                         successor: is_successor_of_list_full,
                         predecessor: is_predecessor_of_list_full,
+                        related: related_list_full,
                         all_others: all_others,
                         relationship_types: relationship_types,
                         terms: recent_terms,

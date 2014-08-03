@@ -47,16 +47,15 @@ var moment = require('moment');
                 if (index > -1) {
                     relationship_types.splice(index, 1);
                 }
-                //Add default ones
-                if(relationship_types.length < 5){
-                    relationship_types = [];
-                    relationship_types.push(random_term_1.REL_INCLUDE.replace(/_/g," "));
-                    relationship_types.push(random_term_1.REL_IS_PART_OF.replace(/_/g," "));
-                    relationship_types.push(random_term_1.REL_PREDECESSOR.replace(/_/g," "));
-                    relationship_types.push(random_term_1.REL_SUCCESSOR.replace(/_/g," "));
-                    relationship_types.push(random_term_1.REL_DEPEND.replace(/_/g," "));
-                }
 
+                // Parse the underscore
+                relationship_types = relationship_types.map(function(rel){return rel.replace(/_/g," ")});
+
+                //Add default ones
+                if(relationship_types.length < 6){
+                    relationship_types = random_term_1.getAllRelationships();
+                }
+                console.log(relationship_types);
                 res.render('index', {
                     user : req.user,
                     random_term_1: random_term_1,
@@ -134,7 +133,7 @@ var moment = require('moment');
             return res.render('wrong');
         }
         var relationship_types = JSON.parse(body);
-
+        console.log(relationship_types);
             //deal with old relationship types
             var index = relationship_types.indexOf("follows");
             if (index > -1) {
@@ -144,15 +143,14 @@ var moment = require('moment');
             if (index > -1) {
                 relationship_types.splice(index, 1);
             }
+            // Parse the underscore
+            relationship_types = relationship_types.map(function(rel){return rel.replace(/_/g," ")});
+
             //Add default ones
-            if(relationship_types.length < 5){
-                relationship_types = [];
-                relationship_types.push(random_term_1.REL_INCLUDE.replace(/_/g," "));
-                relationship_types.push(random_term_1.REL_IS_PART_OF.replace(/_/g," "));
-                relationship_types.push(random_term_1.REL_PREDECESSOR.replace(/_/g," "));
-                relationship_types.push(random_term_1.REL_SUCCESSOR.replace(/_/g," "));
-                relationship_types.push(random_term_1.REL_DEPEND.replace(/_/g," "));
+            if(relationship_types.length < 6){
+                relationship_types = random_term_1.getAllRelationships();
             }
+            console.log(relationship_types);
             // Pass in additional info
             var info = null;
             // console.log(req.query.info);

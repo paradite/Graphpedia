@@ -109,8 +109,25 @@ Object.defineProperty(Term.prototype, 'REL_DEPEND', {
 });
 
 Object.defineProperty(Term.prototype, 'REL_SYNONYM', {
-    get: function () { return "synonym"; }
+    get: function () { return "is_synonym_for"; }
 });
+
+Object.defineProperty(Term.prototype, 'REL_RELATED', {
+    get: function () { return "is_related_to"; }
+});
+
+// Method to return all the relationships
+Term.prototype.getAllRelationships = function() {
+    return [
+    this.REL_INCLUDE.replace(/_/g," "),
+    this.REL_DEPEND.replace(/_/g," "),
+    this.REL_PREDECESSOR.replace(/_/g," "),
+    this.REL_SUCCESSOR.replace(/_/g," "),
+    this.REL_IS_PART_OF.replace(/_/g," "),
+    this.REL_RELATED.replace(/_/g," ")
+    ];
+}
+
 
 // public instance methods:
 
@@ -424,18 +441,6 @@ Term.prototype.getPath = function (other, callback) {
 MATCH (actor { name:'Charlie Sheen' })-[r:ACTED_IN*2]-(co_actor)
 RETURN r
  */
-
-    // console.log("in getPath ids: " + this.id + " " + other.id);
-    //Create MATCH query with terms and path
-    var rels = [
-        Term.REL_INCLUDE,
-        Term.REL_DEPEND,
-        Term.REL_PREDECESSOR,
-        Term.REL_SUCCESSOR,
-        Term.REL_IS_PART_OF,
-        Term.REL_SYNONYM,
-    ].join('|');
-    // var match_rels = 'MATCH (term:Term)-[r:'+ rels + '*1..5]-(other:Term)'
     var match_term = 'MATCH (term:Term),(other:Term),';
     var match_path = ' p = shortestPath((term)-[r*..6]->(other))';
     var query = [
