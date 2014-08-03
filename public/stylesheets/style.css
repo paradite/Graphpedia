@@ -109,6 +109,16 @@ a:active {
             box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
 }
 
+.subdiv-thin {
+    min-height: 1px;
+    background-color: #90A5BC;
+    border-radius: 15px;
+    width: 100%;
+    padding: 5px;
+    -webkit-box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
+            box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
+}
+
 .titlebox {
     min-height: 1px;
     background-color: #003366;
