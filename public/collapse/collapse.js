@@ -1,14 +1,14 @@
 $(document).ready(function() { 
     $('#togglebox1').click(function () {
         if ($('#subdiv1').css('display') != 'block') {
-            $('#subdiv1').slideDown("slow");
+            $('#subdiv1').slideDown();
             $('#toggletext1').text("Show");
             $('#togglebox1').css('cursor', 'zoom-in');
             $('html, body').animate({
                 scrollTop: $("#togglebox1").offset().top
-            }, 2000);
+            }, 500);
         } else{
-            $('#subdiv1').slideUp("slow");
+            $('#subdiv1').slideUp();
             $('#toggletext1').text("Hide");
             $('#togglebox1').css('cursor', 'zoom-out');
         };
@@ -16,14 +16,14 @@ $(document).ready(function() {
 
     $('#togglebox2').click(function () {
         if ($('#subdiv2').css('display') != 'block') {
-            $('#subdiv2').slideDown("slow");
+            $('#subdiv2').slideDown();
             $('#toggletext2').text("Show");
             $('#togglebox2').css('cursor', 'zoom-in');
             $('html, body').animate({
                 scrollTop: $("#togglebox2").offset().top
-            }, 2000)
+            }, 500)
         } else{
-            $('#subdiv2').slideUp("slow");
+            $('#subdiv2').slideUp();
             $('#toggletext2').text("Hide");
             $('#togglebox2').css('cursor', 'zoom-out');
         };
@@ -31,14 +31,14 @@ $(document).ready(function() {
 
     $('#togglebox3').click(function () {
         if ($('#subdiv3').css('display') != 'block') {
-            $('#subdiv3').slideDown("slow");
+            $('#subdiv3').slideDown();
             $('#toggletext3').text("Show");
             $('#togglebox3').css('cursor', 'zoom-in');
             $('html, body').animate({
                 scrollTop: $("#togglebox3").offset().top
-            }, 2000)
+            }, 500)
         } else{
-            $('#subdiv3').slideUp("slow");
+            $('#subdiv3').slideUp();
             $('#toggletext3').text("Hide");
             $('#togglebox3').css('cursor', 'zoom-out');
         };
