@@ -329,9 +329,9 @@ exports.search = function(req, res){
                     name: name
                 });
             }
-        //Not matched
-    }else if(terms == null || terms.length == 0){
-        console.log('%s', "before calling getByNamePartial.");
+            //Not matched
+        }else if(terms == null || terms.length == 0){
+            console.log('%s', "before calling getByNamePartial.");
             //Instead of notfound, try partial matching
             Term.getByNamePartial(name, function (err, terms_partial) {
                 console.log('%s', "inside partial callback");
@@ -356,14 +356,14 @@ exports.search = function(req, res){
                 });
             }
         });
-        //This should never happen
-    }else{
-        console.log('%s', "term not found but not null or empty?");
-        res.render('notfound', {
-            name: name
-        });
-    }
-});
+            //This should never happen
+        }else{
+            console.log('%s', "term not found but not null or empty?");
+            res.render('notfound', {
+                name: name
+            });
+        }
+    });
 }
 
 /*

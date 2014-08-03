@@ -406,7 +406,8 @@ Term.createMultiple = function (data, callback) {
 
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
-        var count = new Term(results[0]['count(term)']);
+        // console.log(results[0]);
+        var count = results[0]['count(term)'];
         callback(null, count);
     });
 };

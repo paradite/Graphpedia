@@ -2,9 +2,10 @@ extends layout
 
 block content
     h1 Terms
-
+    if (typeof info !== "undefined")
+        h4(align='center') #{info}
     if terms.length
-        p Here are the current terms:
+        p Here are the terms:
         ul
             for term in terms
                 li

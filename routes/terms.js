@@ -37,22 +37,61 @@ exports.random_term = function (req, res, next) {
  * POST /terms
  */
 //Save the name, lower case name, description, creation time, last viewed, last modified
+//Prevent creating the term if the term with the same name(ignore cases) already exists
 exports.create = function (req, res, next) {
     var current_time = moment().format();
-    console.log("time for creation of " + req.body['name'] + ": " + current_time);
-    Term.create({
-        name: req.body['name'],
-        description: req.body['description'],
-        //Save a lower case name of the term for search matching
-        name_lower_case: req.body['name'].toLowerCase(),
-        created_at: current_time,
-        last_viewed_at: current_time,
-        last_modified_at: current_time
-    }, function (err, term) {
-        if (err) return next(err);
-        req.session.create = true;
-        res.redirect('/terms/' + term.id);
+    Term.getByName(req.body['name'], function (err, terms) {
+        if (err){
+            console.log('%s', "err occured");
+            res.render('index');
+        }
+        console.log('%s', "trying to create: " + req.body['name'] + ". found in database? " + terms);
+        //Matched
+        if(terms != null && terms.length > 0){
+            if(terms.length > 1){
+                res.render('terms',{
+                    terms: terms,
+                    info: "The term already exists."
+                });
+            }else if(terms.length == 1){
+                //Toggle session to signal already existed term
+                req.session.already = true;
+                res.redirect('/terms/' + terms[0].id);
+            }else{
+                //This should never happen
+                console.log('%s', "term not found partially");
+                res.render('notfound', {
+                    name: name
+                });
+            }
+            //Not matched
+        }else if(terms == null || terms.length == 0){
+            console.log('%s', "The term does not exist yet. Ready to create.");
+            //Create the term
+            console.log("time for creation of " + req.body['name'] + ": " + current_time);
+            Term.create({
+                name: req.body['name'],
+                description: req.body['description'],
+                //Save a lower case name of the term for search matching
+                name_lower_case: req.body['name'].toLowerCase(),
+                created_at: current_time,
+                last_viewed_at: current_time,
+                last_modified_at: current_time
+            }, function (err, term) {
+                if (err) return next(err);
+                req.session.create = true;
+                res.redirect('/terms/' + term.id);
+            });
+
+            //This should never happen
+        }else{
+            console.log('%s', "term not found but not null or empty?");
+            res.render('notfound', {
+                name: name
+            });
+        }
     });
+
 };
 
 /**
@@ -225,6 +264,11 @@ exports.show = function (req, res, next) {
                     req.session.suggested = false;
                     console.log("new relationship created");
                     info = 'New relationship added. Thanks for your contribution!';
+                }
+                if(req.session.already) {
+                    req.session.already = false;
+                    console.log("Redirection due to term already exists");
+                    info = 'The term '+ term.name +' already exists.';
                 }
                 //Format the moment time for display purposes
                 var created_at = moment(term.created_at).zone('+0800').format("YYYY-MM-DD HH:mm:ss");

@@ -7,7 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , request = require('request');
+  , request = require('request')
+  , moment = require('moment');
 var app = express();
 var session = require('express-session');
 var zlib = require('zlib');
@@ -76,29 +77,65 @@ Term.getCount(function (err, results) {
     console.log("Number of terms: " + results);
     //For now, we crawl the terms if the database has less than 100 terms
     if(results < 100){
+      console.log("Crawling data from stackoverflow");
     	getGzipped(base_url, processData);
     }
 });
 
 function processData(err, data) {
-  data_to_add = [];
-  data = JSON.parse(data);
-  items = data.items;
+    data_to_add = [];
+    data = JSON.parse(data);
+    items = data.items;
 	console.log(JSON.stringify(data, null, 4));
-  items.forEach(function (item){
-    // console.log(item.name);
-    if(item.has_synonyms){
-      // console.log(item.synonyms[0]);
-      data_to_add.push({name: item.name, description: item.synonyms[0]});
-    }else{
-      data_to_add.push({name: item.name, description: "No description yet"});
-    }
-  });
-  console.log(data_to_add);
-  Term.createMultiple(data_to_add, function (err, count) {
-    if (err) console.log(err);
-    console.log(count + " terms created.");
-  });
+    var current_time = moment().format();
+    items.forEach(function (item){
+        current_time = moment().format();
+        // console.log(item.name);
+        // Check the name against the database to make sure no duplicates
+        Term.getByName(item.name, function (err, terms) {
+            if (err){
+                console.log('%s', "err occured during getByName");
+                res.render('index');
+            }
+            console.log('%s', "trying to create: " + item.name + " found in database? " + terms);
+            if(terms != null && terms.length > 0){
+                // Matched, skip the term
+                console.log('%s', item.name + " already in database, skipped.");
+            }else {
+                console.log('%s', "The term does not exist yet. Ready to create.");
+                //Create the term
+                console.log("time for adding of " + item.name + " to data array: " + current_time);
+                if(item.has_synonyms){
+                    data_to_add.push({
+                        name: item.name, 
+                        description: item.synonyms[0],
+                        //Save a lower case name of the term for search matching
+                        name_lower_case: item.name.toLowerCase(),
+                        created_at: current_time,
+                        last_viewed_at: current_time,
+                        last_modified_at: current_time
+                    });
+                }else{
+                    data_to_add.push({
+                        name: item.name, 
+                        description: "No description yet",
+                        //Save a lower case name of the term for search matching
+                        name_lower_case: item.name.toLowerCase(),
+                        created_at: current_time,
+                        last_viewed_at: current_time,
+                        last_modified_at: current_time
+                    });
+                }
+                // Call create method
+                // console.log(data_to_add);
+                Term.create(data_to_add, function (err, term) {
+                    if (err) console.log(err);
+                    console.log(term.name + " created.");
+                });
+            }
+        });
+    });
+
 }
 
 //Data mining functions using Stack Exchange - stackoverflow API - tag

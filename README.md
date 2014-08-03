@@ -10,6 +10,8 @@ Abstraction of types
 	- Abstraction at parsing
 	- Gave up for now
 
+Add a significance field for the terms for easier suggestions(terms with higher significance will appear more often)
+
 <!-- UI:  -->
 Display number of terms on main page
 
