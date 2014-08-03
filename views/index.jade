@@ -17,7 +17,7 @@ block content
 
 
     div.index-main
-        div.subdiv(id='askBox')
+        div.subdiv-thin(id='askBox')
             input.btn.btn-close(id='closeButton', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
@@ -36,5 +36,5 @@ block content
                     div.col-xs-3
                         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit', value='Relate them')
+                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px')
 
