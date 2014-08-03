@@ -23,15 +23,25 @@ var Relationship = require('../models/relationship');
         // Get the relationship types
         var relationship_types = relationship.getAll();
         Term.getRelationshipCount(function (err, count){
-            res.render('index', {
-                rel_count: count,
-                user : req.user,
-                random_term_1: random_term_1,
-                random_term_2: random_term_2,
-                relationship_types: relationship_types
-            });         
+            if (err) {
+                console.log("getRelationshipCount wrong");
+            }
+            Term.getCount(function (err, results) {
+                if (err) {
+                    console.log("get Count wrong");
+                }
+                var ratio = count / results;
+                res.render('index', {
+                    ratio: ratio.toFixed(3),
+                    term_count: results,
+                    rel_count: count,
+                    user : req.user,
+                    random_term_1: random_term_1,
+                    random_term_2: random_term_2,
+                    relationship_types: relationship_types
+                });   
+            });    
         });
-
     });
 };
 
