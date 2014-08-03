@@ -185,6 +185,16 @@ exports.show = function (req, res, next) {
                     children: d3_list[i]
                 };
             };
+
+            // If the list contains no item, hide it in d3.js
+            // var dynamic_length = obj_array.length;
+            // for (var i = 0; i < dynamic_length; i++) {
+            //     if(d3_list[i] == null || d3_list[i].length == 0){
+            //         obj_array.splice(i, 1);
+            //         i--;
+            //         dynamic_length--;
+            //     }
+            // };
             // console.log(JSON.stringify(obj_array));
             //Create JSON objects for d3.js rendering
 

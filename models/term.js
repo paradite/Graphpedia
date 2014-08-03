@@ -87,48 +87,6 @@ Object.defineProperty(Term.prototype, 'last_modified_at', {
     }
 });
 
-//Define relationships
-Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
-    get: function () { return "is_part_of"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_INCLUDE', {
-    get: function () { return "includes"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_SUCCESSOR', {
-    get: function () { return "is_successor_of"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_PREDECESSOR', {
-    get: function () { return "is_predecessor_of"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_DEPEND', {
-    get: function () { return "depends_on"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_SYNONYM', {
-    get: function () { return "is_synonym_for"; }
-});
-
-Object.defineProperty(Term.prototype, 'REL_RELATED', {
-    get: function () { return "is_related_to"; }
-});
-
-// Method to return all the relationships
-Term.prototype.getAllRelationships = function() {
-    return [
-    this.REL_INCLUDE.replace(/_/g," "),
-    this.REL_DEPEND.replace(/_/g," "),
-    this.REL_PREDECESSOR.replace(/_/g," "),
-    this.REL_SUCCESSOR.replace(/_/g," "),
-    this.REL_IS_PART_OF.replace(/_/g," "),
-    this.REL_RELATED.replace(/_/g," ")
-    ];
-}
-
-
 // public instance methods:
 
 Term.prototype.save = function (callback) {
@@ -662,4 +620,46 @@ Term.prototype.uncontain = function (other, callback) {
         callback(err);
     });
 };
+
+//Define relationships
+Object.defineProperty(Term.prototype, 'REL_IS_PART_OF', {
+    get: function () { return "is_part_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_INCLUDE', {
+    get: function () { return "includes"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_SUCCESSOR', {
+    get: function () { return "is_successor_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_PREDECESSOR', {
+    get: function () { return "is_predecessor_of"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_DEPEND', {
+    get: function () { return "depends_on"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_SYNONYM', {
+    get: function () { return "is_synonym_for"; }
+});
+
+Object.defineProperty(Term.prototype, 'REL_RELATED', {
+    get: function () { return "is_related_to"; }
+});
+
+// Method to return all the relationships
+Term.prototype.getAllRelationships = function() {
+    return [
+    this.REL_INCLUDE.replace(/_/g," "),
+    this.REL_DEPEND.replace(/_/g," "),
+    this.REL_PREDECESSOR.replace(/_/g," "),
+    this.REL_SUCCESSOR.replace(/_/g," "),
+    this.REL_IS_PART_OF.replace(/_/g," "),
+    this.REL_RELATED.replace(/_/g," ")
+    ];
+}
+
 */

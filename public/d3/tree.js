@@ -3,7 +3,7 @@ $( document ).ready(function() {
     //Vairable to control length of paths
     var path_factor = 6;
     //Variable to control height of each line
-    var height_separation = 50;
+    var height_separation = 40;
     //Varibale to control scale factorss
     var scale_factor_centerNode = 1.5;
 
@@ -23,7 +23,7 @@ $( document ).ready(function() {
     var root = treeData = JSON.parse($('#json').val());
     // size of the diagram
     var viewerWidth = JSON.parse($('#tree-container').width());
-    var viewerHeight = $(document).height() * 0.6;
+    var viewerHeight = $( window ).height() * 0.75;
 
     var tree = d3.layout.tree()
         .size([viewerHeight, viewerWidth]);
@@ -54,8 +54,10 @@ $( document ).ready(function() {
     visit(treeData, function(d) {
         totalNodes++;
         console.log(d);
-        maxLabelLength = Math.max(d.name.length, maxLabelLength);
-
+        // Only consider relationships when calculating label length
+        if(!d.description){
+            maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        }
     }, function(d) {
         return d.children && d.children.length > 0 ? d.children : null;
     });
@@ -477,13 +479,15 @@ $( document ).ready(function() {
             .attr("opacity", 1)
             .attr("rx", 6)
             .attr("ry", 6)
-            .attr("x", -5)
+            .attr("x", function(d) {
+                return -d.name.length*2.8;
+            })
             .attr("y", -7)
             .attr("width", function(d) {
                 //Make the circle bigger when it is a relationship
                 if(!d.description){
                     //Magic numbers~
-                    return 15 + d.name.length*4.4;
+                    return 15 + d.name.length*4.6;
                 }else{
                     return 0;
                 }
@@ -510,7 +514,7 @@ $( document ).ready(function() {
             .attr("text-anchor", function(d) {
                 //Center the text if the node is a relationship
                 if(!d.description){
-                    return "start";
+                    return "middle";
                 }else{
                     return d.children || d._children ? "end" : "start";
                 }
@@ -615,5 +619,6 @@ $( document ).ready(function() {
 
     // Layout the tree initially and center on the root node.
     update(root);
+    
     centerNode(root);
     });
