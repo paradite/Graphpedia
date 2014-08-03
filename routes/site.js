@@ -22,12 +22,16 @@ var Relationship = require('../models/relationship');
         var relationship = new Relationship();
         // Get the relationship types
         var relationship_types = relationship.getAll();
-        res.render('index', {
-            user : req.user,
-            random_term_1: random_term_1,
-            random_term_2: random_term_2,
-            relationship_types: relationship_types
+        Term.getRelationshipCount(function (err, count){
+            res.render('index', {
+                rel_count: count,
+                user : req.user,
+                random_term_1: random_term_1,
+                random_term_2: random_term_2,
+                relationship_types: relationship_types
+            });         
         });
+
     });
 };
 

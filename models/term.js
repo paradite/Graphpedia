@@ -256,6 +256,23 @@ Term.getByNames = function (name1, name2, callback) {
 };
 
 /**
+ * Get the count of total number of relationships
+ * @param  {Function} callback 
+ * @return {int}            count
+ */
+Term.getRelationshipCount = function(callback){
+    var query = [
+        'MATCH (n:Term)-[r]-(m:Term)',
+        'RETURN count(r)',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        callback(null, results[0]['count(r)']);
+    });
+}
+
+/**
  * Get a term by partial name, used if full matching is not possible
  */
 //Provided support for partial matching using regular expression
