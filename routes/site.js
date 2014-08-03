@@ -1,6 +1,7 @@
 var Term = require('../models/term');
 var request = require('request');
 var moment = require('moment');
+var Relationship = require('../models/relationship');
 /*
  * GET home page.
  */
@@ -17,54 +18,17 @@ var moment = require('moment');
         while(random_term_2.id == random_term_1.id){
             var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
         }
-        //Get all the relationships
-        //Heroku neo4j database
-        var base_url = process.env['NEO4J_URL'] ||
-        process.env['GRAPHENEDB_URL'] ||
-        'http://localhost:7474'
-
-        //Use neo4j REST API to get all relationship
-        var options = {
-            url: base_url + '/db/data/relationship/types',
-            headers: {
-                'User-Agent': 'request'
-            }
-        };
-
-        function callback(error, response, body) {
-            if (error || response.statusCode != 200) {
-                console.log("error in neo4j API callback");
-                return res.render('wrong');
-            }
-            var relationship_types = JSON.parse(body);
-
-                //deal with old relationship types
-                var index = relationship_types.indexOf("follows");
-                if (index > -1) {
-                    relationship_types.splice(index, 1);
-                }
-                var index = relationship_types.indexOf("contains");
-                if (index > -1) {
-                    relationship_types.splice(index, 1);
-                }
-
-                // Parse the underscore
-                relationship_types = relationship_types.map(function(rel){return rel.replace(/_/g," ")});
-
-                //Add default ones
-                if(relationship_types.length < 6){
-                    relationship_types = random_term_1.getAllRelationships();
-                }
-                console.log(relationship_types);
-                res.render('index', {
-                    user : req.user,
-                    random_term_1: random_term_1,
-                    random_term_2: random_term_2,
-                    relationship_types: relationship_types
-                });
-            }
-            request(options, callback);
+        // Construct model instance
+        var relationship = new Relationship();
+        // Get the relationship types
+        var relationship_types = relationship.getAll();
+        res.render('index', {
+            user : req.user,
+            random_term_1: random_term_1,
+            random_term_2: random_term_2,
+            relationship_types: relationship_types
         });
+    });
 };
 
 /*
@@ -82,103 +46,65 @@ var moment = require('moment');
 
  exports.contribute = function(req, res, next){
     Term.getAll(function (err, terms) {
-    // Make sure there are at least 2 terms
-    if (err || terms == null || terms.length < 2) {
-        console.log("error in random");
-        return res.render('wrong');
-    }
-    var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
-    var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
-    while(random_term_2.id == random_term_1.id){
-        var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
-    }
-    var random_term_3 = terms[Math.floor(Math.random()*terms.length)];
-    var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
-    while(random_term_3.id == random_term_4.id){
-        var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
-    }
-    var random_term_5 = terms[Math.floor(Math.random()*terms.length)];
-    var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
-    while(random_term_5.id == random_term_6.id){
-        var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
-    }
-    var random_term_7 = terms[Math.floor(Math.random()*terms.length)];
-    var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
-    while(random_term_8.id == random_term_7.id){
-        var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
-    }
-    var random_term_9 = terms[Math.floor(Math.random()*terms.length)];
-    var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
-    while(random_term_10.id == random_term_9.id){
-        var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
-    }
-    
-    //Get all the relationships
-    //Heroku neo4j database
-    var base_url = process.env['NEO4J_URL'] ||
-    process.env['GRAPHENEDB_URL'] ||
-    'http://localhost:7474'
-
-    //Use neo4j REST API to get all relationship
-    var options = {
-        url: base_url + '/db/data/relationship/types',
-        headers: {
-            'User-Agent': 'request'
-        }
-    };
-
-    function callback(error, response, body) {
-        if (error || response.statusCode != 200) {
-            console.log("error in neo4j API callback");
+        // Make sure there are at least 2 terms
+        if (err || terms == null || terms.length < 2) {
+            console.log("error in random");
             return res.render('wrong');
         }
-        var relationship_types = JSON.parse(body);
-        console.log(relationship_types);
-            //deal with old relationship types
-            var index = relationship_types.indexOf("follows");
-            if (index > -1) {
-                relationship_types.splice(index, 1);
-            }
-            var index = relationship_types.indexOf("contains");
-            if (index > -1) {
-                relationship_types.splice(index, 1);
-            }
-            // Parse the underscore
-            relationship_types = relationship_types.map(function(rel){return rel.replace(/_/g," ")});
-
-            //Add default ones
-            if(relationship_types.length < 6){
-                relationship_types = random_term_1.getAllRelationships();
-            }
-            console.log(relationship_types);
-            // Pass in additional info
-            var info = null;
-            // console.log(req.query.info);
-            if(req.session.contributed){
-                req.session.contributed = false;
-                console.log("new relationship added");
-                info = 'Relationship successfully created. Thanks for your contribution!';
-            }
-            res.render('contribute', {
-                user : req.user,
-                random_term_1: random_term_1,
-                random_term_2: random_term_2,
-                random_term_3: random_term_3,
-                random_term_4: random_term_4,
-                random_term_5: random_term_5,
-                random_term_6: random_term_6,
-                random_term_7: random_term_7,
-                random_term_8: random_term_8,
-                random_term_9: random_term_9,
-                random_term_10: random_term_10,
-                relationship_types: relationship_types,
-                info: info
-            });
+        var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_2.id == random_term_1.id){
+            var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
         }
-        request(options, callback);
+        var random_term_3 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_3.id == random_term_4.id){
+            var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
+        }
+        var random_term_5 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_5.id == random_term_6.id){
+            var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
+        }
+        var random_term_7 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_8.id == random_term_7.id){
+            var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
+        }
+        var random_term_9 = terms[Math.floor(Math.random()*terms.length)];
+        var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
+        while(random_term_10.id == random_term_9.id){
+            var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
+        }
+
+        // Construct model instance
+        var relationship = new Relationship();
+        // Get the relationship types
+        var relationship_types = relationship.getAll();
+        // Pass in additional info
+        var info = null;
+        // console.log(req.query.info);
+        if(req.session.contributed){
+            req.session.contributed = false;
+            console.log("new relationship added");
+            info = 'Relationship successfully created. Thanks for your contribution!';
+        }
+        res.render('contribute', {
+            user : req.user,
+            random_term_1: random_term_1,
+            random_term_2: random_term_2,
+            random_term_3: random_term_3,
+            random_term_4: random_term_4,
+            random_term_5: random_term_5,
+            random_term_6: random_term_6,
+            random_term_7: random_term_7,
+            random_term_8: random_term_8,
+            random_term_9: random_term_9,
+            random_term_10: random_term_10,
+            relationship_types: relationship_types,
+            info: info
+        });
     });
-
-
 };
 
 
