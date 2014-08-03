@@ -12,6 +12,8 @@ Abstraction of types
 
 Add a significance field for the terms for easier suggestions(terms with higher significance will appear more often)
 
+Show term count and relationship count on index page
+
 <!-- UI:  -->
 Display number of terms on main page
 
