@@ -74,6 +74,11 @@ var Relationship = require('../models/relationship');
         return array;
     }
         terms = shuffle(terms);
+        if(terms.length > 20){
+            terms = terms.slice(0, 18);
+        }
+        console.log(terms.length);
+        // console.log(terms[5].id);
         var random_term_1 = terms[0];
         var random_term_2 = terms[1];
         // while(random_term_2.id == random_term_1.id){
@@ -114,6 +119,7 @@ var Relationship = require('../models/relationship');
         }
         res.render('contribute', {
             user : req.user,
+            terms: terms,
             random_term_1: random_term_1,
             random_term_2: random_term_2,
             random_term_3: random_term_3,
