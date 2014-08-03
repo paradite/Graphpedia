@@ -262,7 +262,7 @@ Term.getByNames = function (name1, name2, callback) {
  */
 Term.getRelationshipCount = function(callback){
     var query = [
-        'MATCH (n:Term)-[r]-(m:Term)',
+        'MATCH (n:Term)-[r]->(m:Term)',
         'RETURN count(r)',
     ].join('\n');
 
