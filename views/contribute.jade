@@ -2,7 +2,7 @@ extends layout_index
 
 block content
     div(style='margin-top:5%;')
-        h1(align='center') Contribute to us by adding lots of relationships:
+        h3(align='center') Contribute to us by adding lots of relationships:
     div.index-main(style='opacity:0.88; margin-top: 1%;')
         div.subdiv(id='askBox1')
             input.btn.btn-close(id='closeButton1', value='x', style='float:right') X
@@ -111,5 +111,7 @@ block content
                         a.text-highlight(href='/terms/#{random_term_10.id}') #{random_term_10.name}
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -25px') Add
+    div.subdiv(style='text-align:center;width:20%;margin:auto;margin-top:5px;')
+        a(href='/contribute', style='color:') Refresh the suggestions
     if (typeof info !== "undefined")
     h4(align='center')=info
