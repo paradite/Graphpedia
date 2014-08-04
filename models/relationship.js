@@ -68,6 +68,8 @@ Relationship.prototype.getReverse = function(name) {
         return "depends_on";
     }else if(name == "is_synonym_for"){
         return "is_synonym_for";
+    }else if(name == "is_related_to"){
+        return "is_related_to";
     }else{
         return null;
     }
