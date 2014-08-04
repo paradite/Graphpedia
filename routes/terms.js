@@ -309,7 +309,11 @@ exports.custom = function (req, res, next) {
                 term.last_modified_at = moment().format();
                 term.save(function (err) {
                     if (err) return next(err);
-                    res.redirect('/terms/' + term.id);
+                    other.last_modified_at = moment().format();
+                    other.save(function(err){
+                        if (err) return next(err);
+                        res.redirect('/terms/' + term.id);
+                    });
                 });
             });
         });

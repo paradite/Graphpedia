@@ -33,9 +33,12 @@ var Relationship = module.exports = function Relationship() {
     this.SUC = "is_successor_of";
     this.PRE = "is_predecessor_of";
     this.DEP = "depends_on";
+    this.SUP = "supports";
     this.REL = "is_related_to";
     this.SYN = "is_synonym_for";
-    this.SUP = "supports";
+
+    // Define the reverse relationships
+    this.reverse = {};
 }
 
 // Method to return all the relationships
@@ -48,6 +51,25 @@ Relationship.prototype.getIndex = function(name) {
 	return this.map[name];
 }
 
+// Method to get the reverse relationship for a relationship 
+// for adding by-directional reltionships
+Relationship.prototype.getReverse = function(name) {
+    if(name == "is_part_of"){
+        return "includes";
+    }else if(name == "includes"){
+        return "is_part_of";
+    }else if(name == "is_successor_of"){
+        return "is_predecessor_of";
+    }else if(name == "is_predecessor_of"){
+        return "is_successor_of";
+    }else if(name == "depends_on"){
+        return "supports";
+    }else if(name == "supports"){
+        return "depends_on";
+    }else{
+        return null;
+    }
+}
 
 // Old method
 //Heroku neo4j database

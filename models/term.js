@@ -7,6 +7,7 @@ var db = new neo4j.GraphDatabase(
     process.env['GRAPHENEDB_URL'] ||
     'http://localhost:7474'
 );
+var Relationship = require('./relationship');
 
 // private constructor:
 
@@ -117,14 +118,27 @@ Term.prototype.del = function (callback) {
 };
 
 /*  New/Delete relationship
-    Currently we have cutomized relationships, contain, 
+    Currently we have cutomized relationships
 */
 
 //Customized relationship methods
+//Added reverse relationship creation mechanism
 Term.prototype.custom = function (other, relationship_name, callback) {
     var formated_relationship_name = relationship_name.replace(/ /g,"_");
+    var self = this;
     this._node.createRelationshipTo(other._node, formated_relationship_name, {}, function (err, rel) {
-        callback(err);
+        // Construct model instance
+        var relationship = new Relationship();
+        var reverse_rel = relationship.getReverse(formated_relationship_name);
+        if(reverse_rel != null){
+            // Exists reverse relationship, create it
+            console.log("Exists reverse relationship: " + reverse_rel);
+            other._node.createRelationshipTo(self._node, reverse_rel, {}, function (err, rel2) {
+                callback(err);
+            });
+        }else{
+            callback(err);
+        }
     });
 };
 
