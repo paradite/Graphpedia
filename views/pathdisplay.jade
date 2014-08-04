@@ -4,19 +4,18 @@ block content
     div.subdiv
         h2 Relationship between <strong>#{name1}</strong> and <strong>#{name2}</strong>: 
         div(id="tree-container")
-        div
-            if terms.length
-                //- div.col-xs-4
-                //-     ul
-                //-         for other in terms
-                //-             li
-                //-                 a.text-highlight(href='/terms/#{other.id}') #{other.name}
-                //- div.col-xs-4
-                //-     if relationships.length
-                //-         ul
-                //-             for rel in relationships
-                //-                 li
-                //-                     a.text-highlight #{rel.type}
-            else
-                h4 No relationships yet.
+    div
+        if terms.length
+            ul
+                for other in terms
+                    li
+                        a.text-highlight(href='/terms/#{other.id}') #{other.name}
+            //- div.col-xs-4
+            //-     if relationships.length
+            //-         ul
+            //-             for rel in relationships
+            //-                 li
+            //-                     a.text-highlight #{rel.type}
+        else
+            h4 No relationships yet.
     input(id='json', type='hidden', value='#{json}')

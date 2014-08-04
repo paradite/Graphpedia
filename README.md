@@ -7,16 +7,11 @@ Change viz lines to straight lines
 Add category label for generic categories
 
 Abstraction of types
-	- Abstraction at parsing
-	- Gave up for now
+	- Done at all levels except jade rendering
 
 Add a significance field for the terms for easier suggestions(terms with higher significance will appear more often)
 
-Show term count and relationship count on index page
-	- Done 3 Aug
-
-Automatic reverse relationship
-	- Done 4 Aug
+Featured terms (Terms with most dependencies or relationships)
 
 <!-- UI:  -->
 
@@ -70,6 +65,13 @@ User account management
 
 Merge terms if same name
 	- Merge on creating terms - 27 July
+
+Show term count and relationship count on index page
+	- Done 3 Aug
+
+Automatic reverse relationship
+	- Done 4 Aug
+
 
 # Node-Neo4j Template
 
