@@ -4,9 +4,10 @@
 var list = [
 		"is_part_of",
 		"includes",
-		"is_successor_of",
-		"is_predecessor_of",
 		"depends_on",
+        "supports",
+        "is_successor_of",
+        "is_predecessor_of",
 		"is_related_to",
 		"is_synonym_for"
 	];
@@ -26,13 +27,6 @@ var Relationship = module.exports = function Relationship() {
 		this.map[list[i]] = i;
 	};
 
-	//Define relationships
-	this.REL_P = "is_part_of";
-	this.REL_I = "includes";
-	this.REL_S = "is_successor_of";
-	this.REL_D = "depends_on";
-	this.REL_R = "is_related_to";
-
     //Define relationships
     this.PAR = "is_part_of";
     this.INC = "includes";
@@ -41,6 +35,7 @@ var Relationship = module.exports = function Relationship() {
     this.DEP = "depends_on";
     this.REL = "is_related_to";
     this.SYN = "is_synonym_for";
+    this.SUP = "supports";
 }
 
 // Method to return all the relationships

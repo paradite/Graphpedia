@@ -17,7 +17,7 @@ block content
         p <strong>#{term.name}</strong> - <strong>#{term.description}</strong>
         ul
             li
-                //is_part_of related block
+                //is_part_of block
                 if is_part_of.length
                     p <strong>#{term.name}</strong> is part of <strong>#{is_part_of.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
@@ -27,13 +27,13 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_IS_PART_OF}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.PAR}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> isn't part of any terms.
             li
-                //including related block
+                //including block
                 if including.length
                     p <strong>#{term.name}</strong> includes <strong>#{including.length}</strong> terms:
                     // TODO should say 'term' if only one! ;
@@ -43,13 +43,13 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_INCLUDE}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.INC}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> does not includes any terms currently.
             li
-                //depend related block
+                //depend block
                 if depend.length
                     p <strong>#{term.name}</strong> depends on <strong>#{depend.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
@@ -59,14 +59,14 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_DEPEND}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.DEP}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> does not depend on any terms.
 
             li
-                //successor related block
+                //successor block
                 if successor.length
                     p <strong>#{term.name}</strong> is a successor of <strong>#{successor.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
@@ -76,14 +76,14 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_SUCCESSOR}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.SUC}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> is not a successor of any terms.
 
             li
-                //predecessor related block
+                //predecessor block
                 if predecessor.length
                     p <strong>#{term.name}</strong> is a predecessor of <strong>#{predecessor.length}</strong> terms:
                     ul
@@ -92,14 +92,14 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_PREDECESSOR}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.PRE}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> is not a predecessor of any terms.
 
             li
-                //related related block
+                //related block
                 if related.length
                     p <strong>#{term.name}</strong> is related to <strong>#{related.length}</strong> terms:
                     ul
@@ -108,11 +108,61 @@ block content
                                 form(action='/terms/#{term.id}/uncustom', method='POST')
                                     a.text-highlight(href='/terms/#{other.id}') #{other.name}
                                     input(type='hidden', name='term[id]', value='#{other.id}')
-                                    input(type='hidden', name='relationship[name]', value='#{other.REL_RELATED}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.REL}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
                 else
                     p <strong>#{term.name}</strong> is not related to any terms.
+
+            li
+                //synonym block
+                if synonym.length
+                    p <strong>#{term.name}</strong> is synonym for <strong>#{synonym.length}</strong> terms:
+                    ul
+                        for other in synonym
+                            li
+                                form(action='/terms/#{term.id}/uncustom', method='POST')
+                                    a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                    input(type='hidden', name='term[id]', value='#{other.id}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.SYN}')
+                                    if logged_in
+                                        input.btn.btn-close(type='submit', value='x')
+                else
+                    p <strong>#{term.name}</strong> is not synonym for any terms.
+
+            li
+                //support block
+                if support.length
+                    p <strong>#{term.name}</strong> supports <strong>#{support.length}</strong> terms:
+                    ul
+                        for other in support
+                            li
+                                form(action='/terms/#{term.id}/uncustom', method='POST')
+                                    a.text-highlight(href='/terms/#{other.id}') #{other.name}
+                                    input(type='hidden', name='term[id]', value='#{other.id}')
+                                    input(type='hidden', name='relationship[name]', value='#{relationship.SUP}')
+                                    if logged_in
+                                        input.btn.btn-close(type='submit', value='x')
+                else
+                    p <strong>#{term.name}</strong> does not support any terms.
+
+            //- li
+            //-     //related related block
+            //-     if related.length
+            //-         p <strong>#{term.name}</strong> is related to <strong>#{related.length}</strong> terms:
+            //-         ul
+            //-             for other in related
+            //-                 li
+            //-                     form(action='/terms/#{term.id}/uncustom', method='POST')
+            //-                         a.text-highlight(href='/terms/#{other.id}') #{other.name}
+            //-                         input(type='hidden', name='term[id]', value='#{other.id}')
+            //-                         input(type='hidden', name='relationship[name]', value='#{relationship.XXX}')
+            //-                         if logged_in
+            //-                             input.btn.btn-close(type='submit', value='x')
+            //-     else
+            //-         p <strong>#{term.name}</strong> is not related to any terms.
+
+
             p(style='text-align:right')
                 a.text-highlight(id='wikiurl', target="_blank") #{term.name} in Wikipedia
 

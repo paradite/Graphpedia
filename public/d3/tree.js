@@ -71,7 +71,8 @@ $( document ).ready(function() {
         });
     }
     // Sort the tree initially incase the JSON isn't in a sorted order.
-    sortTree();
+    // DO NOT SORT CUZ I ALREADY PLANNED ORDER
+    // sortTree();
 
     // TODO: Pan function, can be better implemented.
 

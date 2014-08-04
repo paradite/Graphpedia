@@ -152,6 +152,8 @@ exports.show = function (req, res, next) {
             var is_predecessor_of_list_full = [];
             var depend_list_full = [];
             var related_list_full = [];
+            var synonym_list_full = [];
+            var supports_list_full = [];
 
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
@@ -174,6 +176,12 @@ exports.show = function (req, res, next) {
 
                 }else if(rel_names[i] == relationship.REL){
                     related_list_full.push(rel_terms[i]);
+
+                }else if(rel_names[i] == relationship.SYN){
+                    synonym_list_full.push(rel_terms[i]);
+
+                }else if(rel_names[i] == relationship.SUP){
+                    supports_list_full.push(rel_terms[i]);
                 }
             };
             // console.log(d3_list);
@@ -244,8 +252,11 @@ exports.show = function (req, res, next) {
                     successor: is_successor_of_list_full,
                     predecessor: is_predecessor_of_list_full,
                     related: related_list_full,
+                    synonym: synonym_list_full,
+                    support: supports_list_full,
                     all_others: all_others,
                     relationship_types: relationship_types,
+                    relationship: relationship,
                     terms: recent_terms,
                     info: info
                 });
