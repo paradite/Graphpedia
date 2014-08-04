@@ -1,12 +1,10 @@
 extends layout_index
 
 block content
-    div.index-main(style='opacity:0.88; margin-top: 3%;')
-        div.subdiv-thin(style='text-align:center;margin-top:10px')
-            a(href='/contribute?1', onClick="this.href=this.href.split('?')[0]+'?'+new Date().getTime()",style='color:') Refresh the suggestions 
-
-    div.index-main(style='opacity:0.88; margin-top: 1%;')
+    div.index-main(style='opacity:0.88; margin-top: 4%;')
         div.subdiv-thin
+            div(style='text-align:center;')
+                a(href='/contribute?1', onClick="this.href=this.href.split('?')[0]+'?'+new Date().getTime()",style='color:') Refresh the suggestions
             - var n = 0
             while n < terms.length - 1
                 if n%2 == 0
@@ -16,13 +14,13 @@ block content
                     - var name1 = terms[n].name
                     - var name2 = terms[m].name
                     if n == terms.length - 2
-                        div.row(style='margin: 10px 0px')
+                        div.row(style='margin: 12px 0px')
                                 form(action='/contribute', method='POST')
                                     input(type='hidden', name='random_term_1[id]', value='#{id1}')
                                     input(type='hidden', name='random_term_2[id]', value='#{id2}')
-                                    div.col-xs-3
+                                    div.col-xs-4
                                         a.text-highlight(href='/terms/#{id1}', style='float: right;') #{name1}
-                                    div.col-xs-3
+                                    div.col-xs-2
                                         label(style="width: 100%;")
                                             select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
                                                 option.form-style(id='select-control')
@@ -33,13 +31,13 @@ block content
                                     div.col-xs-2
                                         input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px') Add
                     else
-                        div.row(style='margin: 10px 0px; border-bottom-style: dotted;border-width: thin; border-color:#FFFFFF;')
+                        div.row(style='margin: 12px 0px; border-bottom-style: dotted;border-width: thin; border-color:#FFFFFF;')
                             form(action='/contribute', method='POST')
                                 input(type='hidden', name='random_term_1[id]', value='#{id1}')
                                 input(type='hidden', name='random_term_2[id]', value='#{id2}')
-                                div.col-xs-3
+                                div.col-xs-4
                                     a.text-highlight(href='/terms/#{id1}', style='float: right;') #{name1}
-                                div.col-xs-3
+                                div.col-xs-2
                                     label(style="width: 100%;")
                                         select.form-style.e1(name='relationship[name]', required, style="width: 100%;")
                                             option.form-style(id='select-control')
@@ -166,10 +164,10 @@ block content
             p Create a new term
             form(action='/terms', method='POST')
                 div.row
-                    div.col-xs-1
+                    div.col-xs-2
                     div.col-xs-2
                         input.form-control.form-style(type='text', name='name', placeholder='Name', required)
-                    div.col-xs-6
+                    div.col-xs-5
                         input.form-control.form-style(type='text', name='description', placeholder='A short description of this term.',required)
                     div.col-xs-2
                         input.btn.btn-normal(type='submit', value='Create', style='float:left')
