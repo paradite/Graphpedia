@@ -157,22 +157,22 @@ exports.show = function (req, res, next) {
             for (var i = rel_terms.length - 1; i >= 0; i--) {
                 d3_list[relationship.getIndex(rel_names[i])].push(terms_list[i]);
                 jade_list[relationship.getIndex(rel_names[i])].push(rel_terms[i]);
-                if (rel_names[i] == term.REL_INCLUDE) {
+                if (rel_names[i] == relationship.INC) {
                     including_list_full.push(rel_terms[i]);
                     
-                }else if(rel_names[i] == term.REL_DEPEND){
+                }else if(rel_names[i] == relationship.DEP){
                     depend_list_full.push(rel_terms[i]);
 
-                }else if(rel_names[i] == term.REL_PREDECESSOR){
+                }else if(rel_names[i] == relationship.PRE){
                     is_predecessor_of_list_full.push(rel_terms[i]);
 
-                }else if(rel_names[i] == term.REL_SUCCESSOR){
+                }else if(rel_names[i] == relationship.SUC){
                     is_successor_of_list_full.push(rel_terms[i]);
 
-                }else if(rel_names[i] == term.REL_IS_PART_OF){
+                }else if(rel_names[i] == relationship.PAR){
                     is_part_of_list_full.push(rel_terms[i]);
 
-                }else if(rel_names[i] == term.REL_RELATED){
+                }else if(rel_names[i] == relationship.REL){
                     related_list_full.push(rel_terms[i]);
                 }
             };

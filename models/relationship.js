@@ -30,10 +30,17 @@ var Relationship = module.exports = function Relationship() {
 	this.REL_P = "is_part_of";
 	this.REL_I = "includes";
 	this.REL_S = "is_successor_of";
-	this.REL_PRE = "is_predecessor_of";
 	this.REL_D = "depends_on";
 	this.REL_R = "is_related_to";
-	this.REL_SYN = "is_synonym_for";
+
+    //Define relationships
+    this.PAR = "is_part_of";
+    this.INC = "includes";
+    this.SUC = "is_successor_of";
+    this.PRE = "is_predecessor_of";
+    this.DEP = "depends_on";
+    this.REL = "is_related_to";
+    this.SYN = "is_synonym_for";
 }
 
 // Method to return all the relationships
