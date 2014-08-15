@@ -13,6 +13,8 @@ Add a significance field for the terms for easier suggestions(terms with higher 
 
 Featured terms (Terms with most dependencies or relationships)
 
+Limit the name and description length
+
 <!-- UI:  -->
 
 Modify the graph

@@ -95,29 +95,14 @@ var Relationship = require('../models/relationship');
         // console.log(terms[5].id);
         var random_term_1 = terms[0];
         var random_term_2 = terms[1];
-        // while(random_term_2.id == random_term_1.id){
-        //     var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
-        // }
         var random_term_3 = terms[2];
         var random_term_4 = terms[3];
-        // while(random_term_3.id == random_term_4.id){
-        //     var random_term_4 = terms[Math.floor(Math.random()*terms.length)];
-        // }
         var random_term_5 = terms[4];
         var random_term_6 = terms[5];
-        // while(random_term_5.id == random_term_6.id){
-        //     var random_term_6 = terms[Math.floor(Math.random()*terms.length)];
-        // }
         var random_term_7 = terms[6];
         var random_term_8 = terms[7];
-        // while(random_term_8.id == random_term_7.id){
-        //     var random_term_8 = terms[Math.floor(Math.random()*terms.length)];
-        // }
         var random_term_9 = terms[8];
         var random_term_10 = terms[9];
-        // while(random_term_10.id == random_term_9.id){
-        //     var random_term_10 = terms[Math.floor(Math.random()*terms.length)];
-        // }
 
         // Construct model instance
         var relationship = new Relationship();
