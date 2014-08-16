@@ -171,7 +171,7 @@ block content
             div.col-xs-8
                 p Search inside <span class='titlebox-text-highlight'>#{term.name}</span>
             div.col-xs-4
-                p(id='toggletext2') Click to expand
+                p(id='toggletext2') Show
     div.subdiv(id='subdiv2', style='display: none;')
         div.row
             div.col-xs-4
@@ -194,7 +194,7 @@ block content
             div.col-xs-8
                 p Manage <span class='titlebox-text-highlight'>#{term.name}</span>
             div.col-xs-4
-                p(id='toggletext3') Click to expand
+                p(id='toggletext3') Show
     div.subdiv(id='subdiv3', style='display: none;')
         p Add a new relationship for <strong>#{term.name}</strong>:
         form(action='/terms/#{term.id}/custom', method='POST')                    
