@@ -5,9 +5,9 @@ block content
         div.row.search-bar.vertical-center
             div.col-xs-3
             div.col-xs-6
-                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search a term', required)
+                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search/Create a term', required)
             div.col-xs-3
-                input.btn.btn-lg.btn-header(type='submit', value='Search')
+                input.btn.btn-lg.btn-header(type='submit', value='Go')
 
             //- Search a pair of terms
             //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
@@ -28,16 +28,17 @@ block content
                     input(type='hidden', name='random_term_1[id]', value='#{random_term_1.id}')
                     input(type='hidden', name='random_term_2[id]', value='#{random_term_2.id}')
                     div.col-xs-3
+                    div.col-xs-2
                         a.text-highlight(href='/terms/#{random_term_1.id}', style='float: right;') #{random_term_1.name}
-                    div.col-xs-3
+                    div.col-xs-2
                         label(style="width: 100%;")
                             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
                                 option.form-style(id='select-control')
                                 for type in relationship_types
                                     option.form-style(id='select-control', value='#{type}') #{type}
-                    div.col-xs-3
-                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
                     div.col-xs-2
+                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
+                    div.col-xs-1
                         input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px')
             div.row(style='margin:5px 0px auto;text-align:center;')
                 p Total number of relationships: #{rel_count}  
