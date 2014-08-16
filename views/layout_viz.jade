@@ -33,11 +33,12 @@ html
 
 
     div.pure-menu.pure-menu-open#menu
-        a.pure-menu-heading Recent searches
+        a.pure-menu-heading(href='/random_term', align="center", style='padding-bottom:5px;') Random Term
+        a.pure-menu-heading(align="center") Recent Searches
         if terms.length
             ul.pure-menu
                 for term in terms
                     li
-                        a(href='/terms/#{term.id}') #{term.name}
+                        a(href='/terms/#{term.id}', align="center") #{term.name}
         else
             p There are no terms currently.
