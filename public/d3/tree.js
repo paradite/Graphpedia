@@ -426,6 +426,11 @@ $( document ).ready(function() {
             })
             .attr("dy", ".35em")
             .attr('class', function(d) {
+                if(d.children){
+                    return d.description ? "nodeText" : "nodeRelationship";
+                }else{
+                    return d.description ? "nodeText" : "nodeRelationshipAlone";
+                }
                 return d.description ? "nodeText" : "nodeRelationship";
             })
             .attr("text-anchor", function(d) {

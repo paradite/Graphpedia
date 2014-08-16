@@ -23,6 +23,12 @@
     font-size:8px; 
     font-family:sans-serif;
   }
+
+  .nodeRelationshipAlone {
+    fill: #a8a8a8;
+    font-size:10px; 
+    font-family:sans-serif;
+  }
    
   .nodeText {
     fill: steelblue;
