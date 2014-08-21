@@ -234,7 +234,7 @@ exports.path = function(req, res){
             // Still have relationships, add
             
             path_obj = {
-                name: relationships[relationship_index].type,
+                name: relationships[relationship_index].type.replace(/_/g," "),
                 children: [path_obj]
             }
 
