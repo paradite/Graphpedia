@@ -16,9 +16,9 @@ block content
     div.subdiv(id='subdiv1', style = "display : block;")
         p <strong>#{term.name}</strong> - <strong>#{term.description}</strong>
         ul
-            li
-                //is_part_of block
-                if is_part_of.length
+            //is_part_of block
+            if is_part_of.length
+                li
                     p <strong>#{term.name}</strong> is part of <strong>#{is_part_of.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
                     ul
@@ -30,11 +30,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.PAR}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> isn't part of any terms.
-            li
-                //including block
-                if including.length
+                //- else
+                //-     p <strong>#{term.name}</strong> isn't part of any terms.
+            //including block
+            if including.length
+                li
+
                     p <strong>#{term.name}</strong> includes <strong>#{including.length}</strong> terms:
                     // TODO should say 'term' if only one! ;
                     ul
@@ -46,11 +47,11 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.INC}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> does not includes any terms currently.
-            li
-                //depend block
-                if depend.length
+                //- else
+                //-     p <strong>#{term.name}</strong> does not includes any terms currently.
+            //depend block
+            if depend.length
+                li
                     p <strong>#{term.name}</strong> depends on <strong>#{depend.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
                     ul
@@ -62,12 +63,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.DEP}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> does not depend on any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> does not depend on any terms.
 
-            li
-                //successor block
-                if successor.length
+            //successor block
+            if successor.length
+                li
                     p <strong>#{term.name}</strong> is a successor of <strong>#{successor.length}</strong> terms:
                     // TODO should say 'term' if only one! ;)
                     ul
@@ -79,12 +80,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.SUC}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> is not a successor of any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> is not a successor of any terms.
 
-            li
-                //predecessor block
-                if predecessor.length
+            //predecessor block
+            if predecessor.length
+                li
                     p <strong>#{term.name}</strong> is a predecessor of <strong>#{predecessor.length}</strong> terms:
                     ul
                         for other in predecessor
@@ -95,12 +96,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.PRE}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> is not a predecessor of any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> is not a predecessor of any terms.
 
-            li
-                //related block
-                if related.length
+            //related block
+            if related.length
+                li
                     p <strong>#{term.name}</strong> is related to <strong>#{related.length}</strong> terms:
                     ul
                         for other in related
@@ -111,12 +112,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.REL}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> is not related to any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> is not related to any terms.
 
-            li
-                //synonym block
-                if synonym.length
+            //synonym block
+            if synonym.length
+                li
                     p <strong>#{term.name}</strong> is synonym for <strong>#{synonym.length}</strong> terms:
                     ul
                         for other in synonym
@@ -127,12 +128,12 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.SYN}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> is not synonym for any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> is not synonym for any terms.
 
-            li
-                //support block
-                if support.length
+            //support block
+            if support.length
+                li
                     p <strong>#{term.name}</strong> supports <strong>#{support.length}</strong> terms:
                     ul
                         for other in support
@@ -143,8 +144,8 @@ block content
                                     input(type='hidden', name='relationship[name]', value='#{relationship.SUP}')
                                     if logged_in
                                         input.btn.btn-close(type='submit', value='x')
-                else
-                    p <strong>#{term.name}</strong> does not support any terms.
+                //- else
+                //-     p <strong>#{term.name}</strong> does not support any terms.
 
             //- li
             //-     //related related block

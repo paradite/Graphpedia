@@ -19,7 +19,7 @@ $( document ).ready(function() {
     // Misc. variables
     var i = 0;
     var duration = 750;
-    console.log($('#json').val());
+    // console.log($('#json').val());
     var root = treeData = JSON.parse($('#json').val());
     // size of the diagram
     var viewerWidth = JSON.parse($('#tree-container').width());
@@ -53,7 +53,7 @@ $( document ).ready(function() {
     // Call visit function to establish maxLabelLength
     visit(treeData, function(d) {
         totalNodes++;
-        console.log(d);
+        // console.log(d);
         // Only consider relationships when calculating label length
         if(!d.description){
             maxLabelLength = Math.max(d.name.length, maxLabelLength);
@@ -104,7 +104,7 @@ $( document ).ready(function() {
     // Define the zoom function for the zoomable tree
 
     function zoom() {
-        console.log("in zoom");
+        // console.log("in zoom");
         svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
 
@@ -161,7 +161,7 @@ $( document ).ready(function() {
         .attr("class", "overlay")
         .call(zoomListener);
 
-
+/*
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function(d) {
@@ -253,7 +253,7 @@ $( document ).ready(function() {
             draggingNode = null;
         }
     }
-
+*/
     // Helper functions for collapsing and expanding nodes.
 
     function collapse(d) {
@@ -312,7 +312,7 @@ $( document ).ready(function() {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
-        console.log("in centerNode");
+        // console.log("in centerNode");
         scale = zoomListener.scale() * scale_factor_centerNode;
         x = -source.y0;
         y = -source.x0;
@@ -343,7 +343,12 @@ $( document ).ready(function() {
     // Toggle children on click.
 
     function click(d) {
+        // console.log("in click");
         if (d3.event.defaultPrevented) return; // click suppressed
+        if (d.term_url){
+            window.location = "http://" + d.term_url;
+            // console.log("url: " + d.term_url);
+        }
         d = toggleChildren(d);
         update(d);
         //centerNode(d);
@@ -390,12 +395,13 @@ $( document ).ready(function() {
 
         // Enter any new nodes at the parent's previous position.
         var nodeEnter = node.enter().append("g")
-            .call(dragListener)
+            // .call(dragListener)
             .attr("class", "node")
             .attr("transform", function(d) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
             })
             .on('click', click);
+            
 
         nodeEnter.append("rect")
             .attr("opacity", 0.2)
@@ -450,7 +456,6 @@ $( document ).ready(function() {
         nodeEnter.append("svg:title").text(function(d) {
                 return (d.description) ;
             });
-
 
         nodeEnter.append("text")
             .attr("x", function(d) {
@@ -527,7 +532,10 @@ $( document ).ready(function() {
             })
             .text(function(d) {
                 return d.name;
-            });
+            })
+            .attr("xlink:href", function(d){
+                // console.log( "xlink: " + d.term_url);
+                return d.term_url;});
 
         // Change the circle fill depending on whether it has children and is collapsed
         node.select("circle.nodeCircle")

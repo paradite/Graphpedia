@@ -132,7 +132,7 @@ exports.show = function (req, res, next) {
             var relationship_types = relationship.getAll();
 
             //Parse all related terms for d3.js
-            var terms_list = term.parse(rel_terms);
+            var terms_list = term.parse(req, rel_terms);
 
             //Set up the 2D array for d3 with [rel index][term object]
             var d3_list = new Array(relationship_types.length);
@@ -157,6 +157,7 @@ exports.show = function (req, res, next) {
 
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
+                // console.log("d3 term list: " + terms_list[i].term_url);
                 d3_list[relationship.getIndex(rel_names[i])].push(terms_list[i]);
                 jade_list[relationship.getIndex(rel_names[i])].push(rel_terms[i]);
                 if (rel_names[i] == relationship.INC) {

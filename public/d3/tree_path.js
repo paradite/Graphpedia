@@ -162,7 +162,7 @@ $( document ).ready(function() {
         .attr("class", "overlay")
         .call(zoomListener);
 
-
+/*
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function(d) {
@@ -254,7 +254,7 @@ $( document ).ready(function() {
             draggingNode = null;
         }
     }
-
+*/
     // Helper functions for collapsing and expanding nodes.
 
     function collapse(d) {
@@ -391,7 +391,7 @@ $( document ).ready(function() {
 
         // Enter any new nodes at the parent's previous position.
         var nodeEnter = node.enter().append("g")
-            .call(dragListener)
+            // .call(dragListener)
             .attr("class", "node")
             .attr("transform", function(d) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";

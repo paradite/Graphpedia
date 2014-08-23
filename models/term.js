@@ -478,13 +478,14 @@ Method to parse the data from neo4j databse to json objects for rendering of d3.
 Author: Zhu Liang
 Date: 29 June
 */
-Term.prototype.parse = function (arr_obs){
+Term.prototype.parse = function (req, arr_obs){
     var parsed = [];
     for (var item in arr_obs) {
         if(!arr_obs[item].description){
             arr_obs[item].description = "no description yet"
         }
-        parsed.push({name: arr_obs[item].name, description: arr_obs[item].description});
+        // console.log("id: " + arr_obs[item].id);
+        parsed.push({name: arr_obs[item].name, description: arr_obs[item].description, term_url: req.get('Host') + "/terms/" + arr_obs[item].id});
     }
     return parsed;
 }
