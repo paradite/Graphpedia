@@ -53,6 +53,13 @@ var Relationship = require('../models/relationship');
     res.render('index');
 };
 
+/*
+ * GET Changelog page.
+ */
+
+ exports.changelog = function(req, res, next){
+    res.render('changelog');
+};
 
 /*
  * GET contribute page.
