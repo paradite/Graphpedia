@@ -23,7 +23,7 @@ $( document ).ready(function() {
     // Misc. variables
     var i = 0;
     var duration = 750;
-    console.log($('#json').val());
+    // console.log($('#json').val());
     var root = treeData = JSON.parse($('#json').val());
     // size of the diagram
     var viewerWidth = JSON.parse($('#tree-container').width());
@@ -57,7 +57,7 @@ $( document ).ready(function() {
     // Call visit function to establish maxLabelLength
     visit(treeData, function(d) {
         totalNodes++;
-        console.log(d);
+        // console.log(d);
         maxLabelLength = Math.max(d.name.length, maxLabelLength);
 
     }, function(d) {
@@ -105,7 +105,7 @@ $( document ).ready(function() {
     // Define the zoom function for the zoomable tree
 
     function zoom() {
-        console.log("in zoom");
+        // console.log("in zoom");
         svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
 
@@ -313,7 +313,7 @@ $( document ).ready(function() {
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
     function centerNode(source) {
-        console.log("in centerNode");
+        // console.log("in centerNode");
         scale = zoomListener.scale() * scale_factor_centerNode;
         x = -source.y0;
         y = -source.x0;
