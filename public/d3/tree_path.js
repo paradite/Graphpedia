@@ -344,9 +344,15 @@ $( document ).ready(function() {
     // Toggle children on click.
 
     function click(d) {
+        // console.log("in click");
         if (d3.event.defaultPrevented) return; // click suppressed
-        d = toggleChildren(d);
-        update(d);
+        if (d.term_url){
+            window.location = "http://" + d.term_url;
+            // console.log("url: " + d.term_url);
+        }else{
+            d = toggleChildren(d);
+            update(d);
+        }
         //centerNode(d);
     }
 

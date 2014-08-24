@@ -193,7 +193,7 @@ exports.path = function(req, res){
             //Find the path using two ids
             terms1[0].getPath(terms2[0], function (err, terms, relationships){
                 // Parse terms and relationships for displaying
-                var path_obj = parsePath(terms, relationships);
+                var path_obj = parsePath(req, terms, relationships);
                 
                 if(err) console.log(err);
                 console.log("terms: " + terms);
@@ -221,7 +221,7 @@ exports.path = function(req, res){
         };
     }
 });
-    function parsePath (terms, relationships){
+    function parsePath (req, terms, relationships){
         if(terms.length != (relationships.length + 1)){
             console.log("wrong number of terms and relationships");
             return {};
@@ -235,6 +235,7 @@ exports.path = function(req, res){
         var path_obj = {
             name: terms[term_index].name,
             description: terms[term_index].description,
+            term_url: req.get('Host') + "/terms/" + terms[term_index].id
         };
         term_index--;
         while(relationship_index >= 0){
@@ -248,6 +249,7 @@ exports.path = function(req, res){
             path_obj = {
                 name: terms[term_index].name,
                 description: terms[term_index].description,
+                term_url: req.get('Host') + "/terms/" + terms[term_index].id,
                 children: [path_obj]
             }
             relationship_index--;

@@ -7,6 +7,62 @@ block content
     div(id="tree-container")
     div(style='margin-top:15px')
 
+    //- Edit Block
+    //- div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
+    //-     div.row
+    //-         div.col-xs-8
+    //-             p Manage <span class='titlebox-text-highlight'>#{term.name}</span>
+    //-         div.col-xs-4
+    //-             p(id='toggletext3') Hide
+    div.subdiv(id='subdiv3', style='display: block;')
+        p Add a new relationship between <strong>#{term.name}</strong> and an existing term:
+        form(action='/terms/#{term.id}/custom', method='POST')                    
+            div.row
+                div.col-xs-3
+                    p(style='padding-top: 5px', align='center') <strong>#{term.name}</strong>
+                    input(type='hidden', name="name1", placeholder='#{term.name}')
+                div.col-xs-3
+                    label(style="width: 100%;")
+                        select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                            option.form-style(id='select-control')
+                            for type in relationship_types
+                                option.form-style(id='select-control', value='#{type}') #{type}
+                div.col-xs-4
+                    label(style="width: 100%;")
+                        select.form-style(name='term[id]', required, id='e2',style="width: 100%;")
+                            option.form-style 
+                            for term in all_others
+                                option.form-style(value='#{term.id}') #{term.name}
+                div.col-xs-2
+                    input.btn.btn-normal(type='submit', value='Add')
+        //- br
+        p(style='padding-top: 5px') Edit <strong>#{term.name}</strong>:
+        form(action='/terms/#{term.id}', method='POST')            
+            div.row
+                div.col-xs-3    
+                    input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
+                div.col-xs-7
+                    if term.description
+                        input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
+                    else
+                        input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
+                div.col-xs-2
+                    input.btn.btn-normal(type='submit', value='Update')
+        //- br
+        form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+            div.row
+                div.col-xs-10
+                    if logged_in
+                        p Delete <strong>#{term.name}</strong> :
+                    else
+                        //- p (Delete function only available for moderators)
+                div.col-xs-2
+                    if logged_in
+                        input(type='hidden', name='_method', value='DELETE')
+                        input.btn.btn-normal(type='submit', value='Delete Term')
+                    else
+                        //- input.btn.btn-normal(type='submit', value='Delete Term', disabled="disabled")
+
     div.titlebox(id='togglebox1', style='cursor:zoom-out')
         div.row
             div.col-xs-8
@@ -167,13 +223,14 @@ block content
             p(style='text-align:right')
                 a.text-highlight(id='wikiurl', target="_blank") #{term.name} in Wikipedia
 
+    //- Search Inside Block
     div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
         div.row
             div.col-xs-8
                 p Search inside <span class='titlebox-text-highlight'>#{term.name}</span>
             div.col-xs-4
-                p(id='toggletext2') Show
-    div.subdiv(id='subdiv2', style='display: none;')
+                p(id='toggletext2') Hide
+    div.subdiv(id='subdiv2', style='display: block;')
         div.row
             div.col-xs-4
                 p(align='center', style='padding-top: 5px') Relationship between
@@ -190,60 +247,6 @@ block content
                         input.btn.btn-normal(type='submit') Search
                     &nbsp;
 
-    div.titlebox(onclick='toggle3()', id='togglebox3', style='cursor:zoom-in')
-        div.row
-            div.col-xs-8
-                p Manage <span class='titlebox-text-highlight'>#{term.name}</span>
-            div.col-xs-4
-                p(id='toggletext3') Show
-    div.subdiv(id='subdiv3', style='display: none;')
-        p Add a new relationship for <strong>#{term.name}</strong>:
-        form(action='/terms/#{term.id}/custom', method='POST')                    
-            div.row
-                div.col-xs-3
-                    p(style='padding-top: 5px', align='center') <strong>#{term.name}</strong>
-                    input(type='hidden', name="name1", placeholder='#{term.name}')
-                div.col-xs-3
-                    label(style="width: 100%;")
-                        select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-                            option.form-style(id='select-control')
-                            for type in relationship_types
-                                option.form-style(id='select-control', value='#{type}') #{type}
-                div.col-xs-4
-                    label(style="width: 100%;")
-                        select.form-style(name='term[id]', required, id='e2',style="width: 100%;")
-                            option.form-style 
-                            for term in all_others
-                                option.form-style(value='#{term.id}') #{term.name}
-                div.col-xs-2
-                    input.btn.btn-normal(type='submit', value='Add')
-        br
-        p(style='padding-top: 5px') Edit <strong>#{term.name}</strong>:
-        form(action='/terms/#{term.id}', method='POST')            
-            div.row
-                div.col-xs-3    
-                    input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
-                div.col-xs-7
-                    if term.description
-                        input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
-                    else
-                        input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
-                div.col-xs-2
-                    input.btn.btn-normal(type='submit', value='Update')
-        br
-        form(action='/terms/#{term.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-            div.row
-                div.col-xs-10
-                    if logged_in
-                        p Delete <strong>#{term.name}</strong> :
-                    else
-                        p (Delete function only available for moderators)
-                div.col-xs-2
-                    if logged_in
-                        input(type='hidden', name='_method', value='DELETE')
-                        input.btn.btn-normal(type='submit', value='Delete Term')
-                    else
-                        input.btn.btn-normal(type='submit', value='Delete Term', disabled="disabled")
     div(style='padding:15px')
         if term.created_at
             p <strong>Created at</strong> : <span>#{created_at}</span> Singapore Time

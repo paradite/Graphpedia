@@ -23,7 +23,7 @@ $( document ).ready(function() {
     var root = treeData = JSON.parse($('#json').val());
     // size of the diagram
     var viewerWidth = JSON.parse($('#tree-container').width());
-    var viewerHeight = $( window ).height() * 0.75;
+    var viewerHeight = $( window ).height() * 0.7;
 
     var tree = d3.layout.tree()
         .size([viewerHeight, viewerWidth]);
@@ -348,9 +348,10 @@ $( document ).ready(function() {
         if (d.term_url){
             window.location = "http://" + d.term_url;
             // console.log("url: " + d.term_url);
+        }else{
+            d = toggleChildren(d);
+            update(d);
         }
-        d = toggleChildren(d);
-        update(d);
         //centerNode(d);
     }
 
