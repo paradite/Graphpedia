@@ -17,6 +17,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 /*var LocalStrategy = require('passport-local').Strategy;*/
 
+var h5bp = require('h5bp');
+app.use(h5bp({ root: __dirname + '/public' }));
+
 var mongodb_url = process.env.MONGOLAB_URI || 
 				process.env.MONGOHQ_URL || 
 				'mongodb://localhost/passport_local_mongoose';
@@ -26,6 +29,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
+app.use(express.compress());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
