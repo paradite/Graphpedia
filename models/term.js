@@ -88,6 +88,16 @@ Object.defineProperty(Term.prototype, 'last_modified_at', {
     }
 });
 
+//Added relationship count for term
+Object.defineProperty(Term.prototype, 'rel_count', {
+    get: function () {
+        return this._node.data['rel_count'];
+    },
+    set: function (rel_count) {
+        this._node.data['rel_count'] = rel_count;
+    }
+});
+
 // public instance methods:
 
 Term.prototype.save = function (callback) {
@@ -352,6 +362,38 @@ Term.getRecent = function (callback) {
     });
 }
 
+/**
+ * Get the terms with least number of relationships(alone ones)
+ * @param  {Function} callback 
+ * @return {array}    terms
+ */
+Term.getAlone = function (callback) {
+    var query = [
+        'MATCH (term:Term), (other:Term)',
+        'OPTIONAL MATCH term-[r]->other',
+        'RETURN term, COUNT(r) ORDER BY COUNT(r) LIMIT 5',
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        var terms = results.map(function (result) {
+            return new Term(result['term']);
+        });
+        var rel_counts = results.map(function (result) {
+            return result['COUNT(r)'];
+        });
+        // terms.forEach(function (term) {
+        //     console.log("In terms: " + term.name);
+        // });
+        callback(null, terms, rel_counts);
+    });
+}
+
+/**
+ * Get the total number of terms
+ * @param  {Function} callback callback
+ * @return {[type]}            count
+ */
 Term.getCount = function (callback) {
     var query = [
         'MATCH (term:Term)',

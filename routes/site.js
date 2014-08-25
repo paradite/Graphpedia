@@ -30,16 +30,27 @@ var Relationship = require('../models/relationship');
                 if (err) {
                     console.log("get Count wrong");
                 }
-                var ratio = count / results;
-                res.render('index', {
-                    ratio: ratio.toFixed(3),
-                    term_count: results,
-                    rel_count: count,
-                    user : req.user,
-                    random_term_1: random_term_1,
-                    random_term_2: random_term_2,
-                    relationship_types: relationship_types
-                });   
+                // Get the terms with least number of relationships for suggestions
+                Term.getAlone(function (err, alone_terms, alone_rel_counts){
+                    if (err) {
+                        console.log("getAlone wrong");
+                    }
+                    for (var i = 0; i < alone_terms.length; i++) {
+                        alone_terms[i].rel_count = alone_rel_counts[i];
+                        console.log("Alone term: " + alone_terms[i].name + alone_terms[i].rel_count);
+                    };
+                    var ratio = count / results;
+                    res.render('index', {
+                        ratio: ratio.toFixed(3),
+                        term_count: results,
+                        rel_count: count,
+                        alone_terms: alone_terms,
+                        user : req.user,
+                        random_term_1: random_term_1,
+                        random_term_2: random_term_2,
+                        relationship_types: relationship_types
+                    }); 
+                });  
             });    
         });
     });

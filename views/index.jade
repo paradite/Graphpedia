@@ -24,22 +24,27 @@ block content
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
             div.row
-                form(action='/suggest', method='POST')
-                    input(type='hidden', name='random_term_1[id]', value='#{random_term_1.id}')
-                    input(type='hidden', name='random_term_2[id]', value='#{random_term_2.id}')
-                    div.col-xs-3
-                    div.col-xs-2
-                        a.text-highlight(href='/terms/#{random_term_1.id}', style='float: right;') #{random_term_1.name}
-                    div.col-xs-2
-                        label(style="width: 100%;")
-                            select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
-                                option.form-style(id='select-control')
-                                for type in relationship_types
-                                    option.form-style(id='select-control', value='#{type}') #{type}
-                    div.col-xs-2
-                        a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
-                    div.col-xs-1
-                        input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px')
+                div.col-xs-2
+                a(style='color: #000000') These terms need more relationships: 
+                for alone_term in alone_terms
+                    a.text-highlight(href='/terms/#{alone_term.id}') #{alone_term.name} (#{alone_term.rel_count})
+                    a(style='color: #428BCA')='&nbsp;&nbsp;&nbsp;'
+                //- form(action='/suggest', method='POST')
+                //-     input(type='hidden', name='random_term_1[id]', value='#{random_term_1.id}')
+                //-     input(type='hidden', name='random_term_2[id]', value='#{random_term_2.id}')
+                //-     div.col-xs-3
+                //-     div.col-xs-2
+                //-         a.text-highlight(href='/terms/#{random_term_1.id}', style='float: right;') #{random_term_1.name}
+                //-     div.col-xs-2
+                //-         label(style="width: 100%;")
+                //-             select.form-style(name='relationship[name]', required, id='e1', style="width: 100%;")
+                //-                 option.form-style(id='select-control')
+                //-                 for type in relationship_types
+                //-                     option.form-style(id='select-control', value='#{type}') #{type}
+                //-     div.col-xs-2
+                //-         a.text-highlight(href='/terms/#{random_term_2.id}') #{random_term_2.name}
+                //-     div.col-xs-1
+                //-         input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px')
             div.row(style='margin:5px 0px auto;text-align:center;')
                 p Total number of relationships: #{rel_count}  
                 p Total number of terms: #{term_count}
