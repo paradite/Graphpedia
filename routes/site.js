@@ -7,53 +7,53 @@ var Relationship = require('../models/relationship');
  */
 
  exports.index = function(req, res){
-    Term.getAll(function (err, terms) {
-        // Make sure there are at least 2 terms
-        if (err || terms == null || terms.length < 2) {
-            console.log("error in random");
-            return res.render('wrong');
+    // Construct model instance
+    var relationship = new Relationship();
+    // Get the relationship types
+    var relationship_types = relationship.getAll();
+    Term.getRelationshipCount(function (err, count){
+        if (err) {
+            console.log("getRelationshipCount wrong");
         }
-        var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
-        var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
-        while(random_term_2.id == random_term_1.id){
-            var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
-        }
-        // Construct model instance
-        var relationship = new Relationship();
-        // Get the relationship types
-        var relationship_types = relationship.getAll();
-        Term.getRelationshipCount(function (err, count){
+        Term.getCount(function (err, results) {
             if (err) {
-                console.log("getRelationshipCount wrong");
+                console.log("get Count wrong");
             }
-            Term.getCount(function (err, results) {
+            // Get the terms with least number of relationships for suggestions
+            Term.getAlone(function (err, alone_terms, alone_rel_counts){
                 if (err) {
-                    console.log("get Count wrong");
+                    console.log("getAlone wrong");
                 }
-                // Get the terms with least number of relationships for suggestions
-                Term.getAlone(function (err, alone_terms, alone_rel_counts){
-                    if (err) {
-                        console.log("getAlone wrong");
-                    }
-                    for (var i = 0; i < alone_terms.length; i++) {
-                        alone_terms[i].rel_count = alone_rel_counts[i];
-                        console.log("Alone term: " + alone_terms[i].name + alone_terms[i].rel_count);
-                    };
-                    var ratio = count / results;
-                    res.render('index', {
-                        ratio: ratio.toFixed(3),
-                        term_count: results,
-                        rel_count: count,
-                        alone_terms: alone_terms,
-                        user : req.user,
-                        random_term_1: random_term_1,
-                        random_term_2: random_term_2,
-                        relationship_types: relationship_types
-                    }); 
-                });  
-            });    
-        });
+                for (var i = 0; i < alone_terms.length; i++) {
+                    alone_terms[i].rel_count = alone_rel_counts[i];
+                    // console.log("Alone term: " + alone_terms[i].name + alone_terms[i].rel_count);
+                };
+                var ratio = count / results;
+                res.render('index', {
+                    ratio: ratio.toFixed(3),
+                    term_count: results,
+                    rel_count: count,
+                    alone_terms: alone_terms,
+                    user : req.user,
+                    relationship_types: relationship_types
+                }); 
+            });  
+        });    
     });
+
+    // Term.getAll(function (err, terms) {
+    //     // Make sure there are at least 2 terms
+    //     if (err || terms == null || terms.length < 2) {
+    //         console.log("error in random");
+    //         return res.render('wrong');
+    //     }
+    //     var random_term_1 = terms[Math.floor(Math.random()*terms.length)];
+    //     var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+    //     while(random_term_2.id == random_term_1.id){
+    //         var random_term_2 = terms[Math.floor(Math.random()*terms.length)];
+    //     }
+
+    // });
 };
 
 /*
