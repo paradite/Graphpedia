@@ -6,10 +6,11 @@ block content
         h4(align='center') #{info}
     if terms.length
         p Here are the terms:
-        ul
+        ul(style="list-style-type: none;")
             for term in terms
                 li
-                    a(href='/terms/#{term.id}') <span class='text-highlight'>#{term.name}</span>
+                    div(style="margin-bottom:5px;")
+                        a.text-link(href='/terms/#{term.id}') #{term.name} &#187;
     else
         p There are no terms currently.
 
