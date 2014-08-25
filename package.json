@@ -5,6 +5,7 @@
   "author": "Zhu Liang <zhuliangg11@gmail.com>",
   "private": true,
   "dependencies": {
+    "async": "^0.9.0",
     "express": "~3.2.0",
     "express-session": "1.6.1",
     "h5bp": "^0.1.2",
