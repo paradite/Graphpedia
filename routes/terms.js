@@ -157,7 +157,7 @@ exports.show = function (req, res, next) {
 
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
-                // console.log("d3 term list: " + terms_list[i].term_url);
+                // console.log("d3 term list: " + terms_list[i].name + relationship.getIndex(rel_names[i]));
                 d3_list[relationship.getIndex(rel_names[i])].push(terms_list[i]);
                 jade_list[relationship.getIndex(rel_names[i])].push(rel_terms[i]);
                 if (rel_names[i] == relationship.INC) {
@@ -185,7 +185,7 @@ exports.show = function (req, res, next) {
                     supports_list_full.push(rel_terms[i]);
                 }
             };
-            // console.log(d3_list);
+            console.log(d3_list);
             // console.log(jade_list);
             var obj_array = new Array(d3_list.length);
             for (var i = 0; i < obj_array.length; i++) {
@@ -194,16 +194,19 @@ exports.show = function (req, res, next) {
                     children: d3_list[i]
                 };
             };
-
+            // console.log("list: " + d3_list);
             // If the list contains no item, hide it in d3.js
-            // var dynamic_length = obj_array.length;
-            // for (var i = 0; i < dynamic_length; i++) {
-            //     if(d3_list[i] == null || d3_list[i].length == 0){
-            //         obj_array.splice(i, 1);
-            //         i--;
-            //         dynamic_length--;
-            //     }
-            // };
+            var dynamic_length = obj_array.length;
+            for (var i = 0; i < dynamic_length; i++) {
+                
+                if(d3_list[i] == null || d3_list[i].length == 0){
+                    // console.log("list " + i + ": " + d3_list[i]);
+                    obj_array.splice(i, 1);
+                    d3_list.splice(i, 1);
+                    i--;
+                    dynamic_length--;
+                }
+            };
             // console.log(JSON.stringify(obj_array));
             //Create JSON objects for d3.js rendering
 
