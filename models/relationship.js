@@ -5,7 +5,7 @@ var list = [
 		"is_part_of",
 		"includes",
 		"depends_on",
-        "supports",
+        "is_required_by",
         "is_successor_of",
         "is_predecessor_of",
 		"is_related_to",
@@ -33,7 +33,7 @@ var Relationship = module.exports = function Relationship() {
     this.SUC = "is_successor_of";
     this.PRE = "is_predecessor_of";
     this.DEP = "depends_on";
-    this.SUP = "supports";
+    this.SUP = "is_required_by";
     this.REL = "is_related_to";
     this.SYN = "is_synonym_for";
 
@@ -63,8 +63,8 @@ Relationship.prototype.getReverse = function(name) {
     }else if(name == "is_predecessor_of"){
         return "is_successor_of";
     }else if(name == "depends_on"){
-        return "supports";
-    }else if(name == "supports"){
+        return "is_required_by";
+    }else if(name == "is_required_by"){
         return "depends_on";
     }else if(name == "is_synonym_for"){
         return "is_synonym_for";
