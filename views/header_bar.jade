@@ -3,4 +3,15 @@ extends header_bar_base
 block center
     input.form-control.form-style(type='text', name='name', placeholder='Search/Create a term', required)
 block right
-    input.btn.btn-header(type='submit', value='Go')
+    
+    div.row(style="margin-top:5px;")
+        div.col-xs-2(style="margin-top:-5px;")
+            input.btn.btn-header(type='submit', value='Go')
+        div.col-xs-6
+            if (user)
+                a.small-note.header-link #{user.username}
+        div.col-xs-2
+            if (user)
+                a.small-note.header-link(href="/logout") Logout
+        div.col-xs-2
+            a.small-note.header-link(href='/about') About

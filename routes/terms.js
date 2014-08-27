@@ -11,6 +11,7 @@ exports.list = function (req, res, next) {
     Term.getAll(function (err, terms) {
         if (err) return next(err);
         res.render('terms', {
+            user : req.user,
             terms: terms
         });
     });
@@ -26,7 +27,9 @@ exports.random_term = function (req, res, next) {
     Term.getAll(function (err, terms) {
         if (err || terms == null) {
             console.log("error in random");
-            return res.render('wrong');
+            return res.render('wrong',{
+                user : req.user
+            });
         }
         var random_term = terms[Math.floor(Math.random()*terms.length)];
         res.redirect('/terms/' + random_term.id);
@@ -43,13 +46,14 @@ exports.create = function (req, res, next) {
     Term.getByName(req.body['name'], function (err, terms) {
         if (err){
             console.log('%s', "err occured");
-            res.render('index');
+            res.redirect('/');
         }
         console.log('%s', "trying to create: " + req.body['name'] + ". found in database? " + terms);
         //Matched
         if(terms != null && terms.length > 0){
             if(terms.length > 1){
                 res.render('terms',{
+                    user : req.user,
                     terms: terms,
                     info: "The term already exists."
                 });
@@ -61,6 +65,7 @@ exports.create = function (req, res, next) {
                 //This should never happen
                 console.log('%s', "term not found partially");
                 res.render('notfound', {
+                    user : req.user,
                     name: name
                 });
             }
@@ -87,6 +92,7 @@ exports.create = function (req, res, next) {
         }else{
             console.log('%s', "term not found but not null or empty?");
             res.render('notfound', {
+                user : req.user,
                 name: name
             });
         }
@@ -244,6 +250,7 @@ exports.show = function (req, res, next) {
             Term.getRecent(function (err, recent_terms) {
                 if (err) return next(err);
                 res.render('term', {
+                    user : req.user,
                     logged_in: logged_in,
                     json: JSON.stringify(term_obj),
                     term: term,

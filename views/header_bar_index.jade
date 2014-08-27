@@ -4,14 +4,13 @@ block center
     p.header-title Graphpedia - Visualize Terms <span class=small-note>(scope limited to programming field)</span>
 block right
     //- a.btn.btn-header(href='http://www.youtube.com/watch?v=4FYMDcFoUog') Video demo
-    
-    form.inline
-        div.row(style="margin-top:5px;")
-            div.col-xs-6
-                if (user)
-                    a.small-note.header-link #{user.username}
-            div.col-xs-2
-                if (user)
-                    a.small-note.header-link(href="/logout") Logout
-            div.col-xs-4
-                a.small-note.header-link(href='/about') About
+    div.row(style="margin-top:5px;")
+        div.col-xs-2
+        div.col-xs-6
+            if (user)
+                a.small-note.header-link #{user.username}
+        div.col-xs-2
+            if (user)
+                a.small-note.header-link(href="/logout") Logout
+        div.col-xs-2
+            a.small-note.header-link(href='/about') About
