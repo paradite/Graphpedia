@@ -69,7 +69,9 @@ var Relationship = require('../models/relationship');
  */
 
  exports.about = function(req, res, next){
-    res.redirect('/');
+    res.render('about',{
+        user : req.user
+    });
 };
 
 /*
