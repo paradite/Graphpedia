@@ -34,6 +34,7 @@ var Relationship = module.exports = function Relationship() {
     this.PRE = "is_predecessor_of";
     this.DEP = "depends_on";
     this.SUP = "is_required_by";
+    this.REQ = "is_required_by";
     this.REL = "is_related_to";
     this.SYN = "is_synonym_for";
 
