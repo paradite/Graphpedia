@@ -321,10 +321,11 @@ exports.search = function(req, res){
                     res.redirect('/terms/' + terms_partial[0].id);
                 }
                 //Not matched
+                //Trim the length of the name
             }else{
                 console.log('%s', "term not found partially");
                 res.render('notfound', {
-                    name: name
+                    name: name.substring(0,25)
                 });
             }
         });

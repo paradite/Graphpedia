@@ -1,6 +1,4 @@
-<!-- TODO: -->
-Top 10 Hot Search
-
+<!-- Non-UI: -->
 Change viz lines to straight lines
 	-Dropped idea
 
@@ -20,8 +18,6 @@ Limit the name and description length
 Modify the graph
 
 Box for term bigger on term.jade
-
-Clicking on the label in d3.js will direct the user to the respective term page.
 
 Expand boxes
 	- Done
@@ -68,12 +64,17 @@ User account management
 Merge terms if same name
 	- Merge on creating terms - 27 July
 
+Recent Searches
+	- Done 27 July
+
 Show term count and relationship count on index page
 	- Done 3 Aug
 
 Automatic reverse relationship
 	- Done 4 Aug
 
+Clicking on the label in d3.js will direct the user to the respective term page.
+	- Done 24 Aug
 
 # Node-Neo4j Template
 

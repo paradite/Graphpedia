@@ -206,7 +206,7 @@ a:active {
     border: 1px solid #003366;
     border-radius: 15px;
     background-color: #ffffff;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: bold;
     display: inline-block;
     line-height: 0px;
@@ -218,7 +218,7 @@ a:active {
 
 .btn-normal {
     border-color: #dde4ea;
-    font-size: 1em;
+    font-size: 0.8em;
     color: #1F1209;
     background-color: #BCC9D6;
     -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);

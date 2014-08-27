@@ -40,12 +40,12 @@ block content
         form(action='/terms/#{term.id}', method='POST')            
             div.row
                 div.col-xs-3    
-                    input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
+                    input.form-control.form-style(type='text', name='name', maxlength="25", value='#{term.name}', required)
                 div.col-xs-7
                     if term.description
-                        input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
+                        input.form-control.form-style(type='text', name='description', maxlength="100", value='#{term.description}', required)
                     else
-                        input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
+                        input.form-control.form-style(type='text', name='description', maxlength="100", placeholder='Give a description for the term', required)
                 div.col-xs-2
                     input.btn.btn-normal(type='submit', value='Update')
         //- br
