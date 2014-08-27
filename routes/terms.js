@@ -224,6 +224,12 @@ exports.show = function (req, res, next) {
 
             // Pass in additional info when newly created
             var info = null;
+            // Add default info
+            var tips = ["Click on the relationship to hide the terms inside",
+                        "Click on the term to go to the relevant page",
+                        "The reverse relationship is automatically added when you create a new relationship"
+            ];
+            info = "Tip: " + tips[Math.floor(Math.random()*tips.length)];
             if(req.session.create) {
                 res.statusCode = 201;
                 req.session.create = false;
