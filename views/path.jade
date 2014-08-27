@@ -2,15 +2,15 @@ extends layout
 
 block content
     div.subdiv
-        h2 Visualize relationship between
+        h3 Visualize indirect relationship (via intermediate terms) between
         br
         form(role='form', action="/pathfind",method="post")
             div.row
-                div.col-xs-3
-                    input.form-control.form-style(type='text', name="name1", placeholder='First Term')
+                div.col-xs-4
+                    input.form-control.form-style(type='text', name="name1", placeholder='eg. node')
                 div.col-xs-1
                     p(align='center') and
+                div.col-xs-4
+                    input.form-control.form-style(type='text', name="name2", placeholder='eg. css')
                 div.col-xs-3
-                    input.form-control.form-style(type='text', name="name2", placeholder='Second Term')
-                div.col-xs-2
-                    button.btn.btn-normal(type='submit') Submit
+                    button.btn.btn-normal(type='submit', value="Visualize") Visualize

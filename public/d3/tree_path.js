@@ -58,12 +58,16 @@ $( document ).ready(function() {
     visit(treeData, function(d) {
         totalNodes++;
         // console.log(d);
-        maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        if(d.description){
+            maxLabelLength = Math.max(d.name.length, d.description.length/2.5, maxLabelLength);
+        }else{
+            maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        }
+        
 
     }, function(d) {
         return d.children && d.children.length > 0 ? d.children : null;
     });
-
 
     // sort the tree according to the node names
 
