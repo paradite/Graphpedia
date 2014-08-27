@@ -65,11 +65,11 @@ var Relationship = require('../models/relationship');
 };
 
 /*
- * GET Changelog page.
+ * GET About page.
  */
 
- exports.changelog = function(req, res, next){
-    res.render('changelog');
+ exports.about = function(req, res, next){
+    res.render('about');
 };
 
 /*

@@ -216,8 +216,8 @@ app.get('/ping', function(req, res){
 app.get('/', routes.site.index);
 app.post('/', routes.site.indexpost);
 
-/*Changelog page*/
-app.get('/changelog', routes.site.changelog);
+/*About page*/
+app.get('/about', routes.site.about);
 
 /*Contribute page*/
 app.get('/contribute', routes.site.contribute);
