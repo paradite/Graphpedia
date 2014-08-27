@@ -289,9 +289,15 @@ exports.edit = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.name = req.body['name'];
-        term.description = req.body['description'];
+        
         //Update the term's lower case name
-        term.name_lower_case = req.body['name'].toLowerCase();
+        // Check if input is null
+        if(req.body['name']!= null && req.body['name']!=""){
+            term.name_lower_case = req.body['name'].toLowerCase();
+        }
+        if(req.body['description']!= null && req.body['description']!=""){
+            term.description = req.body['description'];
+        }
         term.last_modified_at = moment().format();
         term.save(function (err) {
             if (err) return next(err);

@@ -318,6 +318,10 @@ exports.search = function(req, res){
             //Instead of notfound, try partial matching
             Term.getByNamePartial(name, function (err, terms_partial) {
                 console.log('%s', "inside partial callback");
+                if (err){
+                    console.log('%s', "err occured");
+                    res.redirect('/');
+                }
                 //Matched Partial
                 if(terms_partial != null && terms_partial.length > 0){
                     //Show a list if partial matching finds one or more

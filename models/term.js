@@ -245,6 +245,9 @@ Term.get = function (id, callback) {
 //Provided support for searching with lower case
 Term.getByName = function (name, callback) {
     //Convert the name to lower case before searching
+    if(name == null || name == ""){
+        return callback(err);
+    }
     var name_lower_case = name.toLowerCase();
     var query = [
         'MATCH (term:Term)',
@@ -302,7 +305,10 @@ Term.getRelationshipCount = function(callback){
 //Provided support for partial matching using regular expression
 //13 July
 Term.getByNamePartial = function (name, callback) {
-    console.log('%s', "inside getByNamePartial");
+    // console.log('%s', "inside getByNamePartial");
+    if(name == null || name == ""){
+        return callback(err);
+    }
     //Convert the name to lower case before searching
     var name_lower_case = name.toLowerCase();
     //Construct regexp: case-insensitive, partial match with .*
