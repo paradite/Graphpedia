@@ -203,8 +203,8 @@ exports.path = function(req, res){
     Term.getByNames(name1, name2, function (err, terms1, terms2) {
         if (err){
             console.log('%s', "err occured");
-            res.redirect('/');
-        }
+            return res.redirect('/');
+        }else
         //Matched both
         if(terms1 != null && terms2 != null && terms1.length > 0 && terms2.length > 0){
             //Find the path using two ids
@@ -292,7 +292,7 @@ exports.search = function(req, res){
     Term.getByName(name, function (err, terms) {
         if (err){
             console.log('%s', "err occured");
-            res.redirect('/');
+            return res.redirect('/');
         }
         console.log('%s', "terms: " + terms);
         //Matched
@@ -320,10 +320,10 @@ exports.search = function(req, res){
                 console.log('%s', "inside partial callback");
                 if (err){
                     console.log('%s', "err occured");
-                    res.redirect('/');
+                    return res.redirect('/');
                 }
                 //Matched Partial
-                if(terms_partial != null && terms_partial.length > 0){
+                else if(terms_partial != null && terms_partial.length > 0){
                     //Show a list if partial matching finds one or more
                     //Also give option to create the term
                     if(terms_partial.length >= 1){

@@ -46,7 +46,7 @@ exports.create = function (req, res, next) {
     Term.getByName(req.body['name'], function (err, terms) {
         if (err){
             console.log('%s', "err occured");
-            res.redirect('/');
+            return res.redirect('/');
         }
         console.log('%s', "trying to create: " + req.body['name'] + ". found in database? " + terms);
         //Matched
@@ -191,7 +191,7 @@ exports.show = function (req, res, next) {
                     supports_list_full.push(rel_terms[i]);
                 }
             };
-            console.log(d3_list);
+            // console.log(d3_list);
             // console.log(jade_list);
             var obj_array = new Array(d3_list.length);
             for (var i = 0; i < obj_array.length; i++) {
