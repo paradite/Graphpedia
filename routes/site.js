@@ -300,7 +300,8 @@ exports.search = function(req, res){
             if(terms.length > 1){
                 res.render('terms',{
                     user : req.user,
-                    terms: terms
+                    terms: terms,
+                    name: name.substring(0,25)
                 });
             }else if(terms.length == 1){
                 res.redirect('/terms/' + terms[0].id);
@@ -330,7 +331,7 @@ exports.search = function(req, res){
                         res.render('terms',{
                             user : req.user,
                             terms: terms_partial,
-                            name: name
+                            name: name.substring(0,25)
                         });
                     //DO NOT Redirect if partial match only finds one
                 }else if(terms_partial.length == 1){

@@ -13,3 +13,6 @@ block content
                         a.text-link(href='/terms/#{term.id}') #{term.name} &#187;
     else
         p There are no terms currently.
+    p Create the term:
+    br
+    include ./includes/new_term_name
