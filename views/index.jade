@@ -13,9 +13,9 @@ block content
             //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
             div(style="margin:55px auto;text-align:center;width: 50%;")
                 a.text-link(href='/pathfind', align="center") search two terms
-                a(style='color: #428BCA')='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
                 a.text-link(href='/contribute', align="center") contribute
-                a(style='color: #428BCA')='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
                 a.text-link(href='/random_term', align="center") random term
 
     div.index-main
@@ -23,9 +23,8 @@ block content
             input.btn.btn-close(id='closeButton', value='x', style='float:right') X
             //- p See a relationship between #{random_term_1.name} and #{random_term_2.name}?
 
-            div.row
-                div.col-xs-2
-                a(style='color: #000000') These terms need more relationships: 
+            div.row(style="text-align:center;")
+                a(style='color: #000000') Help! These terms need more links: 
                 for alone_term in alone_terms
                     a.text-highlight(href='/terms/#{alone_term.id}') #{alone_term.name} (#{alone_term.rel_count})
                     a(style='color: #428BCA')='&nbsp;&nbsp;&nbsp;'

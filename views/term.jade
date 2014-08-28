@@ -3,7 +3,7 @@ extends layout_viz
 block content
     div(id='termname', value=term.name)
     if (typeof info !== "undefined") 
-        h4(align='center') #{info}
+        p(align='center') #{info}
     div(id="tree-container")
     div(style='margin-top:15px')
 
@@ -40,12 +40,12 @@ block content
         form(action='/terms/#{term.id}', method='POST')            
             div.row
                 div.col-xs-3    
-                    input.form-control.form-style(type='text', name='name', value='#{term.name}', required)
+                    input.form-control.form-style(type='text', name='name', maxlength="25", value='#{term.name}', required)
                 div.col-xs-7
                     if term.description
-                        input.form-control.form-style(type='text', name='description', value='#{term.description}', required)
+                        input.form-control.form-style(type='text', name='description', maxlength="100", value='#{term.description}', required)
                     else
-                        input.form-control.form-style(type='text', name='description', placeholder='Give a description for the term', required)
+                        input.form-control.form-style(type='text', name='description', maxlength="100", placeholder='Give a description for the term', required)
                 div.col-xs-2
                     input.btn.btn-normal(type='submit', value='Update')
         //- br
@@ -190,7 +190,7 @@ block content
             //support block
             if support.length
                 li
-                    p <strong>#{term.name}</strong> supports <strong>#{support.length}</strong> terms:
+                    p <strong>#{term.name}</strong> is required by <strong>#{support.length}</strong> terms:
                     ul
                         for other in support
                             li
@@ -227,13 +227,13 @@ block content
     div.titlebox(onclick='toggle2()', id='togglebox2', style='cursor:zoom-in')
         div.row
             div.col-xs-8
-                p Search inside <span class='titlebox-text-highlight'>#{term.name}</span>
+                p Relationships via intermediate terms
             div.col-xs-4
                 p(id='toggletext2') Hide
     div.subdiv(id='subdiv2', style='display: block;')
         div.row
             div.col-xs-4
-                p(align='center', style='padding-top: 5px') Relationship between
+                p(align='center', style='padding-top: 5px') Indirect relationship between
             div.col-xs-8
                 form(role='form', action="/pathfind",method="post")
                     div.col-xs-4
@@ -244,7 +244,7 @@ block content
                     div.col-xs-4
                         input.form-control.form-style(type='text', name="name2", placeholder='Second Term', required)
                     div.col-xs-2
-                        input.btn.btn-normal(type='submit') Search
+                        input.btn.btn-normal(type='submit', value="Search")
                     &nbsp;
 
     div(style='padding:15px')

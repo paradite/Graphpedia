@@ -245,6 +245,9 @@ Term.get = function (id, callback) {
 //Provided support for searching with lower case
 Term.getByName = function (name, callback) {
     //Convert the name to lower case before searching
+    if(name == null || name == ""){
+        return callback("err");
+    }
     var name_lower_case = name.toLowerCase();
     var query = [
         'MATCH (term:Term)',
@@ -302,12 +305,15 @@ Term.getRelationshipCount = function(callback){
 //Provided support for partial matching using regular expression
 //13 July
 Term.getByNamePartial = function (name, callback) {
-    console.log('%s', "inside getByNamePartial");
+    // console.log('%s', "inside getByNamePartial");
+    if(name == null || name == ""){
+        return callback("err");
+    }
     //Convert the name to lower case before searching
     var name_lower_case = name.toLowerCase();
     //Construct regexp: case-insensitive, partial match with .*
     var regexp = '(?i).*' + name_lower_case + '.*';
-    console.log('%s', "regexp: " + regexp);
+    // console.log('%s', "regexp: " + regexp);
     var query = [
         'MATCH (term:Term)',
         'WHERE term.name =~ ' + "'" + regexp + "'",
@@ -412,7 +418,7 @@ Term.create = function (data, callback) {
     // validate and extend it, etc., if we choose to do that in the future:
     var node = db.createNode(data);
     var term = new Term(node);
-    console.log(data);
+    // console.log(data);
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
@@ -439,7 +445,7 @@ Term.createMultiple = function (data, callback) {
     // validate and extend it, etc., if we choose to do that in the future:
     // var node = db.createNode(data);
     // var term = new Term(node);
-    console.log(data);
+    // console.log(data);
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)

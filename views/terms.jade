@@ -13,17 +13,6 @@ block content
                         a.text-link(href='/terms/#{term.id}') #{term.name} &#187;
     else
         p There are no terms currently.
-
-    form(action='/terms', method='POST')
-        div.row
-            div.col-xs-3    
-                p Create a new term:
-            div.col-xs-2
-                if (typeof name !== "undefined") 
-                    input.form-control.form-style(type='text', name='name', value='#{name}', required)
-                else
-                    input.form-control.form-style(type='text', name='name', placeholder='Term', required)
-            div.col-xs-4
-                input.form-control.form-style(type='text', name='description', placeholder='a description for your term', required)
-            div.col-xs-1
-                input.btn.btn-normal(type='submit', value='Create')
+    p Create the term:
+    br
+    include ./includes/new_term_name

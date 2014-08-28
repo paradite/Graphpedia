@@ -11,6 +11,7 @@ exports.list = function (req, res, next) {
     Term.getAll(function (err, terms) {
         if (err) return next(err);
         res.render('terms', {
+            user : req.user,
             terms: terms
         });
     });
@@ -26,7 +27,9 @@ exports.random_term = function (req, res, next) {
     Term.getAll(function (err, terms) {
         if (err || terms == null) {
             console.log("error in random");
-            return res.render('wrong');
+            return res.render('wrong',{
+                user : req.user
+            });
         }
         var random_term = terms[Math.floor(Math.random()*terms.length)];
         res.redirect('/terms/' + random_term.id);
@@ -43,13 +46,14 @@ exports.create = function (req, res, next) {
     Term.getByName(req.body['name'], function (err, terms) {
         if (err){
             console.log('%s', "err occured");
-            res.render('index');
+            return res.redirect('/');
         }
         console.log('%s', "trying to create: " + req.body['name'] + ". found in database? " + terms);
         //Matched
         if(terms != null && terms.length > 0){
             if(terms.length > 1){
                 res.render('terms',{
+                    user : req.user,
                     terms: terms,
                     info: "The term already exists."
                 });
@@ -61,6 +65,7 @@ exports.create = function (req, res, next) {
                 //This should never happen
                 console.log('%s', "term not found partially");
                 res.render('notfound', {
+                    user : req.user,
                     name: name
                 });
             }
@@ -87,6 +92,7 @@ exports.create = function (req, res, next) {
         }else{
             console.log('%s', "term not found but not null or empty?");
             res.render('notfound', {
+                user : req.user,
                 name: name
             });
         }
@@ -157,7 +163,7 @@ exports.show = function (req, res, next) {
 
 
             for (var i = rel_terms.length - 1; i >= 0; i--) {
-                // console.log("d3 term list: " + terms_list[i].term_url);
+                // console.log("d3 term list: " + terms_list[i].name + relationship.getIndex(rel_names[i]));
                 d3_list[relationship.getIndex(rel_names[i])].push(terms_list[i]);
                 jade_list[relationship.getIndex(rel_names[i])].push(rel_terms[i]);
                 if (rel_names[i] == relationship.INC) {
@@ -194,16 +200,19 @@ exports.show = function (req, res, next) {
                     children: d3_list[i]
                 };
             };
-
+            // console.log("list: " + d3_list);
             // If the list contains no item, hide it in d3.js
-            // var dynamic_length = obj_array.length;
-            // for (var i = 0; i < dynamic_length; i++) {
-            //     if(d3_list[i] == null || d3_list[i].length == 0){
-            //         obj_array.splice(i, 1);
-            //         i--;
-            //         dynamic_length--;
-            //     }
-            // };
+            var dynamic_length = obj_array.length;
+            for (var i = 0; i < dynamic_length; i++) {
+                
+                if(d3_list[i] == null || d3_list[i].length == 0){
+                    // console.log("list " + i + ": " + d3_list[i]);
+                    obj_array.splice(i, 1);
+                    d3_list.splice(i, 1);
+                    i--;
+                    dynamic_length--;
+                }
+            };
             // console.log(JSON.stringify(obj_array));
             //Create JSON objects for d3.js rendering
 
@@ -215,6 +224,12 @@ exports.show = function (req, res, next) {
 
             // Pass in additional info when newly created
             var info = null;
+            // Add default info
+            var tips = ["Click on the relationship to hide the terms inside",
+                        "Click on the term to go to the relevant page",
+                        "The reverse relationship is automatically added when you create a new relationship"
+            ];
+            info = "Tip: " + tips[Math.floor(Math.random()*tips.length)];
             if(req.session.create) {
                 res.statusCode = 201;
                 req.session.create = false;
@@ -241,6 +256,7 @@ exports.show = function (req, res, next) {
             Term.getRecent(function (err, recent_terms) {
                 if (err) return next(err);
                 res.render('term', {
+                    user : req.user,
                     logged_in: logged_in,
                     json: JSON.stringify(term_obj),
                     term: term,
@@ -273,9 +289,15 @@ exports.edit = function (req, res, next) {
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.name = req.body['name'];
-        term.description = req.body['description'];
+        
         //Update the term's lower case name
-        term.name_lower_case = req.body['name'].toLowerCase();
+        // Check if input is null
+        if(req.body['name']!= null && req.body['name']!=""){
+            term.name_lower_case = req.body['name'].toLowerCase();
+        }
+        if(req.body['description']!= null && req.body['description']!=""){
+            term.description = req.body['description'];
+        }
         term.last_modified_at = moment().format();
         term.save(function (err) {
             if (err) return next(err);

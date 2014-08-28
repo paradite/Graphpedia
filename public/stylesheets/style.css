@@ -20,6 +20,54 @@ body {
     border-radius: 10px; 
 }
 
+
+/*CSS defined by Zhu Liang*/
+/*START*/
+
+/*To be used on dark brwon header*/
+.header-title,
+.header-title:hover,
+.header-title:focus,
+.header-title:active {
+    color: #d08a55;
+    padding-top: 5px;
+}
+
+.header-link {
+    color: #d08a55;
+}
+
+/*To be used on light color background*/
+.text-brown {
+    text-decoration: none;
+    color: #d08a55;
+}
+
+.text-brown:hover,
+.text-link:focus,
+.text-link:active {
+    text-decoration: none;
+    color: #d08a55;
+}
+
+.text-link {
+    text-decoration: none;
+    color: #d08a55;
+}
+
+.text-link:hover,
+.text-link:focus,
+.text-link:active {
+    text-decoration: none;
+    color: #aa642f;
+}
+
+/*Small font size*/
+.small-note {
+    font-size: 0.8em;   
+}
+/*END*/
+
 /*overwitten boostrap theme*/
 
 a:hover,
@@ -52,13 +100,6 @@ a:active {
 .text-highlight:hover,
 .text-highlight:focus,
 .text-highlight:active {
-    text-decoration: none;
-    color: #003366;
-}
-
-.text-link:hover,
-.text-link:focus,
-.text-link:active {
     text-decoration: none;
     color: #003366;
 }
@@ -169,21 +210,12 @@ a:active {
     z-index: 5;
 }
 
-.fixed-footer2 {
-    /*background-color: #FFF8DC;*/
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    height: 25px;
-    z-index: 6;
-}
-
 .footer {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0px;
     width: 100%;
-    height: 25px;
-
+    /*height: 25px;*/
+    font-size: 0.8em;
 }
 
 .search-bar {
@@ -202,7 +234,7 @@ a:active {
     border: 1px solid #003366;
     border-radius: 15px;
     background-color: #ffffff;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: bold;
     display: inline-block;
     line-height: 0px;
@@ -214,7 +246,7 @@ a:active {
 
 .btn-normal {
     border-color: #dde4ea;
-    font-size: 1em;
+    font-size: 0.8em;
     color: #1F1209;
     background-color: #BCC9D6;
     -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);

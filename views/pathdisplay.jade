@@ -1,9 +1,23 @@
 extends layout_path
 
 block content
-    div.subdiv
-        h2 Relationship between <strong>#{name1}</strong> and <strong>#{name2}</strong>: 
+    div.subdiv-thin
+        h3 Relationship between <strong>#{name1}</strong> and <strong>#{name2}</strong>: 
         div(id="tree-container")
+        h3 Try another pair of terms:
+            br
+            form(role='form', action="/pathfind",method="post")
+                div.row
+                    div.col-xs-2
+                    div.col-xs-3
+                        input.form-control.form-style(type='text', name="name1", placeholder='eg. node', required)
+                    div.col-xs-1
+                        p(align='center') and
+                    div.col-xs-3
+                        input.form-control.form-style(type='text', name="name2", placeholder='eg. css', required)
+                    div.col-xs-3
+                        button.btn.btn-normal(type='submit', value="Visualize") Visualize
+
     div
         if terms.length
             //- ul
@@ -18,4 +32,5 @@ block content
             //-                     a.text-highlight #{rel.type}
         else
             h4 No relationships yet.
+
     input(id='json', type='hidden', value='#{json}')
