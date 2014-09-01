@@ -18,11 +18,17 @@ var passport = require('passport');
 /*var LocalStrategy = require('passport-local').Strategy;*/
 
 var h5bp = require('h5bp');
+var MongoStore = require('connect-mongo')(express);
+
 app.use(h5bp({ root: __dirname + '/public' }));
 
+// mongoose
 var mongodb_url = process.env.MONGOLAB_URI || 
 				process.env.MONGOHQ_URL || 
 				'mongodb://localhost/passport_local_mongoose';
+
+mongoose.connect(mongodb_url, function(err) { if (err) console.log(err); });
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -36,7 +42,13 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 //use session to store if created
 app.use(express.cookieParser());
-app.use(express.session({secret: '1234567890QWERTY'}));
+app.use(express.session({
+  secret: '1234567890QWERTY',
+  cookie: { maxAge: 86400000 },
+  store: new MongoStore({
+      db: "SessionData"
+    })
+  }));
 //Passport related
 app.use(passport.initialize());
 app.use(passport.session());
@@ -63,8 +75,6 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-// mongoose
-mongoose.connect(mongodb_url, function(err) { if (err) console.log(err); });
 
 //Get the number of terms in the database to decide if crwaling is needed
 var Term = require('./models/term');
