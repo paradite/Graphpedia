@@ -46,7 +46,8 @@ app.use(express.session({
   secret: '1234567890QWERTY',
   cookie: { maxAge: 86400000 },
   store: new MongoStore({
-      db: "SessionData"
+      db: "SessionData",
+      url: mongodb_url
     })
   }));
 //Passport related
