@@ -117,6 +117,8 @@ exports.show = function (req, res, next) {
             console.log("error in show");
             return res.render('wrong');
         }
+
+        // Add the missing fields
         if(!term.created_at){
             term.created_at = moment().format();
         }
@@ -125,6 +127,8 @@ exports.show = function (req, res, next) {
         }
         //Update the last_viewed_at anyway
         term.last_viewed_at = moment().format();
+
+        // Save the additional fields
         term.save(function (err) {
             if (err) return next(err);
             // res.redirect('/terms/' + term.id);

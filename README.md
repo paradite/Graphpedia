@@ -13,6 +13,11 @@ Featured terms (Terms with most dependencies or relationships)
 
 Limit the name and description length
 
+Handling of synonyms/ merging terms
+	- Create a separate model for synonyms and search inside this database before the terms database
+
+Modify algorithm to calculate the height of each term in viz panel
+
 <!-- UI:  -->
 
 Modify the graph
