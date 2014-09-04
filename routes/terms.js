@@ -115,7 +115,9 @@ exports.show = function (req, res, next) {
         //console.log('%s', term.description + " " + term.name);
         if (err) {
             console.log("error in show");
-            return res.render('wrong');
+            return res.render('wrong',{
+                user : req.user
+            });
         }
 
         // Add the missing fields

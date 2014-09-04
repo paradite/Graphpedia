@@ -10,9 +10,12 @@ block content
             for term in terms
                 li
                     div(style="margin-bottom:5px;")
-                        a.text-link(href='/terms/#{term.id}') #{term.name} &#187;
+                        a.text-link(href='/terms/#{term.id}') #{term.name} <span class="glyphicon glyphicon-arrow-right"></span>
     else
         p There are no terms currently.
     p Create the term:
     br
-    include ./includes/new_term_name
+    if (typeof name !== "undefined")
+        include ./includes/new_term_name
+    else
+        include ./includes/new_term

@@ -5,3 +5,7 @@ npm-debug.log
 
 /neo4j-*
 /neo4j
+
+.idea
+
+newrelic_agent.log
