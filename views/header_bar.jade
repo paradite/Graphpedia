@@ -5,13 +5,13 @@ block center
 block right
     
     div.row(style="margin-top:5px;")
-        div.col-xs-2(style="margin-top:-5px;")
+        div.col-xs-7.col-lg-2(style="margin-top:-5px;")
             input.btn.btn-header(type='submit', value='Go')
-        div.col-xs-6
+        div.col-xs-7.col-lg-6
             if (user)
                 a.small-note.header-link #{user.username}
-        div.col-xs-2
+        div.col-xs-7.col-lg-2
             if (user)
                 a.small-note.header-link(href="/logout") Logout
-        div.col-xs-2
+        div.col-xs-7.col-lg-2
             a.small-note.header-link(href='/about') About

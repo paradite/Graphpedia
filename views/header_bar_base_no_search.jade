@@ -1,12 +1,11 @@
-nav.navbar.navbar-fixed-top.before-main
+nav.navbar.before-main
     div.container-fluid
         div.navbar-header.col-sm-6.col-lg-2
             a(href='/')
                 img(src="/icon/icon_small.png", style='height:50px; padding:5px')
             //- a.navbar-left.navbar-brand.text-normal(href='/') <strong>Graphedia</strong>
         div.col-lg-10
-            form.navbar-form(action='/search', method='POST', role="search")
-                div.form-group.col-xs-8
-                    block center
-                div.col-xs-4
-                    block right
+            div.col-xs-8
+                block center
+            div.col-xs-4
+                block right

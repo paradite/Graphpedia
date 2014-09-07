@@ -117,13 +117,12 @@ a:active {
 /*div theme*/
 .before-main {
     background-color: #834C24;
-    height: 50px;
     width: 100%;
     z-index: 10;
 }
 
 .main {
-    width: 85%;
+    /*width: 85%;*/
     float:right;
     margin-top: 50px;
     padding-bottom: 40px;
@@ -134,7 +133,6 @@ a:active {
 }
 
 .index-main {
-    margin-top: 50px;
     padding-top: 10px;
     padding-left: 5%;
     padding-right: 5%;
