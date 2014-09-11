@@ -33,22 +33,19 @@ block content
             //    p Total number of terms: #{term_count}
             //    p Relationship to Term ratio: #{ratio}
 
-    form(action='/search', method='POST')
-        div.row.search-bar
-            div.col-xs-2
-            div.col-xs-7.col-md-7
-                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search/Create a term', required)
-            div.col-xs-1.col-md-1
-                input.btn.btn-lg.btn-header(type='submit', value='Go')
-            div.col-xs-2
-            //- Search a pair of terms
-            //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
-        div.row
-            div.col-xs-2
-            div.col-xs-7(style="margin:auto;text-align:center;")
-                a.text-link(href='/pathfind', align="center") search two terms
-                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
-                a.text-link(href='/contribute', align="center") contribute
-                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
-                a.text-link(href='/random_term', align="center") random term
-            div.col-xs-3
+        form(action='/search', method='POST')
+            div.row.search-bar
+                div.col-xs-9.col-lg-10
+                    input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search/Create a term', required)
+                div.col-xs-3.col-lg-2
+                    input.btn.btn-lg.btn-header(type='submit', value='Go')
+                //- Search a pair of terms
+                //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
+            div.row
+                div.col-xs-9.col-lg-10(style="margin:auto;text-align:center;")
+                    a.text-link(href='/pathfind', align="center") search two terms
+                    a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    a.text-link(href='/contribute', align="center") contribute
+                    a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    a.text-link(href='/random_term', align="center") random term
+                div.col-xs-3.col-lg-2

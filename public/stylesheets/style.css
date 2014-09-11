@@ -500,7 +500,8 @@ a:active {
 }
 
 .search-bar {
-    /*width: 100%;*/
+    margin: 0 auto;
+    width: 90%;
     display: block;
     /*position: fixed;*/
     padding-top: 18%;
