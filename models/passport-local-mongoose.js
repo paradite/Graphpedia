@@ -30,7 +30,7 @@ module.exports = function(schema, options) {
     options.wrongInvitationCodeError = options.wrongInvitationCodeError || 'The invitation code you entered is invalid.';
 
     //Invitation code
-    var INTIVATION_CODE = "dachituyazhoutiantuan";
+    var INTIVATION_CODE = process.env['INTIVATION_CODE'];
 
     var schemaFields = {};
     if (!schema.path(options.usernameField)) {
@@ -140,6 +140,7 @@ module.exports = function(schema, options) {
         }
 
         //Check the invitation code
+        console.log('%s', "Current Invitation code: " + INTIVATION_CODE + "\nNew registration attempt with: " + code);
         if (code != INTIVATION_CODE) {
             return cb(new BadRequestError(options.wrongInvitationCodeError));
         }

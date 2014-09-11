@@ -16,4 +16,5 @@ block content
                 .form-group
                     button.btn.btn-normal(type='submit', style='float:right') Submit
             br
-            br
+            if (typeof info !== "undefined")
+                h4= info

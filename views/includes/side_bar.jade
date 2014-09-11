@@ -6,10 +6,10 @@ div#menu
         a.pure-menu-heading(href='/')
             img.icon-style(src="/icon/g_icon.png")
         a.pure-menu-heading(href='/random_term', style='padding-bottom:5px;') <span class="glyphicon glyphicon-random"></span> Random Term
-        if (user)
+        if (typeof user !== "undefined")
             a Welcome,
             a #{user.username}
-        if (user)
+        if (typeof user !== "undefined")
             a.pure-menu-heading(href="/logout") <span class="glyphicon glyphicon-log-out"></span> Logout
         if (typeof recent_terms !== "undefined")
             a <span class="glyphicon glyphicon-search"></span> Recent Searches

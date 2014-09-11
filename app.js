@@ -194,7 +194,10 @@ app.get('/register', routes.site.register);
 app.post('/register', function(req, res) {
 	Account.register(new Account({ username : req.body.username }), req.body.password, req.body.code, function(err, account) {
 		if (err) {
-			return res.render("register", {info: err.message || "Sorry. An error occured."});
+			return res.render("register", {
+                info: err.message || "Sorry. An error occured.",
+                user: req.user
+            });
 		}
 
 		passport.authenticate('local')(req, res, function () {
