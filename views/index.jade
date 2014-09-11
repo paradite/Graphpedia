@@ -1,22 +1,6 @@
 extends layout_index
 
 block content
-    form(action='/search', method='POST')
-        div.row.search-bar.vertical-center
-            div.col-xs-1.col-md-3
-            div.col-xs-8.col-md-6
-                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search/Create a term', required)
-            div.col-xs-3.col-md-3
-                input.btn.btn-lg.btn-header(type='submit', value='Go')
-
-            //- Search a pair of terms
-            //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
-            div(style="margin:55px auto;text-align:center;")
-                a.text-link(href='/pathfind', align="center") search two terms
-                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
-                a.text-link(href='/contribute', align="center") contribute
-                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
-                a.text-link(href='/random_term', align="center") random term
 
     div.index-main
         div.subdiv-thin(id='askBox')
@@ -45,7 +29,26 @@ block content
                 //-     div.col-xs-1
                 //-         input.btn.btn-normal(type='submit', value='Relate them', style='margin-top: -7px')
             div.row.visible-lg(style='margin:5px 0px auto;text-align:center;')
-                p Total number of relationships: #{rel_count}  
-                p Total number of terms: #{term_count}
-                p Relationship to Term ratio: #{ratio}
+            //    p Total number of relationships: #{rel_count}
+            //    p Total number of terms: #{term_count}
+            //    p Relationship to Term ratio: #{ratio}
 
+    form(action='/search', method='POST')
+        div.row.search-bar
+            div.col-xs-2
+            div.col-xs-7.col-md-7
+                input.form-control.input-lg.input-lg-style.form-style(style='border-color:#834C24', type='text', name='name', autofocus="autofocus", placeholder='Search/Create a term', required)
+            div.col-xs-1.col-md-1
+                input.btn.btn-lg.btn-header(type='submit', value='Go')
+            div.col-xs-2
+            //- Search a pair of terms
+            //- div.vertical-center(style='margin: 0 auto;text-align:center;width: 50%;')
+        div.row
+            div.col-xs-2
+            div.col-xs-7(style="margin:auto;text-align:center;")
+                a.text-link(href='/pathfind', align="center") search two terms
+                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                a.text-link(href='/contribute', align="center") contribute
+                a.text-brown='&nbsp;&nbsp;|&nbsp;&nbsp;'
+                a.text-link(href='/random_term', align="center") random term
+            div.col-xs-3

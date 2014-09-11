@@ -20,7 +20,246 @@ body {
     border-radius: 10px; 
 }
 
+/*pureCSS*/
 
+/*
+Add transition to containers so they can push in and out.
+*/
+#layout,
+#menu,
+.menu-link {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+/*
+This is the parent `<div>` that contains the menu and the content area.
+*/
+#layout {
+    position: relative;
+    padding-left: 0;
+}
+#layout.active {
+    position: relative;
+    left: 232px;
+}
+#layout.active #menu {
+    left: 232px;
+    width: 232px;
+}
+
+#layout.active .menu-link {
+    left: 232px;
+}
+/*
+The content `<div>` is where all your content goes.
+*/
+.content {
+    margin: 0 auto;
+    padding: 0 2em;
+    max-width: 800px;
+    margin-bottom: 50px;
+    line-height: 1.6em;
+}
+
+.header {
+    margin: 0;
+    color: #333;
+    text-align: center;
+    padding: 2.5em 2em 0;
+    border-bottom: 1px solid #eee;
+}
+.header h1 {
+    margin: 0.2em 0;
+    font-size: 3em;
+    font-weight: 300;
+}
+.header h2 {
+    font-weight: 300;
+    color: #ccc;
+    padding: 0;
+    margin-top: 0;
+}
+
+.content-subhead {
+    margin: 50px 0 20px 0;
+    font-weight: 300;
+    color: #888;
+}
+
+
+
+/*
+The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
+appears on the left side of the page.
+*/
+
+#menu {
+    margin-left: -232px; /* "#menu" width */
+    width: 232px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* so the menu or its navicon stays above all content */
+    background-color: #003366;
+    color: #99adc1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+/*
+All anchors inside the menu should be styled like this.
+*/
+#menu a {
+    font: 16px sans-serif;
+    font-weight: 100;
+    color: #99adc1;
+    /*padding: 0.6em 0 0.6em 0.6em;*/
+}
+
+/*Add a little margin to stand out from titles*/
+#menu .pure-menu li a {
+    margin-left: 20px;
+}
+
+/*
+Remove all background/borders, since we are applying them to #menu.
+*/
+#menu .pure-menu,
+#menu .pure-menu ul {
+    border: none;
+    background: transparent;
+}
+
+/*
+Add that light border to separate items into groups.
+*/
+#menu .pure-menu ul,
+#menu .pure-menu .menu-item-divided {
+    border-top: 1px solid #333;
+}
+/*
+Change color of the anchor links on hover/focus.
+*/
+#menu .pure-menu li a:hover,
+#menu .pure-menu li a:focus {
+    background: #FFF8DC;
+    color: #003366;
+}
+
+/*
+This styles the selected menu item `<li>`.
+*/
+#menu .pure-menu-selected,
+#menu .pure-menu-heading {
+    background-color: #003366;
+    color: #ffffff;
+}
+/*
+This styles a link within a selected menu item `<li>`.
+*/
+#menu .pure-menu-selected a {
+    color: #FFF8DC;
+}
+
+#menu .pure-menu-heading:hover,
+#menu .pure-menu-heading:focus {
+    color: #99adc1;
+}
+
+/* -- Dynamic Button For Responsive Menu -------------------------------------*/
+
+/*
+The button to open/close the Menu is custom-made and not part of Pure. Here's
+how it works:
+*/
+
+/*
+`.menu-link` represents the responsive menu toggle that shows/hides on
+small screens.
+*/
+.menu-link {
+    position: fixed;
+    display: block; /* show this only on small screens */
+    top: 15px;
+    left: 5px; /* "#menu width" */
+    /*background: #000;*/
+    /*background: rgba(0,0,0,0.7);*/
+    font-size: 16px; /* change this value to increase/decrease button size */
+    z-index: 12;
+    width: 2em;
+    height: 2em;
+    /*padding: 2.1em 2.1em;*/
+}
+
+.menu-link:hover,
+.menu-link:focus {
+    /*background: #000;*/
+}
+
+.menu-link span {
+    /*position: relative;*/
+    /*display: block;*/
+}
+
+.menu-link span,
+.menu-link span:before,
+.menu-link span:after {
+    /*background-color: #fff;*/
+    width: 100%;
+    /*height: 0.2em;*/
+}
+
+.menu-link span:before,
+.menu-link span:after {
+    position: absolute;
+    margin-top: -0.6em;
+    /*content: " ";*/
+}
+
+.menu-link span:after {
+    margin-top: 0.6em;
+}
+
+
+/* -- Responsive Styles (Media Queries) ------------------------------------- */
+
+/*
+Hides the menu at `48em`, but modify this based on your app's needs.
+*/
+@media (min-width: 48em) {
+
+    .header,
+    .content {
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+    #layout {
+        padding-left: 232px; /* left col width "#menu" */
+        left: 0;
+    }
+    #menu {
+        left: 232px;
+    }
+
+    .menu-link {
+        position: fixed;
+        left: 232px;
+        display: none;
+    }
+
+    #layout.active .menu-link {
+        left: 232px;
+    }
+}
+
+
+/*CSS defined by Zhu Liang*/
+/*CSS defined by Zhu Liang*/
 /*CSS defined by Zhu Liang*/
 /*START*/
 
@@ -30,7 +269,6 @@ body {
 .header-title:focus,
 .header-title:active {
     color: #d08a55;
-    padding-top: 5px;
 }
 
 .header-link {
@@ -76,6 +314,42 @@ body {
 .small-note {
     font-size: 14px;   
 }
+
+/*Icon style*/
+.icon-style {
+    display:block;
+    margin:auto;
+    text-align: center;
+    height:100px;
+    padding:5px;
+    border-radius: 15px;
+}
+
+/*Right side of the screen wrapper*/
+.right {
+    width: 85%;
+    float:right;
+}
+
+/*Remove boarder radius for navbar*/
+.navbar {
+    border-radius: 0px;
+    padding: 0px 0px;
+}
+
+.navbar-form-custom {
+    width: 100%;
+    /*padding: 10px 15px;*/
+    /*margin: 8px -15px;*/
+}
+/*Add additional margin for header search bar*/
+.header-wrapper {
+    padding: 0.65em 0px;
+}
+
+.main p {
+    margin: 0 0 10px;
+}
 /*END*/
 
 /*overwitten boostrap theme*/
@@ -89,10 +363,6 @@ a:active {
 
 .navbar-form .form-control {
     width: 100%;
-}
-
-.row {
-    margin-top: 10px;
 }
 
 /*text theme*/
@@ -117,16 +387,28 @@ a:active {
 /*div theme*/
 .before-main {
     background-color: #834C24;
-    width: 100%;
+    border: 0px;
+    /*width: 100%;*/
     z-index: 10;
+}
+
+.main-full {
+    /*width: 85%;*/
+    /*float:right;*/
+    /*margin-top: 50px;*/
+    padding-bottom: 40px;
+    padding-top: 10px;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: #FFF8DC;
 }
 
 .main {
     /*width: 85%;*/
-    float:right;
-    margin-top: 50px;
-    padding-bottom: 40px;
-    padding-top: 10px;
+    /*float:right;*/
+    /*margin-top: 50px;*/
+    /*padding-bottom: 40px;*/
+    /*padding-top: 10px;*/
     padding-left: 3%;
     padding-right: 3%;
     background-color: #FFF8DC;
@@ -137,15 +419,6 @@ a:active {
     padding-left: 5%;
     padding-right: 5%;
     background-color: #FFF8DC;
-}
-
-#menu,
-#menu-link {
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
-    -ms-transition: all 0.2s ease-out;
-    -o-transition: all 0.2s ease-out;
-    transition: all 0.2s ease-out;
 }
 
 .subdiv {
@@ -227,9 +500,10 @@ a:active {
 }
 
 .search-bar {
-    width: 100%;
+    /*width: 100%;*/
     display: block;
-    position: fixed;
+    /*position: fixed;*/
+    padding-top: 18%;
 }
 
 .vertical-center {
@@ -377,51 +651,6 @@ a:active {
     color: #ffffff;
     opacity: 0.96;
 }
-
-
-/*pureCSS*/
-
-#menu {
-    width: 15%;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    bottom: 0;
-    background-color: #003366;
-    color: #FFF8DC;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    border: none;
-}
-    #menu a {
-        font: 16px sans-serif;
-        font-weight: 100;
-        border-bottom: 1px solid #7f99b2;
-        color: #99adc1;
-    }
-
-     #menu .pure-menu,
-     #menu .pure-menu ul {
-        border: none;
-        background: transparent;
-    }
-
-    #menu .pure-menu li a:hover,
-    #menu .pure-menu li a:focus {
-        background: #FFF8DC;
-        font-size: 16px;
-        color: #003366;
-    }
-
-    #menu .pure-menu-selected,
-    #menu .pure-menu-heading {
-        background-color: #003366;
-        color: #ffffff;
-    }
-
-        #menu .pure-menu-selected a {
-            color: #FFF8DC;
-        }
 
 .select-control {
     width: 100%;

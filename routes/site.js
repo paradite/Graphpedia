@@ -29,14 +29,18 @@ var Relationship = require('../models/relationship');
                     // console.log("Alone term: " + alone_terms[i].name + alone_terms[i].rel_count);
                 };
                 var ratio = count / results;
-                res.render('index', {
-                    ratio: ratio.toFixed(3),
-                    term_count: results,
-                    rel_count: count,
-                    alone_terms: alone_terms,
-                    user : req.user,
-                    relationship_types: relationship_types
-                }); 
+                Term.getRecent(function (err, recent_terms) {
+                    if (err) return next(err);
+                    res.render('index', {
+                        ratio: ratio.toFixed(3),
+                        term_count: results,
+                        rel_count: count,
+                        alone_terms: alone_terms,
+                        user : req.user,
+                        relationship_types: relationship_types,
+                        recent_terms: recent_terms
+                    });
+                });
             });  
         });    
     });
@@ -410,5 +414,50 @@ exports.contributeadd = function (req, res, next) {
                 });
             });
         });
+    });
+};
+
+/**
+ * GET /register
+ */
+exports.register = function (req, res, next) {
+    res.render('register', {
+        info: "",
+        user: req.user
+    });
+};
+
+/**
+ * GET /stats
+ */
+exports.stats = function (req, res, next) {
+    Term.getRelationshipCount(function (err, count){
+        if (err) {
+            console.log("getRelationshipCount wrong");
+        }
+        Term.getCount(function (err, results) {
+            if (err) {
+                console.log("get Count wrong");
+            }
+            var ratio = count / results;
+            Term.getRecent(function (err, recent_terms) {
+                if (err) return next(err);
+                res.render('stats', {
+                    ratio: ratio.toFixed(3),
+                    term_count: results,
+                    rel_count: count,
+                    user : req.user
+                });
+            });
+        });
+    });
+};
+
+/**
+ * GET /login
+ */
+exports.login = function (req, res, next) {
+    res.render('login', {
+        user : req.user
     });
 };

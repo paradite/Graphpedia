@@ -188,9 +188,7 @@ function getGzipped(url, callback) {
 }
 
 // routes for passport
-app.get('/register', function(req, res) {
-	res.render('register', {info: ""});
-});
+app.get('/register', routes.site.register);
 
 //Added invitation code system during register to prevent unwanted users
 app.post('/register', function(req, res) {
@@ -205,9 +203,7 @@ app.post('/register', function(req, res) {
 	});
 });
 
-app.get('/login', function(req, res) {
-	res.render('login', { user : req.user });
-});
+app.get('/login', routes.site.login);
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
 	res.redirect('/');
@@ -229,6 +225,9 @@ app.post('/', routes.site.indexpost);
 
 /*About page*/
 app.get('/about', routes.site.about);
+
+/*Statistics page*/
+app.get('/stats', routes.site.stats);
 
 /*Contribute page*/
 app.get('/contribute', routes.site.contribute);

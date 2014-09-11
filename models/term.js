@@ -353,7 +353,7 @@ Term.getRecent = function (callback) {
     var query = [
         'MATCH (term:Term)',
         'WHERE HAS (term.last_viewed_at)',
-        'RETURN term ORDER BY term.last_viewed_at DESC LIMIT 20',
+        'RETURN term ORDER BY term.last_viewed_at DESC LIMIT 12',
     ].join('\n');
 
     db.query(query, null, function (err, results) {

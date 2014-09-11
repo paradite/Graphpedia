@@ -1,0 +1,8 @@
+nav.navbar.before-main.header-wrapper
+    div.container-fluid
+        form.navbar-form-custom(action='/search', method='POST', role="search")
+            div
+                div.col-xs-10
+                    input.form-control.form-style(type='text', name='name', placeholder='Search/Create a term', required)
+                div.col-xs-2
+                    input.btn.btn-header(type='submit', value='Go')

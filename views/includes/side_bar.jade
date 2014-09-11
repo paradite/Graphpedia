@@ -1,10 +1,26 @@
-div.pure-menu.pure-menu-open#menu
-    a.pure-menu-heading(href='/random_term', align="center", style='padding-bottom:5px;') Random Term <span class="glyphicon glyphicon-random"></span>
-    a.pure-menu-heading(align="center") Recent Searches
-    if terms.length
-        ul.pure-menu
-            for term in terms
-                li
-                    a(href='/terms/#{term.id}', align="center") #{term.name}
-    else
-        p There are no terms currently.
+a.menu-link(href="#menu")#menuLink <span class="glyphicon glyphicon-expand"></span>
+div#menu
+    div.pure-menu.pure-menu-open#menu
+        a.pure-menu-heading(href='/', align="center", style="text-transform: none; padding:0.9em 0em;").
+            Graphpedia
+        a.pure-menu-heading(href='/')
+            img.icon-style(src="/icon/g_icon.png")
+        a.pure-menu-heading(href='/random_term', style='padding-bottom:5px;') <span class="glyphicon glyphicon-random"></span> Random Term
+        if (user)
+            a Welcome,
+            a #{user.username}
+        if (user)
+            a.pure-menu-heading(href="/logout") <span class="glyphicon glyphicon-log-out"></span> Logout
+        if (typeof recent_terms !== "undefined")
+            a <span class="glyphicon glyphicon-search"></span> Recent Searches
+            if recent_terms.length
+                ul
+                    for term in recent_terms
+                        li
+                            a(href='/terms/#{term.id}') #{term.name}
+            else
+                p There are no terms currently.
+        a.pure-menu-heading(href='/stats') <span class="glyphicon glyphicon-tasks"></span> Statistics
+        a.pure-menu-heading(href='/about') <span class="glyphicon glyphicon-info-sign"></span> About
+        p.footer(align='center') Copyright &copy; 2014 Graphpedia
+        p.footer(align='center') By Zhu Liang & Li Dongyan

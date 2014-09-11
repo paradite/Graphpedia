@@ -280,7 +280,7 @@ exports.show = function (req, res, next) {
                     all_others: all_others,
                     relationship_types: relationship_types,
                     relationship: relationship,
-                    terms: recent_terms,
+                    recent_terms: recent_terms,
                     info: info
                 });
             });
