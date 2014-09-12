@@ -31,12 +31,13 @@ var Relationship = require('../models/relationship');
                 var ratio = count / results;
                 Term.getRecent(function (err, recent_terms) {
                     if (err) return next(err);
+//                    console.log("req user: " + req.user);
+//                    console.log("res user: " + res.locals.user);
                     res.render('index', {
                         ratio: ratio.toFixed(3),
                         term_count: results,
                         rel_count: count,
                         alone_terms: alone_terms,
-                        user : req.user,
                         relationship_types: relationship_types,
                         recent_terms: recent_terms
                     });
@@ -422,8 +423,7 @@ exports.contributeadd = function (req, res, next) {
  */
 exports.register = function (req, res, next) {
     res.render('register', {
-        info: "",
-        user: req.user
+        info: ""
     });
 };
 

@@ -30,7 +30,7 @@ var mongodb_url = process.env.MONGOLAB_URI ||
 mongoose.connect(mongodb_url, function(err) { if (err) console.log(err); });
 
 
-// all environments
+/*all environments*/
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -50,9 +50,17 @@ app.use(express.session({
       url: mongodb_url
     })
   }));
-//Passport related
+
+/*Passport related*/
 app.use(passport.initialize());
 app.use(passport.session());
+
+/*Middleware for req.user info*/
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+});
+
 app.use(app.router);
 
 // development only
@@ -195,8 +203,7 @@ app.post('/register', function(req, res) {
 	Account.register(new Account({ username : req.body.username }), req.body.password, req.body.code, function(err, account) {
 		if (err) {
 			return res.render("register", {
-                info: err.message || "Sorry. An error occured.",
-                user: req.user
+                info: err.message || "Sorry. An error occured."
             });
 		}
 
