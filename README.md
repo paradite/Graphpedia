@@ -5,6 +5,21 @@ Project Graphpedia
 
 Graphpedia is currently <a href="http://visualize-terms.herokuapp.com" target="_blank">hosted on Heroku</a>
 
+Setup
+===
+neo4j
+====
++ deafult neo4j database url at `http://localhost:7474`
++ set custom neo4j database using environmental variables `GRAPHENEDB_URL` or `NEO4J_URL`
++ configuration neo4j database url in `models/term.js`
+
+mongoDB
+====
++ default mongoDB database url at `mongodb://localhost/passport_local_mongoose`
++ set custom mongoDB database url using environmental variables `MONGOLAB_URI` or `MONGOHQ_URL`
++ configuration of mongoDB database url in `app.js`
+
+
 TODO List
 ---
 ####Non-UI
