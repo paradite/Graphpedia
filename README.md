@@ -1,20 +1,24 @@
-Project Graphpedia
-===
-####Visualize relationships between terms
-#####For SoC Orbital Programme 2014
+# Project Graphpedia
+
+#### Visualize relationships between terms
+#### For SoC Orbital Programme 2014
 
 Graphpedia is currently <a href="http://visualize-terms.herokuapp.com" target="_blank">hosted on Heroku</a>
 
-Setup
-===
-neo4j
-====
+## Setup
+
+### neo4j
++ Check that you have the correct neo4j version (2.0.4)
 + deafult neo4j database url at `http://localhost:7474`
 + set custom neo4j database using environmental variables `GRAPHENEDB_URL` or `NEO4J_URL`
 + configuration neo4j database url in `models/term.js`
 
-mongoDB
-====
+### mongoDB
++ Check that you have the correct mongoDB version (3.0.6):
+```
+$ mongod --version
+db version v3.0.6
+```
 + default mongoDB database url at `mongodb://localhost/passport_local_mongoose`
 + set custom mongoDB database url using environmental variables `MONGOLAB_URI` or `MONGOHQ_URL`
 + configuration of mongoDB database url in `app.js`
@@ -22,7 +26,7 @@ mongoDB
 
 TODO List
 ---
-####Non-UI
+#### Non-UI
 + Better data-mining techniques
 
 + Add category label for generic categories
@@ -39,7 +43,7 @@ TODO List
 
 + Modify algorithm to calculate the height of each term in viz panel
 
-####UI
+#### UI
 
 + Prettify the graph
 

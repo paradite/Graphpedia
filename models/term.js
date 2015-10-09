@@ -179,12 +179,13 @@ Term.prototype.uncustom = function (other, relationship_name, callback) {
 // MATCH (n:Term), n-[r]-m, (m:Term) WHERE n.`name`="nodejs"   RETURN n, type(r)
 
 Term.prototype.getOutgoingAndOthers = function (callback) {
-    // query all Terms and whether we follow each one or not:
+    //Construct neo4j raw query
     var query = [
         'MATCH (term:Term), (other:Term)',
         'OPTIONAL MATCH (term) -[relall]-> (other)',
         'WHERE ID(term) = {termId}',
-        'RETURN other, COUNT(relall), type(relall)', // COUNT(rel) is a hack for 1 or 0
+        'RETURN other, COUNT(relall), type(relall)',
+        // COUNT(rel) is a hack for 1 or 0, 1 indicates there is an outgoing relationship.
     ].join('\n')
 
     var params = {
@@ -199,7 +200,6 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
         var rel_names = [];
         var rel_terms = [];
         var all_others = [];
-        var is_part_of_true = false;
 
         for (var i = 0; i < results.length; i++) {
             var other = new Term(results[i]['other']);
@@ -214,7 +214,7 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
                 all_others.push(other);
                 if(related_true){
                     //The terms are related
-                    //Add the term and its relationship into the arrays
+                    //Add the name of the relationship and the term into the arrays
                     rel_names.push(results[i]['type(relall)']);
                     rel_terms.push(other);
                 }

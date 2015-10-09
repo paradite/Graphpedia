@@ -45,7 +45,7 @@ exports.create = function (req, res, next) {
     var current_time = moment().format();
     Term.getByName(req.body['name'], function (err, terms) {
         if (err){
-            console.log('%s', "err occured");
+            console.log(err);
             return res.redirect('/');
         }
         console.log('%s', "trying to create: " + req.body['name'] + ". found in database? " + terms);
@@ -199,6 +199,7 @@ exports.show = function (req, res, next) {
             };
             // console.log(d3_list);
             // console.log(jade_list);
+            //Transform the array into array of objects following d3.js syntax
             var obj_array = new Array(d3_list.length);
             for (var i = 0; i < obj_array.length; i++) {
                 obj_array[i] = {
@@ -207,7 +208,7 @@ exports.show = function (req, res, next) {
                 };
             };
             // console.log("list: " + d3_list);
-            // If the list contains no item, hide it in d3.js
+            // Remove the relationship if it has 0 outgoing terms, to save space in the visualization
             var dynamic_length = obj_array.length;
             for (var i = 0; i < dynamic_length; i++) {
                 
@@ -220,7 +221,7 @@ exports.show = function (req, res, next) {
                 }
             };
             // console.log(JSON.stringify(obj_array));
-            //Create JSON objects for d3.js rendering
+            //Create actual JSON object for d3.js rendering
 
             var term_obj = {
                 name: term.name,
