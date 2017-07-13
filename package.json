@@ -1,7 +1,7 @@
 {
   "name": "Graphpedia",
   "description": "Visualize the relationship between terms",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "author": "Zhu Liang <zhuliangg11@gmail.com>",
   "private": true,
   "dependencies": {
@@ -26,7 +26,7 @@
     "node-dev": "~2.0.1"
   },
   "engines": {
-    "node": "0.10.x",
+    "node": "6.11.x",
     "npm": "1.2.x"
   },
   "scripts": {
