@@ -42,7 +42,8 @@ exports.random_term = function (req, res, next) {
 //Save the name, lower case name, description, creation time, last viewed, last modified
 //Prevent creating the term if the term with the same name(ignore cases) already exists
 exports.create = function (req, res, next) {
-    if(req.user != null) {
+    var logged_in = (req.user != null);
+    if(!logged_in) {
         return res.render('create_disabled', {
             user: req.user
         });
@@ -298,7 +299,8 @@ exports.show = function (req, res, next) {
  * POST /terms/:id
  */
 exports.edit = function (req, res, next) {
-    if(req.user != null) {
+    var logged_in = (req.user != null);
+    if(!logged_in) {
         return res.render('create_disabled', {
             user: req.user
         });
@@ -327,7 +329,8 @@ exports.edit = function (req, res, next) {
  * DELETE /terms/:id
  */
 exports.del = function (req, res, next) {
-    if(req.user != null) {
+    var logged_in = (req.user != null);
+    if(!logged_in) {
         return res.render('create_disabled', {
             user: req.user
         });
@@ -390,7 +393,8 @@ exports.uncustom = function (req, res, next) {
  * POST /terms/:id/newcustom
  */
 exports.newcustom = function (req, res, next) {
-    if(req.user != null) {
+    var logged_in = (req.user != null);
+    if(!logged_in) {
         return res.render('create_disabled', {
             user: req.user
         });
