@@ -1,11 +1,14 @@
 div.subdiv-thin(style='text-align:center;margin-top:10px')
     p Create a new term
-    form(action='/terms', method='POST')
-        div.row
-            div.col-xs-2
-            div.col-xs-2
-                input.form-control.form-style(type='text', name='name', maxlength="25", placeholder='Name', required)
-            div.col-xs-5
-                input.form-control.form-style(type='text', name='description', maxlength="100", placeholder='A short description of this term.',required)
-            div.col-xs-2
-                input.btn.btn-normal(type='submit', value='Create', style='float:left')
+    if (typeof user !== "undefined")
+        form(action='/terms', method='POST')
+            div.row
+                div.col-xs-2
+                div.col-xs-2
+                    input.form-control.form-style(type='text', name='name', maxlength="25", placeholder='Name', required)
+                div.col-xs-5
+                    input.form-control.form-style(type='text', name='description', maxlength="100", placeholder='A short description of this term.',required)
+                div.col-xs-2
+                    input.btn.btn-normal(type='submit', value='Create', style='float:left')
+    else
+        p New term creation is disabled for anonymous users to prevent abuse of the site

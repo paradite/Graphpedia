@@ -42,6 +42,11 @@ exports.random_term = function (req, res, next) {
 //Save the name, lower case name, description, creation time, last viewed, last modified
 //Prevent creating the term if the term with the same name(ignore cases) already exists
 exports.create = function (req, res, next) {
+    if(req.user != null) {
+        return res.render('create_disabled', {
+            user: req.user
+        });
+    }
     var current_time = moment().format();
     Term.getByName(req.body['name'], function (err, terms) {
         if (err){
@@ -293,6 +298,11 @@ exports.show = function (req, res, next) {
  * POST /terms/:id
  */
 exports.edit = function (req, res, next) {
+    if(req.user != null) {
+        return res.render('create_disabled', {
+            user: req.user
+        });
+    }
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.name = req.body['name'];
@@ -317,6 +327,11 @@ exports.edit = function (req, res, next) {
  * DELETE /terms/:id
  */
 exports.del = function (req, res, next) {
+    if(req.user != null) {
+        return res.render('create_disabled', {
+            user: req.user
+        });
+    }
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         term.del(function (err) {
@@ -375,6 +390,11 @@ exports.uncustom = function (req, res, next) {
  * POST /terms/:id/newcustom
  */
 exports.newcustom = function (req, res, next) {
+    if(req.user != null) {
+        return res.render('create_disabled', {
+            user: req.user
+        });
+    }
     Term.get(req.params.id, function (err, term) {
         if (err) return next(err);
         Term.create({
