@@ -4,8 +4,32 @@
 const neo4j = require('neo4j');
 
 const db = new neo4j.GraphDatabase(process.env.NEO4J_URL ||
-    process.env.GRAPHENEDB_URL ||
-    'http://localhost:7474');
+    process.env.GRAPHENEDB_URL);
+  
+console.log("db", db);
+
+db.query = (query, params, cb) => {
+  return db.cypher({query, params}, cb);
+}
+
+db.getNodeById = (id, callback) => {
+  const query = [
+    'MATCH (term:Term)',
+    'WHERE id(term) = {id}',
+    'RETURN term',
+  ].join('\n');
+
+  const params = {
+    id,
+  };
+
+  db.query(query, params, (err, results) => {
+    if (err) return callback(err);
+    if(results.length === 0 || !results[0]) return callback(new Error('not found'));
+    callback(null, results[0].term);
+  });
+}
+
 const Relationship = require('./relationship');
 
 // private constructor:
@@ -14,85 +38,127 @@ const Term = module.exports = function Term(_node) {
   // all we'll really store is the node; the rest of our properties will be
   // derivable or just pass-through properties (see below).
   this._node = _node;
+
+  // some hacks for APIs removed in node-neo4j v2
+  // https://github.com/thingdom/node-neo4j/tree/v2
+  this._node.save = (callback) => {
+    const query = [
+      'MATCH (term:Term)',
+      'WHERE id(term) = {id}',
+      'SET term = {props}',
+    ].join('\n');
+  
+    if(this._node.properties) {
+      const params = {
+        props: this._node.properties,
+        id: this._node._id
+      };
+    
+      db.query(query, params, (err) => {
+        if (err) return callback(err);
+        callback(null, null);
+      });
+    }
+  }
+
+  this._node.createRelationshipTo = (other, name, _, callback) => {
+    const query = [
+      'MATCH (term:Term), (term2:Term)',
+      'WHERE id(term) = {id} AND id(term2) = {id2}',
+      // rel type doesn't seem to support params
+      `CREATE (term)-[r:${name}]->(term2)`,
+    ].join('\n');
+  
+    const params = {
+      id: this._node._id,
+      id2: other._id
+    };
+  
+    db.query(query, params, (err) => {
+      if (err) return callback(err);
+      callback(null, null);
+    });
+  }
 };
 
 // public instance properties:
 
 Object.defineProperty(Term.prototype, 'id', {
-  get() { return this._node.id; },
+  get() { return this._node._id; },
 });
 
 
 Object.defineProperty(Term.prototype, 'data', {
-  get() { return this._node.data; },
+  get() { return this._node.properties; },
 });
 
 Object.defineProperty(Term.prototype, 'name', {
   get() {
-    return this._node.data.name;
+    return this._node.properties.name;
   },
   set(name) {
-    this._node.data.name = name;
+    this._node.properties.name = name;
   },
 });
 
 // Added lower case name for easy searching of the term
 Object.defineProperty(Term.prototype, 'name_lower_case', {
   get() {
-    return this._node.data.name_lower_case;
+    return this._node.properties.name_lower_case;
   },
   set(name_lower_case) {
-    this._node.data.name_lower_case = name_lower_case;
+    this._node.properties.name_lower_case = name_lower_case;
   },
 });
 
 // Added description field for term
 Object.defineProperty(Term.prototype, 'description', {
   get() {
-    return this._node.data.description;
+    return this._node.properties.description;
   },
   set(description) {
-    this._node.data.description = description;
+    this._node.properties.description = description;
   },
 });
 
 // Added created_at field for term
 Object.defineProperty(Term.prototype, 'created_at', {
   get() {
-    return this._node.data.created_at;
+    console.log("get -> this._node", this._node)
+    return this._node.properties.created_at;
   },
   set(created_at) {
-    this._node.data.created_at = created_at;
+    this._node.properties.created_at = created_at;
   },
 });
 
 // Added last_viewed_at field for term
 Object.defineProperty(Term.prototype, 'last_viewed_at', {
   get() {
-    return this._node.data.last_viewed_at;
+    return this._node.properties.last_viewed_at;
   },
   set(last_viewed_at) {
-    this._node.data.last_viewed_at = last_viewed_at;
+    this._node.properties.last_viewed_at = last_viewed_at;
   },
 });
 
 // Added last_modified_at field for term
 Object.defineProperty(Term.prototype, 'last_modified_at', {
   get() {
-    return this._node.data.last_modified_at;
+    return this._node.properties.last_modified_at;
   },
   set(last_modified_at) {
-    this._node.data.last_modified_at = last_modified_at;
+    this._node.properties.last_modified_at = last_modified_at;
   },
 });
 
 // Added relationship count for term
 Object.defineProperty(Term.prototype, 'rel_count', {
   get() {
-    return this._node.data.rel_count;
+    return this._node.properties.rel_count;
   },
   set(rel_count) {
-    this._node.data.rel_count = rel_count;
+    this._node.properties.rel_count = rel_count;
   },
 });
 
@@ -225,12 +291,14 @@ Term.prototype.getOutgoingAndOthers = function (callback) {
 // static methods:
 
 Term.get = function (id, callback) {
-  db.getRelationshipIndexes((err, indexes) => {
-    if (err) throw err;
-    indexes.forEach((name) => {
-      console.log(`Index${name}has config:${indexes[name]}`);
-    });
-  });
+  // db.getRelationshipIndexes((err, indexes) => {
+  //   if (err) throw err;
+  //   indexes.forEach((name) => {
+  //     console.log(`Index${name}has config:${indexes[name]}`);
+  //   });
+  // });
+  id = Number(id);
+
   db.getNodeById(id, (err, node) => {
     if (err) return callback(err);
     callback(null, new Term(node));
@@ -402,8 +470,8 @@ Term.getCount = function (callback) {
 Term.create = function (data, callback) {
   // construct a new instance of our class with the data, so it can
   // validate and extend it, etc., if we choose to do that in the future:
-  const node = db.createNode(data);
-  const term = new Term(node);
+  // const node = db.createNode(data);
+  // const term = new Term(node);
   // console.log(data);
   // but we do the actual persisting with a Cypher query, so we can also
   // apply a label at the same time. (the save() method doesn't support

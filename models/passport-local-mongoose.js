@@ -64,7 +64,7 @@ module.exports = function (schema, options) {
 
       const salt = buf.toString(options.encoding);
 
-      crypto.pbkdf2(password, salt, options.iterations, options.keylen, (err, hashRaw) => {
+      crypto.pbkdf2(password, salt, options.iterations, options.keylen, 'sha512', (err, hashRaw) => {
         if (err) {
           return cb(err);
         }
@@ -84,7 +84,7 @@ module.exports = function (schema, options) {
       return cb(null, false, { message: options.noSaltValueStoredError });
     }
 
-    crypto.pbkdf2(password, this.get(options.saltField), options.iterations, options.keylen, (err, hashRaw) => {
+    crypto.pbkdf2(password, this.get(options.saltField), options.iterations, options.keylen, 'sha512', (err, hashRaw) => {
       if (err) {
         return cb(err);
       }
