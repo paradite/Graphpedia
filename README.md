@@ -3,7 +3,7 @@
 #### Visualize relationships between terms
 #### For SoC Orbital Programme 2014
 
-Graphpedia is currently <a href="http://visualize-terms.herokuapp.com" target="_blank">hosted on Heroku</a>
+Graphpedia is currently hosted on DigitalOcean at <a href="http://viz.paradite.com/" target="_blank">http://viz.paradite.com/</a>
 
 ## Setup
 
