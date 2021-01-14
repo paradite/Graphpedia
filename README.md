@@ -3,6 +3,8 @@
 #### Visualize relationships between terms
 #### For SoC Orbital Programme 2014
 
+![image](https://paradite.com/wp-content/uploads/2021/01/Screenshot-2021-01-15-at-2.30.03-AM.png)
+
 Graphpedia is currently hosted on DigitalOcean at <a href="http://viz.paradite.com/" target="_blank">http://viz.paradite.com/</a>
 
 ## Setup
