@@ -252,9 +252,9 @@ exports.show = function (req, res, next) {
         info = `The term ${term.name} already exists.`;
       }
       // Format the moment time for display purposes
-      const created_at = moment(term.created_at).zone('+0800').format('YYYY-MM-DD HH:mm:ss');
-      const last_modified_at = moment(term.last_modified_at).zone('+0800').format('YYYY-MM-DD HH:mm:ss');
-      const last_viewed_at = moment(term.last_viewed_at).zone('+0800').format('YYYY-MM-DD HH:mm:ss');
+      const created_at = moment(term.created_at).utcOffset('+0800').format('YYYY-MM-DD HH:mm:ss');
+      const last_modified_at = moment(term.last_modified_at).utcOffset('+0800').format('YYYY-MM-DD HH:mm:ss');
+      const last_viewed_at = moment(term.last_viewed_at).utcOffset('+0800').format('YYYY-MM-DD HH:mm:ss');
 
       // Get recent terms for sidebar
       Term.getRecent((err, recent_terms) => {

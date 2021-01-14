@@ -298,7 +298,7 @@ exports.search = function (req, res) {
       console.log('%s', 'err occured');
       return res.redirect('/');
     }
-    console.log('%s', `terms: ${terms}`);
+    console.log('%s', `terms: ${JSON.stringify(terms, null, 2)}`);
     // Matched
     if (terms != null && terms.length > 0) {
       if (terms.length > 1) {
