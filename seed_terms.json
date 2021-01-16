@@ -1,0 +1,595 @@
+{
+  "items": [
+    {
+      "synonyms": [
+        "js",
+        "ecmascript",
+        ".js",
+        "javascript-execution",
+        "classic-javascript",
+        "javascript-alert",
+        "javascript-dom",
+        "javascript-disabled",
+        "javascript-library",
+        "javascript-runtime",
+        "vanilla-javascript",
+        "javascript-module",
+        "vanilla-js",
+        "vanillajs"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 2150083,
+      "name": "JavaScript"
+    },
+    {
+      "synonyms": [
+        "java-se",
+        ".java",
+        "j2se",
+        "core-java",
+        "jdk",
+        "jre",
+        "java-libraries",
+        "oraclejdk",
+        "openjdk",
+        "javax",
+        "java-api"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1744217,
+      "name": "Java"
+    },
+    {
+      "synonyms": [
+        "pythonic",
+        "python-interpreter",
+        "python-shell",
+        "py"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1624849,
+      "name": "Python"
+    },
+    {
+      "synonyms": [
+        "c-sharp",
+        "c#.net",
+        "c#-language",
+        "visual-c#",
+        "csharp",
+        ".cs-file"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1457091,
+      "name": "C#"
+    },
+    {
+      "synonyms": [
+        "php-oop",
+        "php-date",
+        "php5",
+        "php-frameworks",
+        "hypertext-preprocessor",
+        "php.ini",
+        "php-cli",
+        "php-errors",
+        "php-mail",
+        "php-cgi",
+        "php-functions",
+        "php-readfile",
+        "php-session",
+        "php-fpm",
+        "phtml",
+        "php-include",
+        "php-namespaces"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1386891,
+      "name": "php"
+    },
+    {
+      "synonyms": [
+        "android-mobile",
+        "android-sdk",
+        "android-api",
+        "android-device",
+        "android-application",
+        "android-ui",
+        "android-framework"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1317868,
+      "name": "Android"
+    },
+    {
+      "synonyms": [
+        "html-tag",
+        "html-attributes",
+        "div",
+        "divs",
+        "nested-divs",
+        "div-layouts",
+        "html-comments",
+        "span",
+        "webpage",
+        "html5",
+        "time-tag",
+        "html-head"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1045882,
+      "name": "HTML"
+    },
+    {
+      "synonyms": [
+        "jquery-core",
+        "jquery-live",
+        "addclass",
+        "toggleclass",
+        "removeclass",
+        "jquery-after",
+        "jquery-callback",
+        "jquery-get",
+        "jquery-post",
+        "jquery-find",
+        "jquery-css",
+        "jquery-hasclass",
+        "jquery-filter",
+        "jquery-effects"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 1004915,
+      "name": "jQuery"
+    },
+    {
+      "synonyms": [
+        "cpp",
+        "cxx"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 708015,
+      "name": "C++"
+    },
+    {
+      "synonyms": [
+        "cascading-style-sheet",
+        "css-layout",
+        "css-background-image",
+        "css-attributes",
+        "css-classes",
+        "css-height",
+        "css-columns",
+        "css2",
+        "css-inheritance",
+        "css-centering",
+        "min-height",
+        "min-width",
+        "max-height",
+        "max-width",
+        "box-model",
+        "css-validation",
+        "style.css-template-file",
+        "css-display",
+        "css-line-height",
+        "css-overflow",
+        "alternate-stylesheets",
+        "inline-block",
+        "css-box-model",
+        "font-weight",
+        "css-menu",
+        "css-reset",
+        "dynamic-css",
+        "css-borders",
+        "css-font-weight",
+        "css-border-image",
+        "css-border-radius",
+        "css-box-shadow",
+        "css-text-shadow",
+        "css3",
+        "css-text-overflow",
+        "box-sizing",
+        "box-shadow"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 700090,
+      "name": "CSS"
+    },
+    {
+      "synonyms": [
+        "iphone-os",
+        "apple-ios",
+        "ios-sdk"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 648059,
+      "name": "iOS"
+    },
+    {
+      "synonyms": [
+        "my-sql",
+        "mysql-query",
+        "mysql-server",
+        "mysql-table",
+        "mysqld",
+        "mysqlclient",
+        "mysqldump",
+        "mysqlsh",
+        "mysql-if"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 615844,
+      "name": "MySQL"
+    },
+    {
+      "synonyms": [
+        "sql-query",
+        "sql-statement",
+        "sql-syntax",
+        "sql-select",
+        "sqlselect",
+        "select-statement"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 574825,
+      "name": "SQL"
+    },
+    {
+      "synonyms": [
+        "rstats",
+        "r-language"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 382705,
+      "name": "R"
+    },
+    {
+      "synonyms": [
+        "nodejs",
+        "io.js"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 367679,
+      "name": "Node.js"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 348984,
+      "name": "C"
+    },
+    {
+      "synonyms": [
+        "rails",
+        "ror"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 323212,
+      "name": "Ruby On Rails"
+    },
+    {
+      "synonyms": [
+        "json-parsing",
+        "json-encode",
+        "json-decode",
+        "jsonobject"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 309502,
+      "name": "JSON"
+    },
+    {
+      "synonyms": [
+        "dotnet",
+        "dot-net",
+        ".net-framework"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 304190,
+      "name": ".NET"
+    },
+    {
+      "synonyms": [
+        "objc"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 291160,
+      "name": "Objective-C"
+    },
+    {
+      "synonyms": [
+        "swift-language",
+        "swift-ios",
+        "swift1.2"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 286535,
+      "name": "Swift"
+    },
+    {
+      "synonyms": [
+        "react",
+        "react-jsx",
+        "react.js"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 273571,
+      "name": "React"
+    },
+    {
+      "synonyms": [
+        "python-3",
+        "py3k",
+        "python3k",
+        "python3",
+        "py3"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 267939,
+      "name": "Python 3"
+    },
+    {
+      "synonyms": [
+        "python-2"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 267939,
+      "name": "Python 2"
+    },
+    {
+      "synonyms": [
+        "angular.js",
+        "angular1.x"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 261860,
+      "name": "Angular.js"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 255507,
+      "name": "Django"
+    },
+    {
+      "synonyms": [
+        "angular2",
+        "angular4",
+        "angular4.x",
+        "angularjs2"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 242378,
+      "name": "Angular"
+    },
+    {
+      "synonyms": [
+        "regexp",
+        "regular-expression",
+        "regular-expressions",
+        "regexes",
+        "regex-php",
+        "perl-regex",
+        "perlre",
+        "regularexpression",
+        "apache-regexp"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 236098,
+      "name": "regex"
+    },
+    {
+      "synonyms": [
+        "iphone-sdk",
+        "iphone-development",
+        "iphone-app",
+        "iphone-programming",
+        "iphone-ios",
+        "iphone-web"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 220868,
+      "name": "iPhone"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 217319,
+      "name": "Ruby"
+    },
+    {
+      "synonyms": [
+        ".ajax",
+        "ajax-request"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 213801,
+      "name": "ajax"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 199760,
+      "name": "Linux"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 184758,
+      "name": "pandas"
+    },
+    {
+      "synonyms": [
+        "spring-framework",
+        "spring-config",
+        "spring-java-config"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 179894,
+      "name": "Spring"
+    },
+    {
+      "synonyms": [
+        "databases",
+        "db",
+        "database-structure",
+        "dbms"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 174958,
+      "name": "database"
+    },
+    {
+      "synonyms": [
+        "wordpress-loop",
+        "wordpress-plugin-dev",
+        "wordpress-mu",
+        "wordpress-filter",
+        "wordpress-widget",
+        "wordpress-permission",
+        "wp-query",
+        "wordpress-theme-customize",
+        "wordpress-plugin",
+        "wpdb"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 172075,
+      "name": "WordPress"
+    },
+    {
+      "has_synonyms": false,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 165058,
+      "name": "Laravel"
+    },
+    {
+      "synonyms": [
+        "strings",
+        "string-manipulation",
+        "str",
+        "empty-string"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 161071,
+      "name": "String"
+    },
+    {
+      "synonyms": [
+        "xcode-ide"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 147735,
+      "name": "Xcode"
+    },
+    {
+      "synonyms": [
+        "windows-programming",
+        "windows-application",
+        "windows-applications"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 147010,
+      "name": "Windows"
+    },
+    {
+      "synonyms": [
+        "mongo",
+        "mongod"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 142069,
+      "name": "mongoDB"
+    },
+    {
+      "synonyms": [
+        "atscript"
+      ],
+      "has_synonyms": true,
+      "is_moderator_only": false,
+      "is_required": false,
+      "count": 136932,
+      "name": "TypeScript"
+    }
+  ],
+  "has_more": true,
+  "quota_max": 300,
+  "quota_remaining": 298,
+  "page_size": 100,
+  "total": 60375,
+  "type": "tag"
+}
