@@ -4,7 +4,9 @@
   }
 
   .overlay{
-      background-color:#EEE;
+    border: 2px solid #1F1209;
+    background-color:#EEE;
+    border-radius: 10px;
   }
    
   .node circle {

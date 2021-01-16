@@ -1,14 +1,12 @@
 a.menu-link(href="#menu")#menuLink <span class="glyphicon glyphicon-expand"></span>
 div#menu
     div.pure-menu.pure-menu-open#menu
-        a.pure-menu-heading(href='/', align="center", style="text-transform: none; padding:0.9em 0em;").
-            Graphpedia
-        a.pure-menu-heading(href='/')
+        a.pure-menu-heading(href='/', align="center", style="text-transform: none; padding:0.9em 0em;")
+            span Graphpedia
             img.icon-style(src="/icon/g_icon.png")
         a.pure-menu-heading(href='/random_term', style='padding-bottom:5px;') <span class="glyphicon glyphicon-random"></span> Random Term
         if (typeof user !== "undefined")
-            a Welcome,
-            a #{user.username}
+            a Welcome, #{user.username}
         if (typeof user !== "undefined")
             a.pure-menu-heading(href="/logout") <span class="glyphicon glyphicon-log-out"></span> Logout
         if (typeof recent_terms !== "undefined")

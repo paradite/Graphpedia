@@ -16,7 +16,6 @@ body {
     width: 100%;
     display: table;
     margin: 0 auto;
-    border: 2px solid #1F1209;
     border-radius: 10px; 
 }
 
@@ -157,6 +156,7 @@ This styles the selected menu item `<li>`.
 #menu .pure-menu-heading {
     background-color: #003366;
     color: #ffffff;
+    margin-top: 0;
 }
 /*
 This styles a link within a selected menu item `<li>`.
@@ -320,9 +320,9 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     display:block;
     margin:auto;
     text-align: center;
-    height:100px;
+    height:80px;
     padding:5px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 /*Right side of the screen wrapper*/
@@ -386,7 +386,7 @@ a:active {
 
 /*div theme*/
 .before-main {
-    background-color: #834C24;
+    background-color: #BCC9D6;
     border: 0px;
     /*width: 100%;*/
     z-index: 10;
@@ -415,7 +415,7 @@ a:active {
 }
 
 .index-main {
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 5%;
     padding-right: 5%;
     background-color: #FFF8DC;
@@ -424,11 +424,10 @@ a:active {
 .subdiv {
     min-height: 1px;
     background-color: #90A5BC;
-    border-radius: 15px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     width: 100%;
     padding: 15px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
-            box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
 }
 
 .subdiv-thin {
@@ -437,8 +436,6 @@ a:active {
     border-radius: 15px;
     width: 100%;
     padding: 5px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
-            box-shadow: inset 0 3px 5px rgba(188,201,214, 1);
 }
 
 .titlebox {
@@ -447,11 +444,10 @@ a:active {
     color: #FFF8DC;
     text-align: center;
     padding: 5px;
-    border-radius: 15px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     width: 100%;
     margin-top: 15px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
-            box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
 }
 
 .closebox {
@@ -464,13 +460,6 @@ a:active {
     padding-left: 15px;
     border-radius: 15px;
     width: 100%;
-    -webkit-box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
-            box-shadow: inset 0 3px 5px rgba(144,165,188, 1);
-}
-
-.titlebox-text-highlight {
-    color: #ffffff;
-    font-weight: bold;
 }
 
 .index-footer {
@@ -532,8 +521,6 @@ a:active {
     font-size: 18px;
     color: #1F1209;
     background-color: #BCC9D6;
-    -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
-    box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
     opacity: 0.80;
 }
 
@@ -545,8 +532,6 @@ a:active {
     background-color: #003366;
     border-color: #dde4ea;
     outline: 0px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
-    box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
     opacity: 0.96;
 }
 
@@ -555,8 +540,6 @@ a:active {
     /*font-size: 16px;*/
     color: #1F1209;
     background-color: #BCC9D6;
-    -webkit-box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
-    box-shadow: inset 0 3px 5px rgba(208,217,226, 1);
     opacity: 0.80;
 }
 
@@ -567,18 +550,12 @@ a:active {
     background-color: #dbe2e9;
     border-color: #dde4ea;
     outline: 0px;
-    -webkit-box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
-            box-shadow: inset 0 3px 5px rgba(233,237,241, 1);
     opacity: 0.96;
 }
 
 .btn-header {
-    color: #1F1209;
-    background-color: #c1a280;
-    border-color: #d9d6a1;
-    -webkit-box-shadow: inset 0 3px 5px rgba(224,208,191, 1);
-            box-shadow: inset 0 3px 5px rgba(224,208,191, 1);
-    opacity: 0.80;
+    color: #FFF8DC;
+    background-color: #003366;
 }
 
 .btn-header:hover,
@@ -588,8 +565,6 @@ a:active {
     background-color: #fffaea;
     border-color: #d9d6a1;
     outline: 0;
-    -webkit-box-shadow: inset 0 3px 5px rgba(255,255,255, 1);
-            box-shadow: inset 0 3px 5px rgba(255,255,255, 1);
     opacity: 0.96;
 }
 
@@ -615,8 +590,6 @@ a:active {
     border: 1px solid #ffffff;
     outline: 0;
     opacity: 0.96;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(228, 233, 238, 1);
     border-radius: 5px;
 }
 
@@ -640,8 +613,6 @@ a:active {
     color: #1F1209;
     border-color: #ffffff;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 1);
     opacity: 0.96;
 }
 
@@ -661,8 +632,6 @@ a:active {
     background-color: #FAF9E6;
     border: 1px solid #ffffff;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
     opacity: 0.80;
 
 }
@@ -676,8 +645,6 @@ a:active {
     background-color: #FAF9E6;
     border: 1px solid #ffffff;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(242, 238, 179, 1);
 }
 
 .select-control::-moz-placeholder,

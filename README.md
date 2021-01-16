@@ -56,7 +56,7 @@ scp -r ~/neo4j/data <>:~/neo4j
 code sync
 
 ```bash
-rsync -a --exclude=node_modules/ ~/workspace/Graphpedia <>:~
+rsync -a --exclude=node_modules/ ~/workspace/Graphpedia $SERVER_ADDRESS:~
 ```
 
 running
