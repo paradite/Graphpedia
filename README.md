@@ -46,7 +46,6 @@ docker run --restart always -v $HOME/mongo/db:/data/db -p 27017:27017 --name mon
 
 ### local
 
-
 DB sync
 
 ```bash
@@ -59,9 +58,10 @@ code sync
 rsync -a --exclude=node_modules/ ~/workspace/Graphpedia $SERVER_ADDRESS:~
 ```
 
-running
+running app 
 ```bash
-nohup node app.js  > /dev/null 2>&1 &
+cd Graphpedia/
+pm2 start app.js
 ```
 
 ### remote
@@ -73,6 +73,27 @@ sudo docker run --restart always -v $HOME/mongo/db:/data/db -p 27017:27017 --nam
     -e MONGO_INITDB_ROOT_USERNAME=<> \
     -e MONGO_INITDB_ROOT_PASSWORD=<> \
     mongo:3.0.15
+```
+
+neo4j
+
+```bash
+docker run \
+    --restart always \
+    --publish=7474:7474 --publish=7687:7687 \
+    --volume=$HOME/neo4j/data:/data \
+    --name neo4j \
+    --env NEO4J_dbms_memory_pagecache_size=256M \
+    --env NEO4J_dbms_memory_heap_max__size=256M \
+    -d \
+    neo4j:2.3.12
+```
+
+running app
+
+```bash
+cd Graphpedia/
+pm2 start app.js
 ```
 
 ## TODO List
