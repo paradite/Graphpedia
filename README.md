@@ -5,8 +5,6 @@
 
 ![image](https://paradite.com/wp-content/uploads/2021/01/Screenshot-2021-01-16-at-7.42.46-PM.png)
 
-Graphpedia is currently hosted on DigitalOcean at <a href="https://viz.paradite.com/" target="_blank">https://viz.paradite.com/</a>
-
 ## Setup
 
 ### neo4j
