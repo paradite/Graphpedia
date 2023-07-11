@@ -5,7 +5,7 @@
   "author": "Zhu Liang <zhuliangg11@gmail.com>",
   "private": true,
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^2.6.4",
     "connect-mongo": "^1.3.2",
     "express": "~3.2.0",
     "express-session": "1.6.1",
